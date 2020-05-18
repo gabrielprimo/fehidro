@@ -20,27 +20,34 @@
             <p>Faça o login para acessar.</p>
          </div>
       </div>
-      <!-- <div class="main">
+      <div class="main">
          <div class="col-md-6 col-sm-12">
             <div class="login-form">
-               <form>
+               	<h:form id="formLogin">
                   <div class="form-group">
                      <label>Usuário</label>
-                      <h:inputText id="txtLogin" value="#{loginBean.usuario.login}" class="form-control">
+                      <h:inputText id="txtLogin" value="#{loginBean.usuario.login}" class="form-control" required="true"  requiredMessage="Informe o login!">
                       	<f:passThroughAttribute name="placeholder" value="Usuário"/>
                       </h:inputText> 
+					<h:message for="txtLogin" styleClass="erro"/>
                   </div>
+                  
                   <div class="form-group">
                      <label>Senha</label>
-                     <h:inputText id="txtSenha" value="#{loginBean.usuario.login}" class="form-control">
+                     <h:inputSecret id="txtSenha" redisplay="false"  value="#{loginBean.usuario.login}" class="form-control" required="true"  requiredMessage="Informe a senha!">
                       	<f:passThroughAttribute name="placeholder" value="Senha"/>
-                      	<f:passThroughAttribute name="type" value="password"/>
-                      </h:inputText> 
+                      </h:inputSecret> 
+                      <h:message for="txtSenha" styleClass="erro"/>
                   </div>
-                  <button type="submit" class="btn btn-action">Login</button>
-               </form>
+                  <div class="form-group">
+	                  <h:commandButton id="submitLogin" class="btn btn-outline-primary" value="Login" action="#{loginBean.realizarLogin(loginBean.usuario)}"> 
+	                   		<h:message for="submitLogin" styleClass="erro" />
+	                  </h:commandButton>
+                  </div>
+               </h:form>
             </div>
          </div>
-	</div>-->
+      
+	</div>
 </h:body>
 </html>
