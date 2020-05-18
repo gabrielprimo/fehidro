@@ -14,7 +14,7 @@
 						<span class="input-group-text" id="basic-addon1"><i
 							class="fas fa-search"></i></span>
 					</div>
-					<h:inputText id="txtPesquisa" value="#{usuarioBean.consulta}"
+					<h:inputText id="txtPesquisa" value="#{deliberacaoBean.consulta}"
 						class="form-control">
 						<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
 					</h:inputText>
@@ -22,34 +22,30 @@
 			</h:form>
 			
 			<div class="text-right">
-				<h:commandButton id="btnNovoUsuario" class="btn btn-outline-primary"
-					value="Novo usuário" action="#{loginBean.cadastro}" />
+				<h:commandButton id="btnNovaDeliberacao" class="btn btn-outline-primary"
+					value="Nova deliberação" action="#{deliberacaoBean.cadastro}" />
 			</div>
 			<br />
 			
-			<h:dataTable value="#{usuarioBean.usuarios}" var="u"
+			<h:dataTable value="#{deliberacaoBean.deliberacoes}" var="d"
 				styleClass="table" captionClass="tabelaCaption" headerClass=""
 				rowClasses="linhaPar, linhaImpar">
 				<h:column>
-					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{u.nome}" />
+					<f:facet name="header">Número</f:facet>
+					<h:outputText value="#{d.numero}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Sobrenome</f:facet>
-					<h:outputText value="#{u.sobrenome}" />
+					<f:facet name="header">Ano</f:facet>
+					<h:outputText value="#{d.ano}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">CPF</f:facet>
-					<h:outputText value="#{u.CPF}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Perfil</f:facet>
-					<a><h:outputText value="#{u.login}" /></a>
+					<f:facet name="header">Responsável</f:facet>
+					<!-- <h:outputText value="#{d.responsavel.nome}" /> -->
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton class="btn btn-outline-primary" value="Editar"
-						action="#{usuarioBean.editar(u)}" />
+						action="#{deliberacaoBean.editar(d)}" />
 				</h:column>
 			</h:dataTable>
 		</ui:define>
