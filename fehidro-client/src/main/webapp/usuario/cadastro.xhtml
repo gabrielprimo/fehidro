@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:form id="formUsuario">
+					<div class="form-group row">
+						<div class="col">
+							<label>Nome</label>
+							<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
+								class="form-control" required="true"
+								requiredMessage="Informe o nome!">
+								<f:passThroughAttribute name="placeholder" value="Nome" />
+							</h:inputText>
+							<h:message for="txtNome" styleClass="erro" />
+						</div>
+					</div>
+
+				<div class="form-group row">
+					<div class="col">
+						<label>Sobrenome</label>
+						<h:inputText id="txtSobrenome"
+							value="#{usuarioBean.usuario.sobrenome}" class="form-control"
+							required="true" requiredMessage="Informe o sobrenome!">
+							<f:passThroughAttribute name="placeholder" value="Sobrenome" />
+						</h:inputText>
+						<h:message for="txtSobrenome" styleClass="erro" />
+					</div>
+				</div>
+
+				
+				<div class="form-group row">
+					<div class="col">
+						<label>CPF</label>
+						<h:inputText id="txtCPF" value="#{usuarioBean.usuario.CPF}"
+							class="form-control" required="true"
+							requiredMessage="Informe o CPF!">
+							<f:passThroughAttribute name="placeholder" value="CPF" />
+						</h:inputText>
+						<h:message for="txtCPF" styleClass="erro" />
+					</div>
+
+					<div class="col">
+						<label>Data de nascimento</label>
+						<h:inputSecret id="txtNascimento" redisplay="false"
+							value="#{usuarioBean.usuario.dataNascimento}" class="form-control"
+							required="true" requiredMessage="Informe a data de nascimento!">
+							<f:passThroughAttribute name="placeholder" value="Data de nascimento" />
+						</h:inputSecret>
+						<h:message for="txtNascimento" styleClass="erro" />
+					</div>
+					
+					<div class="col">
+						<h:outputLabel value="Perfil de acesso" for="txtPerfilAcesso"/>
+						<h:selectOneMenu id="txtPerfilAcesso" redisplay="false"
+							value="#{usuarioBean.usuario.idPerfilAcesso}" class="form-control"
+							required="true" requiredMessage="Informe o perfil de acesso!">
+							<f:selectItems value="#{usuarioBean.perfisAcesso}" />
+						</h:selectOneMenu>
+						<h:message for="txtPerfilAcesso" styleClass="erro" />
+					</div>	
+				</div>
+				
+				<div class="form-group row">
+					<div class="col">
+						<label>Usuário</label>
+						<h:inputText id="txtEmail" value="#{usuarioBean.usuario.email}" class="form-control" required="true"
+							requiredMessage="Informe o e-mail">
+							<f:passThroughAttribute name="placeholder" value="E-mail" />
+						</h:inputText>
+						<h:message for="txtEmail" styleClass="erro" />
+					</div>
+
+					<div class="col">
+						<label>Celular:</label>
+						<h:inputSecret id="txtCelular" redisplay="false"
+							value="#{usuarioBean.usuario.celular}" class="form-control"
+							required="true" requiredMessage="Informe o celular!">
+							<f:passThroughAttribute name="placeholder" value="Celular" />
+						</h:inputSecret>
+						<h:message for="txtCelular" styleClass="erro" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<div class="col">
+						<label>Usuário</label>
+						<h:inputText id="txtLogin" value="#{usuarioBean.usuario.login}"
+							class="form-control" required="true"
+							requiredMessage="Informe o login!">
+							<f:passThroughAttribute name="placeholder" value="Usuário" />
+						</h:inputText>
+						<h:message for="txtLogin" styleClass="erro" />
+					</div>
+
+					<div class="col">
+						<label>Senha</label>
+						<h:inputSecret id="txtSenha" redisplay="false"
+							value="#{usuarioBean.usuario.login}" class="form-control"
+							required="true" requiredMessage="Informe a senha!">
+							<f:passThroughAttribute name="placeholder" value="Senha" />
+						</h:inputSecret>
+						<h:message for="txtSenha" styleClass="erro" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<div class="col text-right">
+						<h:commandButton id="btnCancel" type="button"
+							class="btn btn-outline-danger" value="Cancelar"
+							action="#{usuarioBean.realizarLogin(loginBean.usuario)}">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:commandButton>
+					</div>
+					<div class="col text-left">
+						<h:commandButton id="btnCadastrar" type="button"
+							class="btn btn-outline-success" value="Salvar"
+							action="#{usuarioBean.cadastrar(loginBean.usuario)}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</div>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
