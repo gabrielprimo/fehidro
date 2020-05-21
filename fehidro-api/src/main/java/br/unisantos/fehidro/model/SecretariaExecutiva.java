@@ -14,8 +14,8 @@ public class SecretariaExecutiva extends AbstractEntity {
 	@Column(name="ds_matricula")
 	private String Matricula;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@Column(name="usuario_id")
-	private Usuario usuario;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@Column(name="usuario_id")
+//	private Usuario usuario;
 
 }
