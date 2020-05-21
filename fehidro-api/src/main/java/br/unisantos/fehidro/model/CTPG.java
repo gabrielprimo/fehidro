@@ -21,9 +21,9 @@ public class CTPG extends AbstractEntity {
 	@Column(name = "bt_titular")
 	private boolean Titular;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@Column(name="usuario_id")
-	private Usuario usuario;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@Column(name="usuario_id")
+//	private Usuario usuario;
 	
 
 }

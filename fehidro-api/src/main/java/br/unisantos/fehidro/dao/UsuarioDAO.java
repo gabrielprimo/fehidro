@@ -9,7 +9,6 @@ public class UsuarioDAO extends DAOFactory<Usuario> {
 	public UsuarioDAO() {
 		super(Usuario.class);
 	}
-
 	
 	public void cadastrar(Usuario usuario) {
 		adicionar(usuario);
