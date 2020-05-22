@@ -1,18 +1,16 @@
 package fehidro.model;
 
-import java.util.Date;
-
 public class Usuario {
 	private Long id;
 	private String nome;
 	private String sobrenome;
 	private String CPF;
-	private Date dataNascimento;
 	private int idPerfilAcesso;
-	private String celular;
+	private String celular; 
+	private String email;
 	private String login;
 	private String senha;
-	
+	private Boolean ativo;
 	
 	public Long getId() {
 		return id;
@@ -57,16 +55,28 @@ public class Usuario {
 	public void setIdPerfilAcesso(int idPerfilAcesso) {
 		this.idPerfilAcesso = idPerfilAcesso;
 	}
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
 	public String getCelular() {
 		return celular;
 	}
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario #" + id + ": " + nome + " " + sobrenome;
+		
 	}
 }

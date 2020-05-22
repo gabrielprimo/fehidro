@@ -31,7 +31,7 @@ public class LoginBean implements Serializable {
 		return "/login/index";		
 	}
 	
-	public String realizarLogin(Usuario usuario) {
+	public String realizarLogin() { 
 		
 		/*if (usuario != null) 
 		{
@@ -42,7 +42,8 @@ public class LoginBean implements Serializable {
 		}*/
 		
 		FacesContext.getCurrentInstance().addMessage("submitLogin", new FacesMessage("Erro: login/senha inválidos!"));
-		return null;
+		return "/deliberacao/index?faces-redirect=true";
+
 	}
 
 }

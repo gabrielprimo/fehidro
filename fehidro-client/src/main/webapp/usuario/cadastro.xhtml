@@ -2,60 +2,77 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
 			<h:form id="formUsuario">
-					<div class="form-group row">
-						<div class="col">
-							<label>Nome</label>
-							<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
-								class="form-control" required="true"
-								requiredMessage="Informe o nome!">
-								<f:passThroughAttribute name="placeholder" value="Nome" />
-							</h:inputText>
-							<h:message for="txtNome" styleClass="erro" />
-						</div>
-					</div>
-
-				<div class="form-group row">
-					<div class="col">
-						<label>Sobrenome</label>
-						<h:inputText id="txtSobrenome"
-							value="#{usuarioBean.usuario.sobrenome}" class="form-control"
-							required="true" requiredMessage="Informe o sobrenome!">
-							<f:passThroughAttribute name="placeholder" value="Sobrenome" />
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtNome" value="Nome" />
+						<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
+							class="form-control alpha" required="true" maxlength="30"
+							requiredMessage="Informe o nome!">
+							<f:validateRegex pattern="[a-zA-Z]+" />
+							<f:passThroughAttribute name="placeholder" value="Nome" />
+							<f:validateLength maximum="30" />
 						</h:inputText>
-						<h:message for="txtSobrenome" styleClass="erro" />
-					</div>
-				</div>
-
+						<small class="text-muted"> O primeiro nome deve ter até 30 caracteres. </small>
+						<h:message for="txtNome" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
 				
-				<div class="form-group row">
-					<div class="col">
-						<label>CPF</label>
-						<h:inputText id="txtCPF" value="#{usuarioBean.usuario.CPF}"
-							class="form-control" required="true"
-							requiredMessage="Informe o CPF!">
-							<f:passThroughAttribute name="placeholder" value="CPF" />
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtSobrenome">Sobrenome</h:outputLabel>
+						<h:inputText id="txtSobrenome"
+							value="#{usuarioBean.usuario.sobrenome}"
+							class="form-control alpha" required="true"
+							requiredMessage="Informe o sobrenome!" maxlength="255">
+							<f:passThroughAttribute name="placeholder" value="Sobrenome" />
+							<f:validateLength maximum="255" />
 						</h:inputText>
+						<small class="text-muted"> O sobrenome deve ter até 255 caracteres. </small>
+						<h:message for="txtSobrenome" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel>CPF</h:outputLabel>
+						<h:inputText id="txtCPF" value="#{usuarioBean.usuario.CPF}"
+							class="form-control numeric" 
+							required="true" requiredMessage="Informe o CPF!" maxlength="11"
+							validator="#{usuarioBean.validaCPF}">
+							<f:passThroughAttribute name="placeholder" value="CPF" />
+						</h:inputText>						
 						<h:message for="txtCPF" styleClass="erro" />
-					</div>
+					</h:panelGroup>
+										
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel>Celular:</h:outputLabel>
+						<h:inputText id="txtCelular" redisplay="false"
+							value="#{usuarioBean.usuario.celular}" class="form-control numeric"
+							required="true" requiredMessage="Informe o celular!"  maxlength="11">
+							<f:passThroughAttribute name="placeholder" value="(99)99999-9999" />
+						</h:inputText>
+						<h:message for="txtCelular" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
 
-					<div class="col">
-						<label>Data de nascimento</label>
-						<h:inputSecret id="txtNascimento" redisplay="false"
-							value="#{usuarioBean.usuario.dataNascimento}" class="form-control"
-							required="true" requiredMessage="Informe a data de nascimento!">
-							<f:passThroughAttribute name="placeholder" value="Data de nascimento" />
-						</h:inputSecret>
-						<h:message for="txtNascimento" styleClass="erro" />
-					</div>
-					
-					<div class="col">
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtEmail">E-mail</h:outputLabel>
+						<h:inputText id="txtEmail" value="#{usuarioBean.usuario.email}" class="form-control" required="true"
+							requiredMessage="Informe o e-mail!" maxlength="255">
+							<f:passThroughAttribute name="placeholder" value="E-mail" />
+						</h:inputText>
+						<h:message for="txtEmail" styleClass="erro" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" class="col">
 						<h:outputLabel value="Perfil de acesso" for="txtPerfilAcesso"/>
 						<h:selectOneMenu id="txtPerfilAcesso" redisplay="false"
 							value="#{usuarioBean.usuario.idPerfilAcesso}" class="form-control"
@@ -63,70 +80,29 @@
 							<f:selectItems value="#{usuarioBean.perfisAcesso}" />
 						</h:selectOneMenu>
 						<h:message for="txtPerfilAcesso" styleClass="erro" />
-					</div>	
-				</div>
+					</h:panelGroup>	
+				</h:panelGroup>
 				
-				<div class="form-group row">
-					<div class="col">
-						<label>Usuário</label>
-						<h:inputText id="txtEmail" value="#{usuarioBean.usuario.email}" class="form-control" required="true"
-							requiredMessage="Informe o e-mail">
-							<f:passThroughAttribute name="placeholder" value="E-mail" />
-						</h:inputText>
-						<h:message for="txtEmail" styleClass="erro" />
-					</div>
+				<ui:insert>
+					<ui:include src="/ctpg/cadastro.xhtml" />
+				</ui:insert>
 
-					<div class="col">
-						<label>Celular:</label>
-						<h:inputSecret id="txtCelular" redisplay="false"
-							value="#{usuarioBean.usuario.celular}" class="form-control"
-							required="true" requiredMessage="Informe o celular!">
-							<f:passThroughAttribute name="placeholder" value="Celular" />
-						</h:inputSecret>
-						<h:message for="txtCelular" styleClass="erro" />
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<div class="col">
-						<label>Usuário</label>
-						<h:inputText id="txtLogin" value="#{usuarioBean.usuario.login}"
-							class="form-control" required="true"
-							requiredMessage="Informe o login!">
-							<f:passThroughAttribute name="placeholder" value="Usuário" />
-						</h:inputText>
-						<h:message for="txtLogin" styleClass="erro" />
-					</div>
-
-					<div class="col">
-						<label>Senha</label>
-						<h:inputSecret id="txtSenha" redisplay="false"
-							value="#{usuarioBean.usuario.login}" class="form-control"
-							required="true" requiredMessage="Informe a senha!">
-							<f:passThroughAttribute name="placeholder" value="Senha" />
-						</h:inputSecret>
-						<h:message for="txtSenha" styleClass="erro" />
-					</div>
-				</div>
-
-
-				<div class="form-group row">
-					<div class="col text-right">
-						<h:commandButton id="btnCancel" type="button"
-							class="btn btn-outline-danger" value="Cancelar"
-							action="#{usuarioBean.realizarLogin(loginBean.usuario)}">
+				<h:panelGroup layout="block" class="form-row mt-5">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:button id="btnCancel" type="button"
+							class="btn btn-outline-danger" value="Cancelar" outcome="index">
 							<h:message for="btnCancel" styleClass="erro" />
-						</h:commandButton>
-					</div>
-					<div class="col text-left">
-						<h:commandButton id="btnCadastrar" type="button"
-							class="btn btn-outline-success" value="Salvar"
-							action="#{usuarioBean.cadastrar(loginBean.usuario)}">
+						</h:button>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{usuarioBean.consultar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
-					</div>
-				</div>
+					</h:panelGroup>
+				</h:panelGroup>
 			</h:form>
+			<h:outputScript library="js" name="usuario.js" target="head" />
 		</ui:define>
 	</ui:composition>
 </h:body>
