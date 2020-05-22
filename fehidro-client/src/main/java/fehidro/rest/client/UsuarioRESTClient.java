@@ -2,39 +2,80 @@ package fehidro.rest.client;
 
 import java.util.List;
 
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import fehidro.model.Usuario;
 import fehidro.rest.client.RESTClientInterface;
 
 public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
+	private Response response;
 
 	@Override
 	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Usuario> usuarios = 	ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
+									request(MediaType.APPLICATION_JSON).get().
+									readEntity(new GenericType<List<Usuario>> () {});	    
+	    return usuarios;
 	}
 
 	@Override
 	public Usuario find(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = 			ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
+									request(MediaType.APPLICATION_JSON).get().
+									readEntity(Usuario.class);
+		return usuario;
+	}
+	
+	public Usuario findByCPF(String CPF) {
+		Usuario usuario = 			ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + CPF).
+									request(MediaType.APPLICATION_JSON).get().
+									readEntity(Usuario.class);
+		return usuario;
+	}
+
+	public List<Usuario> findByPerfilAcesso(Long perfilacesso) {
+		List<Usuario> usuarios = 	ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + perfilacesso).
+									request(MediaType.APPLICATION_JSON).get().
+									readEntity(new GenericType<List<Usuario>> () {});
+		return usuarios;
 	}
 
 	@Override
 	public Usuario create(Usuario obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = 			ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
+									queryParam("usuario", obj).
+									request(MediaType.APPLICATION_JSON).
+									post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
+									readEntity(Usuario.class);	
+		return usuario;
 	}
 
 	@Override
 	public Usuario edit(Usuario obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = 			ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
+									queryParam("usuario", obj).
+									request(MediaType.APPLICATION_JSON).
+									put(Entity.entity(obj, MediaType.APPLICATION_JSON)).
+									readEntity(Usuario.class);	
+		return usuario;
 	}
 
 	@Override
 	public boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+		return 	ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
+				request(MediaType.APPLICATION_JSON).
+				delete().getStatus() 
+				== Response.Status.OK.getStatusCode();
 	}
 
 }

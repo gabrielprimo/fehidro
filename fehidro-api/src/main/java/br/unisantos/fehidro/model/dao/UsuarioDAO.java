@@ -1,4 +1,4 @@
-package br.unisantos.fehidro.dao;
+package br.unisantos.fehidro.model.dao;
 
 import java.util.List;
 
@@ -9,14 +9,17 @@ public class UsuarioDAO extends DAOFactory<Usuario> {
 	public UsuarioDAO() {
 		super(Usuario.class);
 	}
-
 	
 	public void cadastrar(Usuario usuario) {
 		adicionar(usuario);
 	}
 	
 	public void atualizar(Usuario usuario) {
-		atualizar(usuario);
+		alterar(usuario);
+	}
+	
+	public void remover(long id) {
+		excluir(id);
 	}
 
 	public Usuario obter(long id) {

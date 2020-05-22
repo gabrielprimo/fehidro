@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><i
+							class="fas fa-search"></i></span>
+					</div>
+					<h:inputText id="txtPesquisa" value="#{deliberacaoBean.consulta}"
+						class="form-control">
+						<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
+					</h:inputText>
+				</div>
+			</h:form>
+			
+			<div class="text-right">
+				<h:button id="btnNovaDeliberacao" class="btn btn-outline-primary"
+					value="Nova deliberação" outcome="cadastro" />
+			</div>
+			<br />
+			
+			<h:dataTable value="#{deliberacaoBean.deliberacoes}" var="d"
+				styleClass="table" captionClass="tabelaCaption" headerClass=""
+				rowClasses="linhaPar, linhaImpar">
+				<h:column>
+					<f:facet name="header">Número</f:facet>
+					<h:outputText value="#{d.numero}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Ano</f:facet>
+					<h:outputText value="#{d.ano}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton class="btn btn-outline-primary" value="Editar"
+						action="#{deliberacaoBean.editar(d)}" />
+				</h:column>
+			</h:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

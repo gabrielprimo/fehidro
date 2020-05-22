@@ -4,7 +4,10 @@ import java.util.List;
 
 public interface RESTClientInterface<T> {
 	public static final String REST_WEBSERVICE_URL = "http://localhost:8080/fehidro-api/";
-    public static String REST_URL = "usuario/";
+    public static String REST_USUARIO_URL = "usuario/";
+    public static String REST_DELIBERACAO_URL = "deliberacao/";
+    public static String REST_CRITERIO_URL = "criterioAvaliacao/";
+
 
     public List<T> findAll();
     public T find(Long id);
