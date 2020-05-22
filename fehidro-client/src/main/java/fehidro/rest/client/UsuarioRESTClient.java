@@ -11,13 +11,12 @@ import fehidro.model.Usuario;
 import fehidro.rest.client.RESTClientInterface;
 
 public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
-    public static String URL_USUARIO = "usuario/";
 	private Response response;
 
 	@Override
 	public List<Usuario> findAll() {
 		List<Usuario> usuarios = 	ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(new GenericType<List<Usuario>> () {});	    
 	    return usuarios;
@@ -26,7 +25,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 	@Override
 	public Usuario find(Long id) {
 		Usuario usuario = 			ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO + id).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(Usuario.class);
 		return usuario;
@@ -34,7 +33,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 	
 	public Usuario findByCPF(String CPF) {
 		Usuario usuario = 			ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO + CPF).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + CPF).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(Usuario.class);
 		return usuario;
@@ -42,7 +41,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 
 	public List<Usuario> findByPerfilAcesso(Long perfilacesso) {
 		List<Usuario> usuarios = 	ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO + perfilacesso).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + perfilacesso).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(new GenericType<List<Usuario>> () {});
 		return usuarios;
@@ -51,7 +50,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 	@Override
 	public Usuario create(Usuario obj) {
 		Usuario usuario = 			ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
 									queryParam("usuario", obj).
 									request(MediaType.APPLICATION_JSON).
 									post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
@@ -62,7 +61,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 	@Override
 	public Usuario edit(Usuario obj) {
 		Usuario usuario = 			ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + URL_USUARIO).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
 									queryParam("usuario", obj).
 									request(MediaType.APPLICATION_JSON).
 									put(Entity.entity(obj, MediaType.APPLICATION_JSON)).
@@ -73,7 +72,7 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 	@Override
 	public boolean delete(Long id) {
 		return 	ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + URL_USUARIO + id).
+				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
 				request(MediaType.APPLICATION_JSON).
 				delete().getStatus() 
 				== Response.Status.OK.getStatusCode();
