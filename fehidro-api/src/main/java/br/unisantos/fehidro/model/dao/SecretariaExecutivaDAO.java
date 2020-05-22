@@ -1,4 +1,4 @@
-package br.unisantos.fehidro.dao;
+package br.unisantos.fehidro.model.dao;
 
 import java.util.List;
 

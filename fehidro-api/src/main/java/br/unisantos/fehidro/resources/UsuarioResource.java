@@ -12,7 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.unisantos.fehidro.dao.UsuarioDAO;
+import br.unisantos.fehidro.model.dao.UsuarioDAO;
 import br.unisantos.fehidro.model.Usuario;
 //import br.unisantos.fehidro.util.jpa.JPAEntityManager;
 
@@ -41,31 +41,44 @@ public class UsuarioResource {
 		}
 	}
 
-//	@Path("/{login}")
-//	@GET
-//	@Produces("application/json")
-//	public Response getByLogin(@PathParam("login") Long login) {
-//		UsuarioDAO dao = new UsuarioDAO();		
-//		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorLogin", login);
-//		if (usuario != null) {
-//			return Response.ok(usuario).build();
-//		} else {
-//			return Response.status(Response.Status.NOT_FOUND).build();
-//		}
-//	}
-//
-//	@Path("/{CPF}")
-//	@GET
-//	@Produces("application/json")
-//	public Response getByCPF(@PathParam("CPF") Long CPF) {
-//		UsuarioDAO dao = new UsuarioDAO();		
-//		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorCPF", CPF);
-//		if (usuario != null) {
-//			return Response.ok(usuario).build();
-//		} else {
-//			return Response.status(Response.Status.NOT_FOUND).build();
-//		}
-//	}
+	@Path("/{login}")
+	@GET
+	@Produces("application/json")
+	public Response getByLogin(@PathParam("login") Long login) {
+		UsuarioDAO dao = new UsuarioDAO();		
+		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorLogin", login);
+		if (usuario != null) {
+			return Response.ok(usuario).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+
+	@Path("/{CPF}")
+	@GET
+	@Produces("application/json")
+	public Response getByCPF(@PathParam("CPF") Long CPF) {
+		UsuarioDAO dao = new UsuarioDAO();		
+		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorCPF", CPF);
+		if (usuario != null) {
+			return Response.ok(usuario).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+
+	@Path("/{perfilacesso}")
+	@GET
+	@Produces("application/json")
+	public Response getByPerfilAcesso(@PathParam("perfilacesso") Long perfilacesso) {
+		UsuarioDAO dao = new UsuarioDAO();		
+		List<Usuario> usuarios = dao.listarGenerico("Usuario.consultarPorPerfilAcesso", perfilacesso);
+		if (usuarios != null) {
+			return Response.ok(usuarios).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
 
 	@POST
 	@Produces("application/json")

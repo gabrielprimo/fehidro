@@ -1,4 +1,4 @@
-package br.unisantos.fehidro.dao;
+package br.unisantos.fehidro.model.dao;
 
 import java.util.List;
 
@@ -17,7 +17,11 @@ public class CTPGDAO extends DAOFactory<CTPG> {
 	}
 	
 	public void atualizar(CTPG ctpg) {
-		atualizar(ctpg);
+		alterar(ctpg);
+	}
+	
+	public void remover(long id) {
+		excluir(id);
 	}
 
 	public CTPG obter(long id) {
@@ -29,7 +33,8 @@ public class CTPGDAO extends DAOFactory<CTPG> {
 		return null;
 	}
 	
-	public List<Usuario> listar(CTPG ctpg) {
+	public List<CTPG> listar(CTPG ctpg) {
+		
 		// TODO Auto-generated method stub
 		return null;
 	}	
