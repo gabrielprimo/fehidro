@@ -22,8 +22,8 @@
 			</h:form>
 			
 			<div class="text-right">
-				<h:commandButton id="btnNovaDeliberacao" class="btn btn-outline-primary"
-					value="Nova deliberação" action="#{deliberacaoBean.cadastro}" />
+				<h:button id="btnNovaDeliberacao" class="btn btn-outline-primary"
+					value="Nova deliberação" outcome="cadastro" />
 			</div>
 			<br />
 			
@@ -37,10 +37,6 @@
 				<h:column>
 					<f:facet name="header">Ano</f:facet>
 					<h:outputText value="#{d.ano}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Responsável</f:facet>
-					<!-- <h:outputText value="#{d.responsavel.nome}" /> -->
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
