@@ -15,11 +15,13 @@ import fehidro.rest.client.UsuarioRESTClient;
 public class LoginBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
-	
+	private UsuarioRESTClient rest;
+
 	public LoginBean() {
 		setUsuario(new Usuario());
+		this.rest = new UsuarioRESTClient();
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -30,20 +32,30 @@ public class LoginBean implements Serializable {
 	public String index() {
 		return "/login/index";		
 	}
-	
+
 	public String realizarLogin() { 
-		
-		/*if (usuario != null) 
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		if (usuario != null && usuario.getLogin() != null) 
 		{
-			//obter usuario por login e senha da usuarioDAO
-			UsuarioRESTClient rest = new UsuarioRESTClient();
+			Usuario user = rest.obterPorLogin(usuario.getLogin());
 
-			return "/home/index";
-		}*/
-		
-		FacesContext.getCurrentInstance().addMessage("submitLogin", new FacesMessage("Erro: login/senha inválidos!"));
-		return "/deliberacao/index?faces-redirect=true";
-
+			if (user != null && user.getSenha().equals(usuario.getSenha())) 
+			{
+				return "/deliberacao/index?faces-redirect=true";
+			} 
+			else 
+			{
+				context.addMessage("formLogin:msgLogin", new FacesMessage("Erro: login/senha inválidos!"));
+				context.getExternalContext().getFlash().setKeepMessages(true);
+				return null;
+			}
+		} 
+		else 
+		{
+			context.addMessage("formLogin:msgLogin", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Login", "Erro: login/senha inválidos!"));
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return null;
+		}
 	}
-
 }

@@ -5,7 +5,7 @@ public class Usuario {
 	private String nome;
 	private String sobrenome;
 	private String CPF;
-	private int idPerfilAcesso;
+	private int perfilAcesso;
 	private String celular; 
 	private String email;
 	private String login;
@@ -49,11 +49,11 @@ public class Usuario {
 	public void setCPF(String cPF) {
 		CPF = cPF;
 	}
-	public int getIdPerfilAcesso() {
-		return idPerfilAcesso;
+	public int getPerfilAcesso() {
+		return perfilAcesso;
 	}
-	public void setIdPerfilAcesso(int idPerfilAcesso) {
-		this.idPerfilAcesso = idPerfilAcesso;
+	public void setPerfilAcesso(int idPerfilAcesso) {
+		this.perfilAcesso = idPerfilAcesso;
 	}
 	public String getCelular() {
 		return celular;

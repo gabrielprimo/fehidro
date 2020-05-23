@@ -8,7 +8,7 @@
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
-			<h:form>
+				<h:inputHidden value="Usuario" id="menuAtual"/>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1"><i
@@ -19,7 +19,6 @@
 						<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
 					</h:inputText>
 				</div>
-			</h:form>
 			
 			<div class="text-right">
 				<h:button id="btnNovoUsuario" class="btn btn-outline-primary"
@@ -27,20 +26,20 @@
 			</div>
 			<br />
 			
-			<h:dataTable value="#{usuarioBean.usuarios}" var="u"
+			<h:dataTable value="#{usuarioBean.usuarios}" var="u" id="tabela"
 				styleClass="table" captionClass="tabelaCaption" headerClass=""
 				rowClasses="linhaPar, linhaImpar">
 				<h:column>
-					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{u.nome}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Sobrenome</f:facet>
-					<h:outputText value="#{u.sobrenome}" />
+					<f:facet name="header">Nome completo</f:facet>
+					<h:outputText value="#{u.nome} #{u.sobrenome}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">CPF</f:facet>
 					<h:outputText value="#{u.CPF}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">E-mail</f:facet>
+					<h:outputText value="#{u.email}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">Perfil</f:facet>
@@ -49,7 +48,7 @@
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton class="btn btn-outline-primary" value="Editar"
-						action="#{usuarioBean.editar(u)}" />
+						action="#{usuarioBean.editar}" />
 				</h:column>
 			</h:dataTable>
 		</ui:define>

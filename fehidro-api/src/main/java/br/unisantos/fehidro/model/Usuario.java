@@ -1,6 +1,7 @@
 package br.unisantos.fehidro.model;
 
 import java.util.Date;
+import java.util.Random;
 
 import javax.faces.model.SelectItem;
 import javax.persistence.*;
@@ -25,24 +26,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @NamedQueries({ @NamedQuery(name = "Usuario.listarTodos", query = "select u from Usuario u order by u.nome"),
 		@NamedQuery(name = "Usuario.consultarPorId", query = "select u from Usuario u where u.id=?1"),
 		@NamedQuery(name = "Usuario.consultarPorLogin", query = "select u from Usuario u where u.login=?1"),
-		@NamedQuery(name = "Usuario.consultarPorCPF", query = "select u from Usuario u where u.cpf=?1"),
-		@NamedQuery(name = "Usuario.consultarPorPerfilAcesso", query = "select u from Usuario u where u.perfilacesso=?1") })
+		@NamedQuery(name = "Usuario.consultarPorCPF", query = "select u from Usuario u where u.CPF=?1"),
+		@NamedQuery(name = "Usuario.consultarPorPerfilAcesso", query = "select u from Usuario u where u.perfilAcesso=?1") })
 public class Usuario extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "nm_usuario", length = 256)
 	private String nome;
 
-	@Column(name = "nm_sobre_usuario", length = 256)
+	@Column(name = "nm_sobrenome", length = 256)
 	private String sobrenome;
 
 	@Column(name = "nr_cpf", length = 256)
 	private String CPF;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dt_nascimento")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-	private Date dataNascimento;
 
 	@Column(name = "ds_email", length = 256)
 	private String email;
@@ -56,8 +52,8 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "ic_ativo", length = 50)
 	private Boolean ativo;
 
-	@Column(name = "nr_telefone")
-	private String telefone;
+	@Column(name = "nr_celular")
+	private String celular;
 
 	@Column(name = "id_perfilacesso")
 	private long perfilAcesso;
@@ -99,14 +95,6 @@ public class Usuario extends AbstractEntity {
 		CPF = cpf;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -138,7 +126,23 @@ public class Usuario extends AbstractEntity {
 	}
 
 	public void setSenha() {
-		this.senha = "JNFGADKJFGNAIDJEFNG";/** SENHA_RANDOMICA - 15 CARACTERES */
+		Random rnd = new Random();
+		String chars  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		String senha = "";
+		
+		for(int i = 0; i < 6; i++) 
+		{
+			if (i % 2 == 0) 
+			{
+				senha += chars.charAt(rnd.nextInt(chars.length()));
+			}
+			else 
+			{
+				senha += Integer.toString(rnd.nextInt(10));
+			}
+		}
+		
+		this.senha = senha;
 	}
 
 	public void setSenha(String senha) {
@@ -160,15 +164,15 @@ public class Usuario extends AbstractEntity {
 	/**
 	 * @return the telefone
 	 */
-	public String getTelefone() {
-		return telefone;
+	public String getCelular() {
+		return celular;
 	}
 
 	/**
 	 * @param telefone the telefone to set
 	 */
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	/**
@@ -200,7 +204,7 @@ public class Usuario extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Usuario [nome=" + nome + ", sobrenome=" + sobrenome + ", CPF=" + CPF + ", dataNascimento="
-				+ dataNascimento + ", email=" + email + ", login=" + login + ", senha=" + senha + "]";
+		return "Usuario [nome=" + nome + ", sobrenome=" + sobrenome + ", CPF=" + CPF + 
+				", email=" + email + ", login=" + login + ", senha=" + senha + "]";
 	}
 }
