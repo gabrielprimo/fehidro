@@ -31,20 +31,28 @@ public class UsuarioRESTClient implements RESTClientInterface<Usuario>{
 		return usuario;
 	}
 	
-	public Usuario findByCPF(String CPF) {
+	public Usuario obterPorCPF(String CPF) {
 		Usuario usuario = 			ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + CPF).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorCPF/" + CPF).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(Usuario.class);
 		return usuario;
 	}
 
-	public List<Usuario> findByPerfilAcesso(Long perfilacesso) {
+	public List<Usuario> obterPorPerfilAcesso(Long perfilacesso) {
 		List<Usuario> usuarios = 	ClientBuilder.newClient().
-									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + perfilacesso).
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorPerfilAcesso/" +perfilacesso).
 									request(MediaType.APPLICATION_JSON).get().
 									readEntity(new GenericType<List<Usuario>> () {});
 		return usuarios;
+	}
+	
+	public Usuario obterPorLogin(String login) {
+		Usuario usuario = 	ClientBuilder.newClient().
+									target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorLogin/" + login).
+									request(MediaType.APPLICATION_JSON).get().
+									readEntity(Usuario.class);
+		return usuario;
 	}
 
 	@Override

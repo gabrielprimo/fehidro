@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.unisantos.fehidro.model.Usuario;
 
 @Table(name = "tb_ctpg")
@@ -14,8 +16,16 @@ public class CTPG extends Usuario {
 	@Column(name = "nm_instituicao")
 	private String instituicao;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inicio_mandato")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataInicioMandato;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dt_nascimento")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date dataNascimento;
+
 	
 
 	public CTPG() {
@@ -57,6 +67,13 @@ public class CTPG extends Usuario {
 		this.instituicao = instituicao;
 	}
 	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 	
 //	@OneToOne(cascade = CascadeType.ALL)
 //	@Column(name="usuario_id")

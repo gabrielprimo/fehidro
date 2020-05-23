@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
+			<h:inputHidden value="Deliberacao" id="menuAtual"/>
 			<h:form id="formUsuario">
 				<div class="form-row">
 					<div class="col">
@@ -78,7 +78,7 @@
 					<div class="col text-left">
 						<h:commandButton id="btnCadastrar" type="button"
 							class="btn btn-outline-success" value="Salvar"
-							action="#{usuarioBean.cadastrar(loginBean.usuario)}">
+							action="#{deliberacaoBean.salvar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
 					</div>

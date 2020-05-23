@@ -10,7 +10,7 @@
 				<label>Data de nascimento</label>
 				<h:inputText id="txtNascimento" redisplay="false"
 					value="#{usuarioBean.ctpg.dataNascimento}" class="form-control"
-					required="#{usuarioBean.usuario.idPerfilAcesso == '3'}" requiredMessage="Informe a data de nascimento!">
+					required="#{usuarioBean.usuario.perfilAcesso == '3'}" requiredMessage="Informe a data de nascimento!">
 					<f:passThroughAttribute name="placeholder" value="Data de nascimento" />
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</h:inputText>
@@ -20,7 +20,7 @@
 				<label>Instituição</label>
 				<h:selectOneMenu id="txtInstituicao" redisplay="false"
 							value="#{usuarioBean.ctpg.instituicao}" class="form-control"
-							required="#{usuarioBean.usuario.idPerfilAcesso == '3'}" requiredMessage="Informe a instituição!">
+							required="#{usuarioBean.usuario.perfilAcesso == '3'}" requiredMessage="Informe a instituição!">
 							<f:selectItems value="#{usuarioBean.instituicoes}" />
 						</h:selectOneMenu>
 				<h:message for="txtInstituicao" styleClass="erro" />
@@ -29,7 +29,7 @@
 				<label>Data de início do mandato</label>
 				<h:inputText id="txtDataInicioMandato" redisplay="false"
 					value="#{usuarioBean.ctpg.dataInicioMandato}" class="form-control"
-					required="#{usuarioBean.usuario.idPerfilAcesso == '3'}" requiredMessage="Informe a data de início do mandato!">
+					required="#{usuarioBean.usuario.perfilAcesso == '3'}" requiredMessage="Informe a data de início do mandato!">
 					<f:passThroughAttribute name="placeholder"
 						value="Data de início do mandato" />
 					<f:convertDateTime pattern="dd/MM/yyyy"/>

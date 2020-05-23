@@ -23,16 +23,23 @@ public class UsuarioDAO extends DAOFactory<Usuario> {
 	}
 
 	public Usuario obter(long id) {
-		return consultar(id);
+		return consultarGenerico("Usuario.consultarPorId", id);
+		//return consultar(id);
 	}
 
 	public List<Usuario> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return listarGenerico("Usuario.listarTodos");
 	}
 	
-	public List<Usuario> listar(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario obterPorLogin(String login) {
+		return consultarGenerico("Usuario.consultarPorLogin", login);
 	}	
+	
+	public Usuario obterPorCPF(Long CPF) {
+		return consultarGenerico("Usuario.consultarPorCPF", CPF);
+	}
+	
+	public List<Usuario> obterPorPerfilAcesso(Long perfilacesso) {
+		return listarGenerico("Usuario.consultarPorPerfilAcesso", perfilacesso);
+	}
 }

@@ -15,6 +15,7 @@ import javax.faces.validator.ValidatorException;
 
 import fehidro.model.CTPG;
 import fehidro.model.Usuario;
+import fehidro.rest.client.UsuarioRESTClient;
 
 @ManagedBean
 @SessionScoped
@@ -27,23 +28,13 @@ public class UsuarioBean implements Serializable {
 	private List<Usuario> usuarios;
 	private List<SelectItem> perfisAcesso;
 	private List<SelectItem> instituicoes;
+	private UsuarioRESTClient rest;
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.ctpg = new CTPG();
-
-		this.usuarios = new ArrayList<Usuario>();
-		Usuario teste = new Usuario();
-		teste.setNome("teste");
-		teste.setId((long) 2);
-		teste.setLogin("usr.teste"); 
-
-		List<Usuario> testes = new ArrayList<Usuario>();
-		testes.add(teste);
-		testes.add(teste);
-		testes.add(teste); 
-
-		this.setUsuarios(testes);
+		this.rest = new UsuarioRESTClient();
+		this.setUsuarios(rest.findAll());
 		this.setPerfisAcesso();
 		this.setInstituicoes();
 	}
@@ -181,15 +172,23 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public String salvar() {
-		//		UsuarioRESTClient rest = new UsuarioRESTClient();
-		//		if (usuario.getId() == null) {
-		//			//rest.create(usuario);
-		//			usuario = new Usuario();			
-		//		}
-		//		else {
-		//			//usuario = rest.edit(usuario);
-		//		}
-		
+		if (usuario.getId() == null) {
+			this.rest.create(usuario);
+			usuario = new Usuario();			
+		}
+		else {
+			usuario = this.rest.edit(usuario);
+		}
+
 		return null;		
+	}
+	
+	public String editar() 
+	{
+		if (usuario.getId() != null) {
+			usuario = this.rest.find(usuario.getId());			
+		}
+		
+		return "/usuario/cadastro?faces-redirect=true";
 	}
 }

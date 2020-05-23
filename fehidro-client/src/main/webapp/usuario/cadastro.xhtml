@@ -8,6 +8,7 @@
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
+			<h:inputHidden value="Usuario" id="menuAtual"/>
 			<h:form id="formUsuario">
 				<h:panelGroup layout="block" class="form-group row">
 					<h:panelGroup layout="block" class="col">
@@ -75,7 +76,7 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel value="Perfil de acesso" for="txtPerfilAcesso"/>
 						<h:selectOneMenu id="txtPerfilAcesso" redisplay="false"
-							value="#{usuarioBean.usuario.idPerfilAcesso}" class="form-control"
+							value="#{usuarioBean.usuario.perfilAcesso}" class="form-control"
 							required="true" requiredMessage="Informe o perfil de acesso!">
 							<f:selectItems value="#{usuarioBean.perfisAcesso}" />
 						</h:selectOneMenu>
@@ -87,6 +88,11 @@
 					<ui:include src="/ctpg/cadastro.xhtml" />
 				</ui:insert>
 
+				<h:panelGroup layout="block" class="custom-control custom-checkbox mt-3">
+					<h:selectBooleanCheckbox id="btAtivo" value="#{usuarioBean.usuario.ativo}" class="custom-control-input"/>
+					<h:outputLabel class="custom-control-label" for="btAtivo">Ativo</h:outputLabel>
+				</h:panelGroup>
+
 				<h:panelGroup layout="block" class="form-row mt-5">
 					<h:panelGroup layout="block" class="col text-right">
 						<h:button id="btnCancel" type="button"
@@ -96,7 +102,7 @@
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
-							value="Salvar" action="#{usuarioBean.consultar}">
+							value="Salvar" action="#{usuarioBean.salvar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
 					</h:panelGroup>
