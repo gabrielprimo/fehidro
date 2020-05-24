@@ -1,16 +1,19 @@
 package fehidro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Usuario {
-	private Long id;
-	private String nome;
-	private String sobrenome;
-	private String CPF;
-	private int perfilAcesso;
-	private String celular; 
-	private String email;
-	private String login;
-	private String senha;
-	private Boolean ativo;
+	protected Long id;
+	protected String nome;
+	protected String sobrenome;
+	protected String CPF;
+	protected int perfilAcesso;
+	protected String celular; 
+	protected String email;
+	protected String login;
+	protected String senha;
+	protected Boolean ativo;
 	
 	public Long getId() {
 		return id;
