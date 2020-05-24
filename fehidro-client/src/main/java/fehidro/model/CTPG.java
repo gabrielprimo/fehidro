@@ -6,7 +6,8 @@ public class CTPG extends Usuario {
 	private Date dataNascimento;
 	private Date dataInicioMandato;
 	private int instituicao;
-	
+	private int tipoavaliador;
+		
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -24,5 +25,11 @@ public class CTPG extends Usuario {
 	}
 	public void setInstituicao(int instituicao) {
 		this.instituicao = instituicao;
+	}
+	public int getTipoavaliador() {
+		return tipoavaliador;
+	}
+	public void setTipoavaliador(int tipoavaliador) {
+		this.tipoavaliador = tipoavaliador;
 	}
 }

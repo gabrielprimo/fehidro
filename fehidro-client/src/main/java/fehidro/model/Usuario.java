@@ -1,16 +1,19 @@
 package fehidro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Usuario {
-	private Long id;
-	private String nome;
-	private String sobrenome;
-	private String CPF;
-	private int idPerfilAcesso;
-	private String celular; 
-	private String email;
-	private String login;
-	private String senha;
-	private Boolean ativo;
+	protected Long id;
+	protected String nome;
+	protected String sobrenome;
+	protected String CPF;
+	protected int perfilAcesso;
+	protected String celular; 
+	protected String email;
+	protected String login;
+	protected String senha;
+	protected Boolean ativo;
 	
 	public Long getId() {
 		return id;
@@ -49,11 +52,11 @@ public class Usuario {
 	public void setCPF(String cPF) {
 		CPF = cPF;
 	}
-	public int getIdPerfilAcesso() {
-		return idPerfilAcesso;
+	public int getPerfilAcesso() {
+		return perfilAcesso;
 	}
-	public void setIdPerfilAcesso(int idPerfilAcesso) {
-		this.idPerfilAcesso = idPerfilAcesso;
+	public void setPerfilAcesso(int idPerfilAcesso) {
+		this.perfilAcesso = idPerfilAcesso;
 	}
 	public String getCelular() {
 		return celular;

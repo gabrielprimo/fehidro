@@ -24,27 +24,30 @@
          <div class="col-md-6 col-sm-12">
             <div class="login-form">
                	<h:form id="formLogin">
-                  <div class="form-group">
-                     <label>Usuário</label>
+                  <h:panelGroup layout="block" class="form-group">
+                     <h:outputLabel for="txtLogin" value="Usuário"/>
                       <h:inputText id="txtLogin" value="#{loginBean.usuario.login}" class="form-control" required="true"  requiredMessage="Informe o login!">
                       	<f:passThroughAttribute name="placeholder" value="Usuário"/>
                       </h:inputText> 
 					<h:message for="txtLogin" styleClass="erro"/>
-                  </div>
+                  </h:panelGroup>
                   
-                  <div class="form-group">
-                     <label>Senha</label>
-                     <h:inputSecret id="txtSenha" redisplay="false"  value="#{loginBean.usuario.login}" class="form-control" required="true"  requiredMessage="Informe a senha!">
+                  <h:panelGroup layout="block" class="form-group">
+                     <h:outputLabel for="txtSenha" value="Senha"/>
+                     <h:inputSecret id="txtSenha" redisplay="false"  value="#{loginBean.usuario.senha}" class="form-control" required="true"  requiredMessage="Informe a senha!">
                       	<f:passThroughAttribute name="placeholder" value="Senha"/>
                       </h:inputSecret> 
                       <h:message for="txtSenha" styleClass="erro"/>
-                  </div>
-                  <div class="form-group">
+                  </h:panelGroup>
+                  <h:panelGroup layout="block" class="form-group">
 	                  <h:commandButton id="submitLogin" class="btn btn-outline-primary" value="Login" action="#{loginBean.realizarLogin}"> 
-	                   		<h:message for="submitLogin" styleClass="erro" />
 	                  </h:commandButton>
-                  </div>
-               </h:form>
+                  </h:panelGroup>
+					<h:panelGroup layout="block" class="form-group">
+						<h:message id="msgLogin" for="msgLogin"
+							styleClass="erro" />
+					</h:panelGroup>
+				</h:form>
             </div>
          </div>
 	</div>

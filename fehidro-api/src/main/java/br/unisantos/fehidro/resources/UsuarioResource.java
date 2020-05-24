@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.unisantos.fehidro.model.dao.UsuarioDAO;
@@ -24,7 +25,7 @@ public class UsuarioResource {
 	@Produces("application/json")
 	public Response getAll() {
 		UsuarioDAO dao = new UsuarioDAO();
-		List<Usuario> usuarios = dao.listarGenerico("Usuario.listarTodos");
+		List<Usuario> usuarios = dao.listar();
 		return Response.ok(usuarios).build();
 	}
 
@@ -33,7 +34,7 @@ public class UsuarioResource {
 	@Produces("application/json")
 	public Response get(@PathParam("id") Long id) {
 		UsuarioDAO dao = new UsuarioDAO();		
-		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorId", id);
+		Usuario usuario = dao.obter(id);
 		if (usuario != null) {
 			return Response.ok(usuario).build();
 		} else {
@@ -41,12 +42,12 @@ public class UsuarioResource {
 		}
 	}
 
-	@Path("/{login}")
+	@Path("/obterPorLogin/{login}")
 	@GET
 	@Produces("application/json")
-	public Response getByLogin(@PathParam("login") Long login) {
+	public Response obterPorLogin(@PathParam("login") String login) {
 		UsuarioDAO dao = new UsuarioDAO();		
-		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorLogin", login);
+		Usuario usuario = dao.obterPorLogin(login);
 		if (usuario != null) {
 			return Response.ok(usuario).build();
 		} else {
@@ -54,12 +55,12 @@ public class UsuarioResource {
 		}
 	}
 
-	@Path("/{CPF}")
+	@Path("/obterPorCPF/{CPF}")
 	@GET
 	@Produces("application/json")
-	public Response getByCPF(@PathParam("CPF") Long CPF) {
+	public Response obterPorCPF(@PathParam("CPF") Long CPF) {
 		UsuarioDAO dao = new UsuarioDAO();		
-		Usuario usuario = dao.consultarGenerico("Usuario.consultarPorCPF", CPF);
+		Usuario usuario = dao.obterPorCPF(CPF);
 		if (usuario != null) {
 			return Response.ok(usuario).build();
 		} else {
@@ -67,12 +68,12 @@ public class UsuarioResource {
 		}
 	}
 
-	@Path("/{perfilacesso}")
+	@Path("/obterPorPerfilAcesso/{perfilacesso}")
 	@GET
 	@Produces("application/json")
-	public Response getByPerfilAcesso(@PathParam("perfilacesso") Long perfilacesso) {
+	public Response obterPorPerfilAcesso(@PathParam("perfilacesso") Long perfilacesso) {
 		UsuarioDAO dao = new UsuarioDAO();		
-		List<Usuario> usuarios = dao.listarGenerico("Usuario.consultarPorPerfilAcesso", perfilacesso);
+		List<Usuario> usuarios = dao.obterPorPerfilAcesso(perfilacesso);
 		if (usuarios != null) {
 			return Response.ok(usuarios).build();
 		} else {
@@ -82,7 +83,7 @@ public class UsuarioResource {
 
 	@POST
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(Usuario usuario) {
 		UsuarioDAO dao = new UsuarioDAO();
 		usuario.setLogin();
