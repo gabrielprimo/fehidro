@@ -1,18 +1,31 @@
 $(document).ready(function () {
 
-	if ($("#formUsuario\\:txtPerfilAcesso").val() == "3") {
-		$("#infoCTPG").show();
+	if ($("#formUsuario\\:txtPerfilAcesso").val() == "1") {
+		$("#formUsuario\\:infoSecretaria").show();
+	} else if ($("#formUsuario\\:txtPerfilAcesso").val() == "2") {
+		$("#formUsuario\\:infoCTPG").show();
 	}
 	
 	$("#formUsuario\\:txtPerfilAcesso").on('change', function () {
-    	if ($("#formUsuario\\:txtPerfilAcesso").val() == "3") {
-    		$("#infoCTPG").show();
+    	var perfilAcesso = $("#formUsuario\\:txtPerfilAcesso").val();
+    	
+		if (perfilAcesso == "2") {
+    		$("#formUsuario\\:infoCTPG").show();
     	}
     	else {
-    		$("#infoCTPG").hide();
+    		$("#formUsuario\\:infoCTPG").hide();
     		$("#formUsuario\\:txtNascimento").val("");
     		$("#formUsuario\\:txtInstituicao").val("");
     		$("#formUsuario\\:txtDataInicioMandato").val("");
+    	}
+		
+		if (perfilAcesso == "1") {
+    		$("#formUsuario\\:infoSecretaria").show();
+    	}
+    	else {
+    		$("#formUsuario\\:infoSecretaria").hide();
+    		$("#formUsuario\\:btAdmSecretaria"). prop("checked", false);
+
     	}
     });
 	
@@ -30,4 +43,9 @@ $(document).ready(function () {
 	$(document).on("input", ".numeric", function() {
 	    this.value = this.value.replace(/\D/g,'');
 	});
+	
+	$("#formUsuario\\:tipoAvaliador input[type='radio']").addClass("custom-control-input");
+	$("#formUsuario\\:tipoAvaliador label").addClass("custom-control-label");
+	$("#formUsuario\\:tipoAvaliador td").addClass("custom-control custom-radio");
+
 });

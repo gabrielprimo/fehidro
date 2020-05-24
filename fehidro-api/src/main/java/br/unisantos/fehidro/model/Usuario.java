@@ -49,7 +49,7 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "ds_senha", length = 256)
 	private String senha;
 
-	@Column(name = "ic_ativo", length = 50)
+	@Column(name = "ic_ativo")
 	private Boolean ativo;
 
 	@Column(name = "nr_celular")
@@ -58,17 +58,10 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "id_perfilacesso")
 	private long perfilAcesso;
 
+	
+	
 	public Usuario() {
 	}
-//	public Usuario(long id, String nome, String sobrenome, String cpf, String senha) {
-////		 super();
-//		setId(id);
-//		setNome(nome);
-//		setSobrenome(sobrenome);
-//		setCPF(cpf);
-//		setLogin();
-//		setSenha();
-//	}
 
 	public String getNome() {
 		return nome;
@@ -142,7 +135,7 @@ public class Usuario extends AbstractEntity {
 			}
 		}
 		
-		this.senha = senha;
+		this.senha = senha; 
 	}
 
 	public void setSenha(String senha) {
@@ -161,43 +154,18 @@ public class Usuario extends AbstractEntity {
 		this.ativo = false;
 	}
 
-	/**
-	 * @return the telefone
-	 */
 	public String getCelular() {
 		return celular;
 	}
 
-	/**
-	 * @param telefone the telefone to set
-	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
-	/**
-	 * @return the perfilAcesso
-	 */
 	public long getPerfilAcesso() {
 		return perfilAcesso;
 	}
 	
-//	public String getPerfilAcessoDescricao() {
-//		String descricaoPerfilAcesso = "";
-//		switch ((int)this.perfilAcesso){
-//		case 1:
-//			descricaoPerfilAcesso = "Administrador Secretaria Executiva";
-//		case 2:
-//			descricaoPerfilAcesso = "Secretaria(o) Executiva(o)";
-//		case 3:
-//			descricaoPerfilAcesso = "Avaliador CT-PG";
-//		}
-//		return descricaoPerfilAcesso;
-//	}
-
-	/**
-	 * @param perfilAcesso the perfilAcesso to set
-	 */
 	public void setPerfilAcesso(long perfilAcesso) {
 		this.perfilAcesso = perfilAcesso;
 	}

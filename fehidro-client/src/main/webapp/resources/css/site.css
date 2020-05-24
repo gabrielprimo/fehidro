@@ -54,3 +54,18 @@ a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
+
+/* .custom-control input { */
+/* 	position: absolute; */
+/*     left: 0; */
+/*     z-index: -1; */
+/*     width: 1rem; */
+/*     height: 1.25rem; */
+/*     opacity: 0; */
+/* } */
+
+/* .custom-control label { */
+/* 	position: relative; */
+/*     margin-bottom: 0; */
+/*     vertical-align: top; */
+/* } */

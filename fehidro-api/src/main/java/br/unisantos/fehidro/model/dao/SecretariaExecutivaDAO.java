@@ -16,7 +16,7 @@ public class SecretariaExecutivaDAO extends DAOFactory<SecretariaExecutiva> {
 	}
 	
 	public void atualizar(SecretariaExecutiva secretariaExecutiva) {
-		atualizar(secretariaExecutiva);
+		alterar(secretariaExecutiva);
 	}
 
 	public SecretariaExecutiva obter(long id) {

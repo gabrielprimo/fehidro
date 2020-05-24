@@ -8,35 +8,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.unisantos.fehidro.model.Usuario;
 
-@Table(name = "tb_ctpg")
 @Entity
 public class CTPG extends Usuario {
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "nm_instituicao")
-	private String instituicao;
+	@Column(name = "id_instituicao")
+	private int instituicao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inicio_mandato")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataInicioMandato;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_nascimento")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	
+	@Column(name = "id_tipoavaliador")
+	private int tipoavaliador;
 
 	
 
 	public CTPG() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public CTPG(Date dataInicioMandato, String instituicao) {
-		super();
-		this.dataInicioMandato = dataInicioMandato;
-		this.instituicao = instituicao;
 	}
 
 	/**
@@ -56,14 +52,14 @@ public class CTPG extends Usuario {
 	/**
 	 * @return the instituicao
 	 */
-	public String getInstituicao() {
+	public int getInstituicao() {
 		return instituicao;
 	}
 
 	/**
 	 * @param instituicao the instituicao to set
 	 */
-	public void setInstituicao(String instituicao) {
+	public void setInstituicao(int instituicao) {
 		this.instituicao = instituicao;
 	}
 	
@@ -73,6 +69,14 @@ public class CTPG extends Usuario {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public int getTipoavaliador() {
+		return tipoavaliador;
+	}
+
+	public void setTipoavaliador(int tipoavaliador) {
+		this.tipoavaliador = tipoavaliador;
 	}
 	
 //	@OneToOne(cascade = CascadeType.ALL)
