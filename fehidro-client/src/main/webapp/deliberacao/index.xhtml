@@ -9,28 +9,25 @@
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
 			<h:inputHidden value="Deliberacao" id="menuAtual"/>
-			<h:form>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><i
-							class="fas fa-search"></i></span>
-					</div>
-					<h:inputText id="txtPesquisa" value="#{deliberacaoBean.consulta}"
-						class="form-control">
-						<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
-					</h:inputText>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1"><i
+						class="fas fa-search"></i></span>
 				</div>
-			</h:form>
-			
+				<h:inputText id="txtPesquisa" value="#{deliberacaoBean.consulta}"
+					class="form-control">
+					<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
+				</h:inputText>
+			</div>
+
 			<div class="text-right">
 				<h:button id="btnNovaDeliberacao" class="btn btn-outline-primary"
 					value="Nova deliberação" outcome="cadastro" />
 			</div>
 			<br />
 			
-			<h:dataTable value="#{deliberacaoBean.deliberacoes}" var="d"
-				styleClass="table" captionClass="tabelaCaption" headerClass=""
-				rowClasses="linhaPar, linhaImpar">
+			<h:dataTable value="#{deliberacaoBean.deliberacoes}" var="d" id="tabela"
+				styleClass="table">
 				<h:column>
 					<f:facet name="header">Número</f:facet>
 					<h:outputText value="#{d.numero}" />
@@ -41,8 +38,12 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton class="btn btn-outline-primary" value="Editar"
-						action="#{deliberacaoBean.editar(d)}" />
+										<h:form>				
+					
+					<h:commandButton class="btn btn-outline-primary" value="Editar" action="#{deliberacaoBean.editar}">
+						<f:setPropertyActionListener target="#{deliberacaoBean.idDeliberacao}" value="#{d.id}" />
+					</h:commandButton>
+					</h:form>
 				</h:column>
 			</h:dataTable>
 		</ui:define>

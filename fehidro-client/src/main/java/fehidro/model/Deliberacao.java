@@ -3,42 +3,33 @@ package fehidro.model;
 import java.util.List;
 
 public class Deliberacao {
-	private int ano;
-	private int numero;
-	private String descricao;
+	private Long id;
+	private Integer ano;
+	private Integer numero;
 	private List<Etapa> etapas;
-	private int idResponsavel;
-	
-	
-	public int getNumero() {
+
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Integer getNumero() {
 		return numero;
 	}	
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 	public List<Etapa> getEtapas() {
 		return etapas;
 	}
 	public void setEtapas(List<Etapa> etapas) {
 		this.etapas = etapas;
-	}
-	public int getIdResponsavel() {
-		return idResponsavel;
-	}
-	public void setIdResponsavel(int idResponsavel) {
-		this.idResponsavel = idResponsavel;
-	}
-	
+	}	
 }

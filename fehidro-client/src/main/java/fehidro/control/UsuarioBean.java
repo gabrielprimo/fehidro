@@ -191,6 +191,8 @@ public class UsuarioBean implements Serializable {
 		usuario = new Usuario();
 		ctpg = new CTPG();
 		secretaria = new SecretariaExecutiva();
+		this.setUsuarios(restUsuario.findAll());
+
 		return null;		
 	}
 

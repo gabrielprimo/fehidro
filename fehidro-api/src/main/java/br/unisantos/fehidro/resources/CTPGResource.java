@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import br.unisantos.fehidro.model.dao.CTPGDAO;
 import br.unisantos.fehidro.model.CTPG;
-;
+
 
 @Path("/usuario/ctpg")
 public class CTPGResource {
