@@ -1,23 +1,8 @@
 package br.unisantos.fehidro.model;
 
-import java.util.Date;
 import java.util.Random;
 
-import javax.faces.model.SelectItem;
 import javax.persistence.*;
-//import javax.persistence.Column;
-//import javax.persistence.DiscriminatorColumn;
-//import javax.persistence.Entity;
-//import javax.persistence.Inheritance;
-//import javax.persistence.InheritanceType;
-//import javax.persistence.NamedQueries;
-//import javax.persistence.NamedQuery;
-//import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-//import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
 
 @Table(name = "tb_usuario")
 @Entity
@@ -103,7 +88,7 @@ public class Usuario extends AbstractEntity {
 	public void setLogin() {
 		char space = 32;
 		String nomeUsuario = this.nome.replace(space, '.').toLowerCase();
-		String sobrenomeUsuario = this.sobrenome.toLowerCase();
+		String sobrenomeUsuario = this.sobrenome.replace(space, '.').toLowerCase();
 		String login = String.join(".", nomeUsuario, sobrenomeUsuario);
 
 		/**
