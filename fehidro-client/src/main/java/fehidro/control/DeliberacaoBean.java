@@ -2,7 +2,6 @@ package fehidro.control;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -12,9 +11,7 @@ import javax.faces.model.SelectItem;
 import fehidro.model.Cronograma;
 import fehidro.model.Deliberacao;
 import fehidro.model.Etapa;
-import fehidro.model.SecretariaExecutiva;
 import fehidro.rest.client.DeliberacaoRESTClient;
-import fehidro.rest.client.SecretariaExecutivaRESTClient;
 
 @ManagedBean
 @SessionScoped
@@ -96,7 +93,18 @@ public class DeliberacaoBean implements Serializable {
 	
 	public String addEtapa() 
 	{
-		int qtEtapas = this.getDeliberacao().getEtapas().size();
+		Deliberacao d = this.getDeliberacao();
+		
+		if (d == null) 
+		{
+			d = new Deliberacao();
+			List<Etapa> etapas = new ArrayList<>();
+			d.setEtapas(etapas);
+		}
+		
+		List<Etapa> e = d.getEtapas();
+		
+		int qtEtapas = e.size();
 		Etapa novaEtapa = new Etapa();
 		novaEtapa.setNumero(qtEtapas + 1);
 		
@@ -129,7 +137,7 @@ public class DeliberacaoBean implements Serializable {
 			this.restDeliberacao.edit(deliberacao);
 		}
 		
-		deliberacao = new Deliberacao();
+		setDeliberacao(new Deliberacao());
 		this.setDeliberacoes(this.restDeliberacao.findAll());
 		
 		return null;
