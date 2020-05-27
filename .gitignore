@@ -3,3 +3,4 @@
 Servers/
 fehidro-api/target/
 *.class
+fehidro-api/target/m2e-wtp/web-resources/META-INF/maven/br.unisantos.fehidro/fehidro/pom.properties

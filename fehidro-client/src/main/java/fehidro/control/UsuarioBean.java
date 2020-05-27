@@ -157,6 +157,7 @@ public class UsuarioBean implements Serializable {
 	public String index() 
 	{
 		this.setUsuarios(restUsuario.findAll());
+		this.setUsuario(new Usuario());
 		return "/usuario/index?faces-redirect=true";
 	}
 

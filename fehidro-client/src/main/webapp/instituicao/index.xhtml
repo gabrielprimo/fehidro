@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Instituicao" id="menuAtual"/>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1"><i
+						class="fas fa-search"></i></span>
+				</div>
+				<h:inputText id="txtPesquisa" value="#{instituicaoBean.consulta}"
+					class="form-control">
+					<f:passThroughAttribute name="placeholder" value="Pesquisa..." />
+				</h:inputText>
+			</div>
+
+			<div class="text-right">
+				<h:button id="btnNovaInstituicao" class="btn btn-outline-primary"
+					value="Nova Instituição" outcome="cadastro" />
+			</div>
+			<br />
+			
+			<h:dataTable value="#{instituicaoBean.instituicoes}" var="i" id="tabela"
+				styleClass="table">
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{i.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Tipo</f:facet>
+					<h:outputText value="#{i.tipo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:form>				
+						<h:commandButton class="btn btn-outline-primary" value="Editar" action="#{instituicaoBean.editar}">
+							<f:setPropertyActionListener target="#{instituicaoBean.idInstituicao}" value="#{i.id}" />
+					</h:commandButton>
+					</h:form>
+				</h:column>
+			</h:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
