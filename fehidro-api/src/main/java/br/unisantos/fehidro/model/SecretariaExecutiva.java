@@ -11,6 +11,11 @@ public class SecretariaExecutiva extends Usuario {
 	@Column(name = "ic_administrativo")
 	private boolean administrador;
 
+	public SecretariaExecutiva() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean isAdministrador() {
 		return administrador;
 	}
