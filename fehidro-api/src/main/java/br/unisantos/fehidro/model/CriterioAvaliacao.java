@@ -66,6 +66,10 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.pontuacoes = pontuacoes;
 	}
 
+	public void addPontuacao(Pontuacao pontuacao) {
+		this.pontuacoes.add(pontuacao);
+	}
+
 	public List<SubcriterioAvaliacao> getSubCriterio() {
 		return subCriterio;
 	}
@@ -74,6 +78,9 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.subCriterio = subCriterio;
 	}
 
+	public void addSubCriterio(SubcriterioAvaliacao criterio) {
+		this.subCriterio.add(criterio);
+	}
 	
 	
 }
