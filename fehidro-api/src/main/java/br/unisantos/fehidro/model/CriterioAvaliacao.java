@@ -30,7 +30,7 @@ public class CriterioAvaliacao extends AbstractEntity {
 	private int pontuacao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pontuacao_id")
+	//@JoinColumn(name = "pontuacao_id")
 	private List<Pontuacao> pontuacoes = new ArrayList<Pontuacao>();
 	
 	@OneToMany(cascade = CascadeType.ALL)
