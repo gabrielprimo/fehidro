@@ -9,6 +9,7 @@ public interface RESTClientInterface<T> {
     public static String REST_SECRETARIA_URL = "usuario/secretaria/";
     public static String REST_DELIBERACAO_URL = "deliberacao/";
     public static String REST_CRITERIO_URL = "criterioAvaliacao/";
+    public static String REST_INSTITUICAO_URL = "instituicao/";
 
 
     public List<T> findAll();

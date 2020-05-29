@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@DiscriminatorValue("Secretaria Executiva")
+@Table(name = "tb_secretariaexecutiva")
 public class SecretariaExecutiva extends Usuario {
 	private static final long serialVersionUID = 1L;
 	

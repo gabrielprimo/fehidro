@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Usuario" id="menuAtual" />
+			<h:form id="formUsuario">
+				<h:inputHidden value="#{instituicaoBean.instituicao.id}"
+					id="instituicaoId" />
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtNome">Nome</h:outputLabel>
+						<h:inputText id="txtNome"
+							value="#{instituicaoBean.instituicao.nome}" class="form-control"
+							required="true" requiredMessage="Informe o nome da instituição!"
+							maxlength="200">
+							<f:passThroughAttribute name="placeholder"
+								value="Nome da instituição" />
+						</h:inputText>
+						<h:message for="txtNome" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-6">
+						<h:outputLabel value="Tipo" for="txtTipo" />
+						<h:selectOneMenu id="txtTipo" redisplay="false"
+							value="#{instituicaoBean.instituicao.tipo}" class="form-control"
+							required="true" requiredMessage="Informe o tipo!">
+							<f:selectItems value="#{instituicaoBean.tipos}" />
+						</h:selectOneMenu>
+						<h:message for="txtTipo" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-row mt-5">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:button id="btnCancel" type="button"
+							class="btn btn-outline-danger" value="Cancelar" outcome="index">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:button>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{instituicaoBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -3,19 +3,26 @@ package fehidro.model;
 import java.util.Date;
 
 public class Cronograma {
-	private Date DataInicio;
-	private Date DataFim;
+	private Long id;
+	private Date dataInicio;
+	private Date dataFim;
 	
-	public Date getDataInicio() {
-		return DataInicio;
+	public Long getId() {
+		return id;
 	}
-	public void setDataInicio(Date dataInicio) {
-		DataInicio = dataInicio;
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Date dtInicio) {
+		dataInicio = dtInicio;
 	}
 	public Date getDataFim() {
-		return DataFim;
+		return dataFim;
 	}
-	public void setDataFim(Date dataFim) {
-		DataFim = dataFim;
+	public void setDataFim(Date dtFim) {
+		dataFim = dtFim;
 	}
 }

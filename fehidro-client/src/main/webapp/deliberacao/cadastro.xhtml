@@ -8,82 +8,125 @@
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
-			<h:inputHidden value="Deliberacao" id="menuAtual"/>
-			<h:form id="formUsuario">
-				<div class="form-row">
-					<div class="col">
-						<label>Número</label>
+			<h:inputHidden value="Deliberacao" id="menuAtual" />
+			<h:form id="formDeliberacao">
+				<h:inputHidden value="#{deliberacaoBean.deliberacao.id}"
+					id="deliberacaoId" />
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Número" for="txtNumero" />
 						<h:inputText id="txtNumero"
 							value="#{deliberacaoBean.deliberacao.numero}"
-							class="form-control" required="true"
+							class="form-control numeric" required="true" maxlength="6"
 							requiredMessage="Informe o número!">
 							<f:passThroughAttribute name="placeholder" value="Número" />
 						</h:inputText>
 						<h:message for="txtNumero" styleClass="erro" />
-					</div>
+					</h:panelGroup>
 
-					<div class="col">
-						<label>Ano</label>
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtAno" value="Ano" />
 						<h:inputText id="txtAno"
-							value="#{deliberacaoBean.deliberacao.ano}" class="form-control"
-							required="true" requiredMessage="Informe o ano!">
+							value="#{deliberacaoBean.deliberacao.ano}"
+							class="form-control numeric" required="true"
+							requiredMessage="Informe o ano!" minlength="4" maxlength="4" 
+							validatorMessage="Digite o ano com 4 dígitos!">
 							<f:passThroughAttribute name="placeholder" value="Ano" />
+							<f:validateLength minimum="4" maximum="4"/>
 						</h:inputText>
 						<h:message for="txtAno" styleClass="erro" />
-					</div>
+					</h:panelGroup>
 
-					<div class="col align-self-end text-right">
-						<h:commandButton id="btnNovaEtapa" type="button"
-							class="btn btn-outline-primary" value="Nova etapa">
+					<h:panelGroup layout="block" class="col align-self-end text-right">
+						<h:commandButton id="btnNovaEtapa" immediate="true"
+							class="btn btn-outline-primary" value="Nova etapa"
+							action="#{deliberacaoBean.addEtapa}">
 						</h:commandButton>
-					</div>
-				</div>
-				<hr />
-				<ui:repeat value="#{deliberaoBean.deliberacao.Etapas}" var="e"></ui:repeat>
-				<div class="justify-content-md-left card p-3 mb-5" >
-					<div class="row">
-						<div class="col-12">
-							<h:outputText value="Etapa #{e.numero}" />
-							<h:inputTextarea class="form-control" rows="1"></h:inputTextarea>
-							<br/>
-						</div>
-						<div class="col-3">
-							<h:outputText value="Data início" /> 
-							<h:inputText type="date" id="txtDataInicio" value="#{e.dataInicio}" class="form-control"
-								required="true" requiredMessage="Informe a data inicial!" >
-							</h:inputText>
-							
-						</div>
-						<div class="col-3">
-							<label>Data fim</label> 
-							<input type="date" class="form-control"/>
-						</div>
-						<div class="col-3 align-self-end">
-							<span class="btn btn-primary">
-								<i class="fas fa-calendar-plus"></i>
-							</span>
-						</div>
-					</div>
-				</div>
-				
+					</h:panelGroup>
+				</h:panelGroup>
 
-				<div class="form-row">
-					<div class="col text-right">
+				<hr />
+				<h:panelGroup layout="block" id="etapas">
+					<ui:repeat value="#{deliberacaoBean.deliberacao.etapas}" var="e"
+						id="etapa">
+						<h:panelGroup layout="block"
+							class="justify-content-md-left card p-3 mb-5">
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block" class="col-12">
+									<h:outputLabel for="descricaoEtapa" value="Etapa #{e.numero}" />
+									<h:inputTextarea id="descricaoEtapa" value="#{e.descricao}" required="true"
+											requiredMessage="Informe a descrição da etapa!" class="form-control" rows="1">
+											<f:passThroughAttribute name="placeholder" value="Descrição da etapa" />
+									</h:inputTextarea>
+									<h:message class="erro" for="descricaoEtapa"/>
+								</h:panelGroup>							
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block" class="col-6">
+									<h:outputLabel for="txtResponsavel" value="Responsável" />
+									<h:selectOneMenu id="txtResponsavel" redisplay="false"
+										value="#{e.responsavel}" class="form-control" required="true"
+										requiredMessage="Informe o responsável pela etapa!">
+										<f:selectItems value="#{deliberacaoBean.responsaveis}" />
+									</h:selectOneMenu>
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<ui:repeat value="#{e.cronogramas}" var="c" varStatus="statusC"
+								id="cronograma">
+								<h:panelGroup layout="block" class="form-group row">
+									<h:panelGroup layout="block" class="col-3">
+										<h:outputLabel for="txtDataInicio" value="Data início" />
+										<h:inputText type="date" id="txtDataInicio"
+											value="#{c.dataInicio}" class="form-control" required="true"
+											requiredMessage="Informe a data inicial!"
+											converterMessage="Data de início inválida!">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+											<f:passThroughAttribute name="placeholder" value="Data início" />
+										</h:inputText>
+										<h:message class="erro" for="txtDataInicio"/>
+									</h:panelGroup>
+
+									<h:panelGroup layout="block" class="col-3">
+										<h:outputLabel for="txtDataFim" value="Data fim" />
+										<h:inputText type="date" id="txtDataFim" value="#{c.dataFim}"
+											class="form-control" converterMessage="Data final inválida!">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+											<f:passThroughAttribute name="placeholder" value="Data final" />
+										</h:inputText>
+									</h:panelGroup>
+
+									<h:panelGroup layout="block" class="col-3 align-self-end"
+										id="btNovoCronograma" rendered="#{statusC.last}">
+										<h:commandButton class="btn btn-primary" immediate="true" action="#{deliberacaoBean.addCronograma}" value="+"> 
+											<f:setPropertyActionListener target="#{deliberacaoBean.numeroEtapaNovoCronograma}" value="#{e.numero}" /> 
+										</h:commandButton>
+									</h:panelGroup>
+								</h:panelGroup>
+							</ui:repeat>
+							
+						</h:panelGroup>
+						
+					</ui:repeat>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col text-right">
 						<h:button id="btnCancel" type="button"
-							class="btn btn-outline-danger" value="Cancelar"
-							outcome="index">
+							class="btn btn-outline-danger" value="Cancelar" outcome="index">
 							<h:message for="btnCancel" styleClass="erro" />
 						</h:button>
-					</div>
-					<div class="col text-left">
-						<h:commandButton id="btnCadastrar" type="button"
-							class="btn btn-outline-success" value="Salvar"
-							action="#{deliberacaoBean.salvar}">
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{deliberacaoBean.salvar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
-					</div>
-				</div>
+					</h:panelGroup>
+				</h:panelGroup>
 			</h:form>
+			<h:outputScript library="js" name="deliberacao.js" target="head" />
 		</ui:define>
 	</ui:composition>
 </h:body>

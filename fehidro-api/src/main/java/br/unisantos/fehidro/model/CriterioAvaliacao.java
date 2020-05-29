@@ -37,4 +37,50 @@ public class CriterioAvaliacao extends AbstractEntity {
 	@JoinColumn(name = "subcriterio_id")
 	private List<SubcriterioAvaliacao> subCriterio = new ArrayList<SubcriterioAvaliacao>();
 
+	public CriterioAvaliacao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public int getPontuacao() {
+		return pontuacao;
+	}
+
+	public void setPontuacao(int pontuacao) {
+		this.pontuacao = pontuacao;
+	}
+
+	public List<Pontuacao> getPontuacoes() {
+		return pontuacoes;
+	}
+
+	public void setPontuacoes(List<Pontuacao> pontuacoes) {
+		this.pontuacoes = pontuacoes;
+	}
+
+	public void addPontuacao(Pontuacao pontuacao) {
+		this.pontuacoes.add(pontuacao);
+	}
+
+	public List<SubcriterioAvaliacao> getSubCriterio() {
+		return subCriterio;
+	}
+
+	public void setSubCriterio(List<SubcriterioAvaliacao> subCriterio) {
+		this.subCriterio = subCriterio;
+	}
+
+	public void addSubCriterio(SubcriterioAvaliacao criterio) {
+		this.subCriterio.add(criterio);
+	}
+	
+	
 }
