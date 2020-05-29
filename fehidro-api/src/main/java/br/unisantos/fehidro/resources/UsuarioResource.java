@@ -75,7 +75,7 @@ public class UsuarioResource {
 	@POST
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(Usuario usuario) {
+	public Response add(Usuario usuario) throws Exception {
 		UsuarioDAO dao = new UsuarioDAO();
 		usuario.setLogin();
 		usuario.setSenha();

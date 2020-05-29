@@ -1,6 +1,9 @@
 package fehidro.control;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -57,5 +60,29 @@ public class LoginBean implements Serializable {
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return null;
 		}
+	}
+	
+	private boolean confereSenha(String senhaInformada, String senhaBase) throws Exception {
+		String senhaHash = "";
+		try 
+		{
+			MessageDigest algorithm;
+			algorithm = MessageDigest.getInstance("SHA-256");
+			byte messageDigest[] = algorithm.digest(senhaInformada.getBytes("UTF-8"));
+			StringBuilder strSenha = new StringBuilder();
+		
+			for (byte b : messageDigest) {
+				strSenha.append(String.format("%02X", 0xFF & b));
+			}
+			
+			senhaHash = strSenha.toString();
+		
+		} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return senhaHash.equals(senhaBase);
+		
 	}
 }
