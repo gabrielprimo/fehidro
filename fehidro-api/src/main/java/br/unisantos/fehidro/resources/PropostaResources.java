@@ -26,7 +26,7 @@ public class PropostaResources {
 	
 	@POST
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(Proposta proposta) {
 		PropostaDAO dao = new PropostaDAO();
 		dao.cadastrar(proposta);

@@ -17,10 +17,18 @@ public class Avaliacao {
 	    
 	    private PDC pdc;
 
-		public Pontuacao getNota() {
+		public int getNota() {
+			return nota.getPontos();
+		}
+		
+		public Pontuacao getNotaAsPontuacao() {
 			return nota;
 		}
 
+		public void setNota(int nota) {
+			this.nota.setPontos(nota);
+		}
+		
 		public void setNota(Pontuacao nota) {
 			this.nota = nota;
 		}

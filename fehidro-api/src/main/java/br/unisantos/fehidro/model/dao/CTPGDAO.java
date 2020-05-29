@@ -3,7 +3,6 @@ package br.unisantos.fehidro.model.dao;
 import java.util.List;
 
 import br.unisantos.fehidro.model.CTPG;
-import br.unisantos.fehidro.model.Usuario;
 
 public class CTPGDAO extends DAOFactory<CTPG> {
 
