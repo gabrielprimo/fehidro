@@ -14,9 +14,11 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 
 import fehidro.model.CTPG;
+import fehidro.model.Instituicao;
 import fehidro.model.SecretariaExecutiva;
 import fehidro.model.Usuario;
 import fehidro.rest.client.CTPGRESTClient;
+import fehidro.rest.client.InstituicaoRESTClient;
 import fehidro.rest.client.SecretariaExecutivaRESTClient;
 import fehidro.rest.client.UsuarioRESTClient;
 
@@ -31,6 +33,7 @@ public class UsuarioBean implements Serializable {
 	private UsuarioRESTClient restUsuario;
 	private SecretariaExecutivaRESTClient restSecretaria;
 	private CTPGRESTClient restCTPG;
+	private InstituicaoRESTClient restInstituicao;
 	
 	private Usuario usuario;
 	private CTPG ctpg;
@@ -44,15 +47,7 @@ public class UsuarioBean implements Serializable {
 	
 	
 	public UsuarioBean() {
-		this.usuario = new Usuario();
-		this.ctpg = new CTPG();
-		this.secretaria = new SecretariaExecutiva();
-		this.restUsuario = new UsuarioRESTClient();
-
-		this.setUsuarios(restUsuario.findAll());
-		this.setPerfisAcesso();
-		this.setInstituicoes();
-		this.setTiposAvaliadores();
+		startView(true);
 	}
 
 
@@ -113,11 +108,15 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void setInstituicoes() {
+		this.restInstituicao = new InstituicaoRESTClient();
+		List<Instituicao> instituicoesBase = this.restInstituicao.findAll();
 		List<SelectItem> instituicoes = new ArrayList<>();
-		instituicoes.add(new SelectItem("1", "Sociedade Civil"));
-		instituicoes.add(new SelectItem("2", "Municipal"));
-		instituicoes.add(new SelectItem("3", "Estadual"));
 
+		for (Instituicao i : instituicoesBase) 
+		{
+			instituicoes.add(new SelectItem(i.getId(), i.getNome()));
+		}
+		
 		this.instituicoes = instituicoes;
 	}
 
@@ -143,7 +142,6 @@ public class UsuarioBean implements Serializable {
 	}
 	
 	
-	
 	public SecretariaExecutiva getSecretaria() {
 		return secretaria;
 	}
@@ -156,9 +154,14 @@ public class UsuarioBean implements Serializable {
 
 	public String index() 
 	{
-		this.setUsuarios(restUsuario.findAll());
-		this.setUsuario(new Usuario());
+		startView(true);
 		return "/usuario/index?faces-redirect=true";
+	}
+	
+	public String cadastro() 
+	{
+		startView(true);
+		return "/usuario/cadastro?faces-redirect=true";
 	}
 
 
@@ -189,11 +192,8 @@ public class UsuarioBean implements Serializable {
 				this.restCTPG.edit(ctpg);
 			}
 		}
-		usuario = new Usuario();
-		ctpg = new CTPG();
-		secretaria = new SecretariaExecutiva();
-		this.setUsuarios(restUsuario.findAll());
-
+		
+		startView(true);
 		return null;		
 	}
 
@@ -219,6 +219,26 @@ public class UsuarioBean implements Serializable {
 		return "/usuario/cadastro?faces-redirect=true";
 	}
 	
+	private void startView(boolean setInfo) 
+	{
+		this.usuario = new Usuario();
+		this.ctpg = new CTPG();
+		this.ctpg.setInstituicao(new Instituicao());
+		this.secretaria = new SecretariaExecutiva();
+		this.restUsuario = new UsuarioRESTClient();
+		this.restInstituicao = new InstituicaoRESTClient();
+		
+		if (setInfo)
+			setInfo();
+	}
+	
+	private void setInfo() 
+	{
+		this.setUsuarios(restUsuario.findAll());
+		this.setPerfisAcesso();
+		this.setInstituicoes();
+		this.setTiposAvaliadores();
+	}
 	
 	private void map(Usuario u, CTPG c) 
 	{

@@ -37,14 +37,14 @@ public class SecretariaExecutivaResource {
 	@POST
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(SecretariaExecutiva usuario) {
+	public Response add(SecretariaExecutiva usuario) throws Exception {
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
 		usuario.setLogin();
 		usuario.setSenha();
 		//usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
-	}
+	} 
 
 	@PUT
 	@Produces("application/json")

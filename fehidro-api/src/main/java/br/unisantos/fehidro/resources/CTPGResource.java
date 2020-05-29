@@ -27,11 +27,15 @@ public class CTPGResource {
 	@POST
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(CTPG usuario) {
+	public Response add(CTPG usuario) throws Exception {
 		CTPGDAO dao = new CTPGDAO();
 		usuario.setLogin();
-		usuario.setSenha();
-		usuario.setAtivo();
+		try {
+			usuario.setSenha();
+		} catch (Exception e) {
+			throw e;
+		}
+		//usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	}
