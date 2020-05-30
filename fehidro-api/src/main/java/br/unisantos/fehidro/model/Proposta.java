@@ -15,15 +15,30 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "tb_proposta")
 @Entity
 @NamedQueries({ @NamedQuery(name = "Proposta.listarTodos", query = "select p from Proposta p order by p.projeto"),
-	@NamedQuery(name = "Proposta.consultarPorId", query = "select p from Proposta p where p.id=?1"),
+		@NamedQuery(name = "Proposta.consultarPorId", query = "select p from Proposta p where p.id=?1"),
 //	@NamedQuery(name = "Proposta.listarEntreDatas", query = "select p from Proposta p where p.data between ?1 and ?2"),
-	@NamedQuery(name = "Proposta.listarPorInstituicao", query = "select p from Proposta p where p.instituicao=?1")})
+		@NamedQuery(name = "Proposta.listarPorInstituicao", query = "select p from Proposta p where p.instituicao=?1") })
 
 public class Proposta extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name="nm_projeto")
+
+	@Column(name = "nm_projeto")
 	private String projeto;
+
+	@Column(name = "nm_instituicao")
+	private String instituicao;
+
+	@Column(name = "ic_tipoPropostaEstudo")
+	private Boolean isTipoEstudo;
+
+	@Column(name = "ic_tipoPropostaProjeto")
+	private Boolean isTipoProjeto;
+
+	@Column(name = "ic_tipoPropostaServico")
+	private Boolean isTipoServico;
+
+	@Column(name = "ic_tipoPropostaObra")
+	private Boolean isTipoObra;
 
 //	@Temporal(TemporalType.TIMESTAMP)
 //	@Column(name = "dt_proposta")
@@ -32,10 +47,7 @@ public class Proposta extends AbstractEntity {
 //	
 //	@Column(name="vl_proposta")
 //	private float valor;
-	
-	@Column(name="nm_instituicao")
-	private String instituicao;
-	
+
 //	@Column(name = "nm_arquivoTermoReferência")     
 //	private String termoReferência;
 //
@@ -74,9 +86,50 @@ public class Proposta extends AbstractEntity {
 		this.instituicao = instituicao;
 	}
 
+	public Boolean getIsTipoEstudo() {
+		return isTipoEstudo;
+	}
+
+	public void setIsTipoEstudo(Boolean isTipoEstudo) {
+		this.isTipoEstudo = isTipoEstudo;
+	}
+
+	public Boolean getIsTipoProjeto() {
+		return isTipoProjeto;
+	}
+
+	public void setIsTipoProjeto(Boolean isTipoProjeto) {
+		this.isTipoProjeto = isTipoProjeto;
+	}
+
+	public Boolean getIsTipoServico() {
+		return isTipoServico;
+	}
+
+	public void setIsTipoServico(Boolean isTipoServico) {
+		this.isTipoServico = isTipoServico;
+	}
+
+	public Boolean getIsTipoObra() {
+		return isTipoObra;
+	}
+
+	public void setIsTipoObra(Boolean isTipoObra) {
+		this.isTipoObra = isTipoObra;
+	}
+	
+	public void setTipo(Boolean estudo, Boolean projeto, Boolean servico, Boolean obra) {
+		setIsTipoEstudo(estudo);
+		setIsTipoProjeto(projeto);
+		setIsTipoServico(servico);
+		setIsTipoObra(obra);
+	}
+
 	@Override
 	public String toString() {
-		return "Proposta [projeto=" + projeto + ", instituicao=" + instituicao + "]";
+		return "Proposta [projeto=" + projeto + ", instituicao=" + instituicao + ", isTipoEstudo=" + isTipoEstudo
+				+ ", isTipoProjeto=" + isTipoProjeto + ", isTipoServico=" + isTipoServico + ", isTipoObra=" + isTipoObra
+				+ "]";
 	}
 
 //	public Date getData() {
@@ -95,5 +148,4 @@ public class Proposta extends AbstractEntity {
 //		this.valor = valor;
 //	}
 
-	
 }
