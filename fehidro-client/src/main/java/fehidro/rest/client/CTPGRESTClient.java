@@ -12,8 +12,6 @@ import fehidro.model.CTPG;
 
 public class CTPGRESTClient implements RESTClientInterface<CTPG>{
 
-	private Response response;
-
 	@Override
 	public List<CTPG> findAll() {
 		List<CTPG> usuarios = 
@@ -38,14 +36,11 @@ public class CTPGRESTClient implements RESTClientInterface<CTPG>{
 
 	@Override
 	public CTPG create(CTPG obj) {
-		this.response = ClientBuilder.newClient().
+		CTPG usuario = ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_CTPG_URL).
 				queryParam("usuario", obj).
 				request(MediaType.APPLICATION_JSON).
-				post(Entity.entity(obj, MediaType.APPLICATION_JSON));
-		
-		CTPG usuario = 
-				this.response.
+				post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
 				readEntity(CTPG.class);	
 		
 		return usuario;
