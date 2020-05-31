@@ -1,6 +1,5 @@
 package br.unisantos.fehidro.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Table(name = "tb_criterio_avaliacao")
+@Table(name = "tb_criterioavaliacao")
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "CriterioAvaliacao.listarTodos",
@@ -25,17 +24,17 @@ public class CriterioAvaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "nm_titulo")
 	private String titulo;
-	
-	@Column(name = "nr_pontuacao")
-	private int pontuacao;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pontuacao_id")
-	private List<Pontuacao> pontuacoes = new ArrayList<Pontuacao>();
+
+	@Column(name = "nr_criterio")
+	private Integer numero;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subcriterio_id")
-	private List<SubcriterioAvaliacao> subCriterio = new ArrayList<SubcriterioAvaliacao>();
+	@JoinColumn(name = "criterioavaliacao_id")
+	private List<Pontuacao> pontuacoes;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "criterioavaliacao_id")
+	private List<SubcriterioAvaliacao> subcriterios;
 
 	public CriterioAvaliacao() {
 		super();
@@ -50,14 +49,6 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.titulo = titulo;
 	}
 
-	public int getPontuacao() {
-		return pontuacao;
-	}
-
-	public void setPontuacao(int pontuacao) {
-		this.pontuacao = pontuacao;
-	}
-
 	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
@@ -66,21 +57,17 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.pontuacoes = pontuacoes;
 	}
 
-	public void addPontuacao(Pontuacao pontuacao) {
-		this.pontuacoes.add(pontuacao);
+	public List<SubcriterioAvaliacao> getSubcriterios() {
+		return subcriterios;
 	}
 
-	public List<SubcriterioAvaliacao> getSubCriterio() {
-		return subCriterio;
+	public void setSubcriterios(List<SubcriterioAvaliacao> subcriterios) {
+		this.subcriterios = subcriterios;
 	}
-
-	public void setSubCriterio(List<SubcriterioAvaliacao> subCriterio) {
-		this.subCriterio = subCriterio;
+	public Integer getNumero() {
+		return numero;
 	}
-
-	public void addSubCriterio(SubcriterioAvaliacao criterio) {
-		this.subCriterio.add(criterio);
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
-	
-	
 }

@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import br.unisantos.fehidro.model.dao.CriterioAvaliacaoDAO;
 import br.unisantos.fehidro.model.CriterioAvaliacao;
 
-@Path("/criterio")
+@Path("/criterioAvaliacao")
 public class CriterioAvaliacaoResource {
 	
 	@GET

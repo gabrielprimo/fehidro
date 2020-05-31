@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="CriterioAvaliacao" id="menuAtual" />
+			<h:form id="formCriterioAvaliacao">
+				<h:inputHidden value="#{criterioAvaliacaoBean.criterio.id}"
+					id="criterioAvaliacaoId" />
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col-1">
+						<h:outputLabel value="Nº" for="txtNumeroCriterio" />
+						<h:inputText id="txtNumeroCriterio"
+							value="#{criterioAvaliacaoBean.criterio.numero}."
+							class="form-control numeric" readonly="true" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-11">
+						<h:outputLabel value="Nome do critério" for="txtNomeCriterio" />
+						<h:inputText id="txtNomeCriterio"
+							value="#{criterioAvaliacaoBean.criterio.titulo}"
+							class="form-control alpha" required="true"
+							requiredMessage="Informe o nome do critério!">
+							<f:passThroughAttribute name="placeholder"
+								value="Nome do critério" />
+						</h:inputText>
+						<h:message for="txtNomeCriterio" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-group form-row text-right">
+					<h:panelGroup layout="block"
+						class="col align-self-end text-right  mt-2">
+						<h:commandButton id="btnNovaPontuacao" immediate="true"
+							class="btn btn-outline-primary mt-1" value="Nova pontuação"
+							action="#{criterioAvaliacaoBean.addPontuacaoCriterio}">
+						</h:commandButton>
+						<h:commandButton id="btnNovoSubcriterio" immediate="true"
+							class="btn btn-outline-primary mt-1 ml-3"
+							value="Novo subcritério"
+							action="#{criterioAvaliacaoBean.addSubcriterio}">
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+				<hr />
+
+				<h:panelGroup layout="block" id="pontuacoesCriterio">
+					<ui:repeat value="#{criterioAvaliacaoBean.criterio.pontuacoes}"
+						var="p" id="pontuacaoCriterio">
+						<h:panelGroup layout="block"
+							class="justify-content-md-left card p-3 mb-3">
+							<h:inputHidden value="#{p.id}" id="pontuacaoCriterioId" />
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block" class="col">
+									<h:outputLabel for="txtPontuacaoCriterioTitulo" value="Título da pontuação" />
+									<h:inputText id="txtPontuacaoCriterioTitulo" value="#{p.titulo}" required="true"
+										requiredMessage="Informe o título da pontuação!" class="form-control">
+										<f:passThroughAttribute name="placeholder" value="Título da pontuação" />
+									</h:inputText>
+									<h:message class="erro" for="txtPontuacaoCriterioTitulo" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col-4">
+									<h:outputLabel for="txtPontuacaoCriterioPontos" value="Ponto(s)" />
+									<h:inputText id="txtPontuacaoCriterioPontos" value="#{p.pontos}" class="form-control" 
+									required="true" requiredMessage="Informe o número de pontos dessa pontuação!">
+										<f:passThroughAttribute name="placeholder" value="Número de pontos" />
+									</h:inputText>
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block" class="form-group row">
+
+								<h:panelGroup layout="block" class="col align-self-center">
+								<h:panelGroup layout="block" class="custom-control custom-checkbox">
+									<h:selectBooleanCheckbox
+										id="btPontuacaoCriterioDesclassificavel"
+										value="#{p.desclassificavel}" class="custom-control-input" />
+									<h:outputLabel class="custom-control-label"
+										for="btPontuacaoCriterioDesclassificavel">Desclassificação automática</h:outputLabel>
+								</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</ui:repeat>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" id="subcriterios">
+					<ui:repeat value="#{criterioAvaliacaoBean.criterio.subcriterios}"
+						var="s" id="subcriterio">
+
+						<h:panelGroup layout="block"
+							class="justify-content-md-left card p-3 mb-5">
+							<h:inputHidden value="#{s.id}" id="subcriterioId" />
+							<h:panelGroup layout="block" class="form-group row">
+
+								<h:panelGroup layout="block" class="col-sm-1">
+									<h:outputLabel value="Código" for="txtCodigoSubcriterio" />
+									<h:inputText id="txtCodigoSubcriterio"
+										value="#{criterioAvaliacaoBean.criterio.numero}.#{s.letra}"
+										class="form-control numeric" readonly="true" />
+								</h:panelGroup>
+
+								<h:panelGroup layout="block" class="col">
+									<h:outputLabel value="Nome do subcritério"
+										for="txtNomeSubcriterio" />
+									<h:inputText id="txtNomeSubcriterio" value="#{s.titulo}"
+										class="form-control alpha" required="true"
+										requiredMessage="Informe o nome do subcritério!">
+										<f:passThroughAttribute name="placeholder"
+											value="Nome do subcritério" />
+									</h:inputText>
+									<h:message for="txtNomeSubcriterio" styleClass="erro" />
+								</h:panelGroup>
+
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block" class="col-sm-4">
+									<h:outputLabel value="Tipos de propostas" />
+								</h:panelGroup>
+								<h:panelGroup layout="block"
+									class="col custom-control custom-checkbox">
+									<h:selectManyCheckbox value="#{s.tiposProposta}">
+										<f:selectItems
+											value="#{criterioAvaliacaoBean.tiposPropostasSelecionadosValue}"
+											var="tp" itemLabel="#{tp.nome}" itemValue="#{tp.id}" />
+									</h:selectManyCheckbox>
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block"
+									class="col align-self-end text-right"
+									id="btNovaPontuacaoSubcriterio">
+									<h:commandButton class="btn btn-primary" immediate="true"
+										action="#{criterioAvaliacaoBean.addPontuacaoSubcriterio}"
+										value="Nova pontuação">
+										<f:setPropertyActionListener
+											target="#{criterioAvaliacaoBean.numeroSubcriterioNovaPontuacao}"
+											value="#{s.numero}" />
+									</h:commandButton>
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<ui:repeat value="#{s.pontuacoes}" var="ps"
+								id="pontuacaoSubcriterio">
+								<h:panelGroup layout="block" class="form-group row">
+									<h:panelGroup layout="block" class="col mb-3">
+										<h:outputLabel for="txtPontuacaoSubcriterioTitulo"
+											value="Título da pontuação" />
+										<h:inputText id="txtPontuacaoSubcriterioTitulo"
+											value="#{p.titulo}" required="true"
+											requiredMessage="Informe o título da pontuação!"
+											class="form-control">
+											<f:passThroughAttribute name="placeholder"
+												value="Título da pontuação" />
+										</h:inputText>
+										<h:message class="erro" for="txtPontuacaoSubcriterioTitulo" />
+									</h:panelGroup>
+									<h:panelGroup layout="block" class="col-md-4">
+										<h:outputLabel for="txtPontuacaoSubcriterioPontos"
+											value="Ponto(s)" />
+										<h:inputText id="txtPontuacaoSubcriterioPontos"
+											value="#{ps.pontos}" class="form-control" required="true"
+											requiredMessage="Informe o número de pontos dessa pontuação!">
+											<f:passThroughAttribute name="placeholder"
+												value="Número de pontos" />
+										</h:inputText>
+									</h:panelGroup>
+								</h:panelGroup>
+							</ui:repeat>
+						</h:panelGroup>
+					</ui:repeat>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:commandButton id="btnCancel" class="btn btn-outline-danger"
+							value="Cancelar" action="#{criterioAvaliacaoBean.index}"
+							immediate="true">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{criterioAvaliacaoBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+			<h:outputScript library="js" name="criterioAvaliacao.js"
+				target="head" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

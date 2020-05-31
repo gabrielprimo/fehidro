@@ -23,7 +23,7 @@ public class Pontuacao extends AbstractEntity {
 	@Column(name = "nr_ponto")
 	private int pontos;
 	
-	@Column(name = "bt_desclassificavel")
+	@Column(name = "ic_desclassificavel")
 	private boolean desclassificavel;
 
 	public Pontuacao() {

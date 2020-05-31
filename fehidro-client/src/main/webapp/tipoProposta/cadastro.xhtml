@@ -8,47 +8,35 @@
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
-			<h:inputHidden value="Usuario" id="menuAtual" />
+			<h:inputHidden value="TipoProposta" id="menuAtual" />
 			<h:form id="formUsuario">
-				<h:inputHidden value="#{instituicaoBean.instituicao.id}"
+				<h:inputHidden value="#{tipoPropostaBean.tipoProposta.id}"
 					id="instituicaoId" />
 
 				<h:panelGroup layout="block" class="form-group row">
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel for="txtNome">Nome</h:outputLabel>
 						<h:inputText id="txtNome"
-							value="#{instituicaoBean.instituicao.nome}" class="form-control"
-							required="true" requiredMessage="Informe o nome da instituição!"
+							value="#{tipoPropostaBean.tipoProposta.nome}" class="form-control"
+							required="true" requiredMessage="Informe o nome do tipo da proposta!"
 							maxlength="200">
 							<f:passThroughAttribute name="placeholder"
-								value="Nome da instituição" />
+								value="Nome do tipo da proposta" />
 						</h:inputText>
 						<h:message for="txtNome" styleClass="erro" />
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup layout="block" class="form-group row">
-					<h:panelGroup layout="block" class="col-6">
-						<h:outputLabel value="Tipo" for="txtTipo" />
-						<h:selectOneMenu id="txtTipo" redisplay="false"
-							value="#{instituicaoBean.instituicao.tipo}" class="form-control"
-							required="true" requiredMessage="Informe o tipo!">
-							<f:selectItems value="#{instituicaoBean.tipos}" />
-						</h:selectOneMenu>
-						<h:message for="txtTipo" styleClass="erro" />
 					</h:panelGroup>
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" class="form-row mt-5">
 					<h:panelGroup layout="block" class="col text-right">
 						<h:commandButton id="btnCancel"
-							class="btn btn-outline-danger" value="Cancelar" action="#{instituicaoBean.index}" immediate="true">
+							class="btn btn-outline-danger" value="Cancelar" action="#{tipoPropostaBean.index}" immediate="true">
 							<h:message for="btnCancel" styleClass="erro" />
 						</h:commandButton>
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
-							value="Salvar" action="#{instituicaoBean.salvar}">
+							value="Salvar" action="#{tipoPropostaBean.salvar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
 					</h:panelGroup>
