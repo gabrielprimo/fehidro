@@ -26,4 +26,8 @@ public class TipoPropostaDAO  extends DAOFactory<TipoProposta> {
 	public List<TipoProposta> listar() {
 		return listarGenerico("TipoProposta.listarTodos");
 	}
+	
+	public List<TipoProposta> obterPorSubcriterio(long idSubcriterio) {
+		return listarGenerico("TipoProposta.obterPorIdSubcriterio", idSubcriterio);
+	}
 }

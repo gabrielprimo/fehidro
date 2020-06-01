@@ -124,10 +124,10 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block"
 									class="col custom-control custom-checkbox">
-									<h:selectManyCheckbox value="#{s.tiposProposta}">
+									<h:selectManyCheckbox value="#{s.tiposProposta}" converter="tipoPropostaConverter" multiple="true">
 										<f:selectItems
 											value="#{criterioAvaliacaoBean.tiposPropostasSelecionadosValue}"
-											var="tp" itemLabel="#{tp.nome}" itemValue="#{tp.id}" />
+											var="tp" itemLabel="#{tp.nome}" itemValue="#{tp}" />
 									</h:selectManyCheckbox>
 								</h:panelGroup>
 							</h:panelGroup>
@@ -153,7 +153,7 @@
 										<h:outputLabel for="txtPontuacaoSubcriterioTitulo"
 											value="Título da pontuação" />
 										<h:inputText id="txtPontuacaoSubcriterioTitulo"
-											value="#{p.titulo}" required="true"
+											value="#{ps.titulo}" required="true"
 											requiredMessage="Informe o título da pontuação!"
 											class="form-control">
 											<f:passThroughAttribute name="placeholder"

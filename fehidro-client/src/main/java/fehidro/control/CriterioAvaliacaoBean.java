@@ -100,7 +100,7 @@ public class CriterioAvaliacaoBean implements Serializable {
 		}
 
 		//65 - 90: maiusculo; 97 - 122: minusculo;
-		int qtSubcriterios = subs.size() + 1;
+		int qtSubcriterios = subs.size();
 		int letra = qtSubcriterios + 97;
 
 		if (qtSubcriterios > 122) {
@@ -109,7 +109,7 @@ public class CriterioAvaliacaoBean implements Serializable {
 
 		SubcriterioAvaliacao novoSubcriterio = new SubcriterioAvaliacao();
 		novoSubcriterio.setLetra((char)letra);
-		novoSubcriterio.setNumero(qtSubcriterios);
+		novoSubcriterio.setNumero(qtSubcriterios + 1);
 		novoSubcriterio.setPontuacoes(new ArrayList<Pontuacao>());
 		novoSubcriterio.setTiposProposta(new ArrayList<TipoProposta>());
 
@@ -137,7 +137,7 @@ public class CriterioAvaliacaoBean implements Serializable {
 		this.setCriterios(this.restCriterio.findAll());
 		this.setTiposProposta();
 	}
-
+	
 	public Long getIdCriterioAvaliacao() {
 		return idCriterioAvaliacao;
 	}
