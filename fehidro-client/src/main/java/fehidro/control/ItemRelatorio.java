@@ -16,16 +16,22 @@ public class ItemRelatorio {
 	
 	public void addAvaliacao(Avaliacao a)
 	{
-		avaliacoes.add(a);
+		this.avaliacoes.add(a);
+		soma(this.avaliacoes);
 	}
 	
 	public ItemRelatorio(List<Avaliacao> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 		this.proposta = avaliacoes.get(0).getProposta();
+		soma(avaliacoes);
+	}
+	
+	public void soma(List<Avaliacao> avaliacoes)
+	{
 		int s = 0;
 		for(int i=0;i<avaliacoes.size();i++)
 		{
-			s += avaliacoes.get(i).getNota();
+			s += avaliacoes.get(i).getNota().getPontos();
 		}
 		this.soma = s;
 	}

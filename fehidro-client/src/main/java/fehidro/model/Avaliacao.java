@@ -1,8 +1,9 @@
 package fehidro.model;
 
-//TODO: VERIFICAR
 public class Avaliacao {
 	 	
+		private Long id;
+	
 		private Pontuacao nota;
 		
 	    private Usuario avaliador;
@@ -17,16 +18,28 @@ public class Avaliacao {
 	    
 	    private PDC pdc;
 
-		public int getNota() {
-			return nota.getPontos();
+	    
+	    
+	    
+	    public Long getId()
+	    {
+	    	return id;
+	    }
+	    
+	    
+	    
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+
+
+		public Pontuacao getNota() {
+			return nota;
 		}
 		
 		public Pontuacao getNotaAsPontuacao() {
 			return nota;
-		}
-
-		public void setNota(int nota) {
-			this.nota.setPontos(nota);
 		}
 		
 		public void setNota(Pontuacao nota) {

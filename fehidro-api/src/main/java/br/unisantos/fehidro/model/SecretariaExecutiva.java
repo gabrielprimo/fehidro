@@ -16,7 +16,6 @@ public class SecretariaExecutiva extends Usuario {
 
 	public SecretariaExecutiva() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isAdministrador() {

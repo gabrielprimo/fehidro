@@ -28,7 +28,6 @@ public class Pontuacao extends AbstractEntity {
 
 	public Pontuacao() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getTitulo() {

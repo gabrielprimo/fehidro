@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.unisantos.fehidro.model.Usuario;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)//TODO: REMOVER
+@JsonIgnoreProperties //TODO: REMOVER
 public class CTPG extends Usuario {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,7 +34,6 @@ public class CTPG extends Usuario {
 
 	public CTPG() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

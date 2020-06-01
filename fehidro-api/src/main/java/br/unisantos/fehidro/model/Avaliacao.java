@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "tb_avaliacao")
 @Entity
 @NamedQueries({ 
-	@NamedQuery(name = "Avaliacao.listarTodos", query = "select a from Avaliacao a order by a.id"),
+	@NamedQuery(name = "Avaliacao.listarTodos", query = "select a from Avaliacao a"),
 	@NamedQuery(name = "Avaliacao.listarPDC", query = "select a from Avaliacao a where a.pdc = ?1"),
 	@NamedQuery(name = "Avaliacao.listarSubPDC", query = "select a from Avaliacao a where a.subpdc = ?1"),
 	@NamedQuery(name = "Avaliacao.listarAvaliador", query = "select a from Avaliacao a where a.avaliador = ?1"),

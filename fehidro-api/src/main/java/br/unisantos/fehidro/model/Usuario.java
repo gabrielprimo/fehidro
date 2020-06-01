@@ -69,7 +69,6 @@ public class Usuario extends AbstractEntity {
 	}
 
 	public void setCPF(String cpf) {
-		// TODO
 		CPF = cpf;
 	}
 

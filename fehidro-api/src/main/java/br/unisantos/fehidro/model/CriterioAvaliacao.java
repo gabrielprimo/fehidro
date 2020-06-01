@@ -39,7 +39,6 @@ public class CriterioAvaliacao extends AbstractEntity {
 
 	public CriterioAvaliacao() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getTitulo() {
