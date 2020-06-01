@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Table(name = "tb_criterioavaliacao")
 @Entity
 @NamedQueries({
@@ -19,6 +21,15 @@ import javax.persistence.Table;
 	
 	@NamedQuery(name = "CriterioAvaliacao.consultarPorId",
     			query = "select c from CriterioAvaliacao c where c.id=?1"),
+	
+	@NamedQuery(name = "CriterioAvaliacao.obterSubcriterios", 
+	query = "select s from CriterioAvaliacao c join c.subcriterios s join fetch s.pontuacoes p where c.id=?1"),
+	
+	@NamedQuery(name = "CriterioAvaliacao.obterPontuacoesPorCriterio", 
+				query = "select p from CriterioAvaliacao c join c.pontuacoes p where c.id =?1"),
+	
+//	@NamedQuery(name = "CriterioAvaliacao.obterTiposPropostaPorIdSubcriterio",
+//	query = "select tp from CriterioAvaliacao c join c.subcriterios s join fetch s.tiposProposta tp where s.id=?1"),
 })
 public class CriterioAvaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -28,12 +39,14 @@ public class CriterioAvaliacao extends AbstractEntity {
 	@Column(name = "nr_criterio")
 	private Integer numero;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "criterioavaliacao_id")
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "fk_criterioavaliacao_id")
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Pontuacao> pontuacoes;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "criterioavaliacao_id")
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "fk_criterioavaliacao_id")
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<SubcriterioAvaliacao> subcriterios;
 
 	public CriterioAvaliacao() {

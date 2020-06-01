@@ -2,6 +2,8 @@ package br.unisantos.fehidro.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -10,10 +12,9 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Pontuacao.consultarPorId",
-			query = "select p from Pontuacao p where p.id=?1"),
+				query = "select p from Pontuacao p where p.id=?1"),
 	@NamedQuery(name = "Pontuacao.listarTodos",
-	query = "select p from Pontuacao p"),
-	
+				query = "select p from Pontuacao p"),
 })
 public class Pontuacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
