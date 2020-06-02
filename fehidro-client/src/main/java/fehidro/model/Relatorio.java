@@ -30,6 +30,7 @@ public class Relatorio  {
 		{
 			avaliacaoAtual = avaliacoes.get(i);
 			idPropostaAtual = avaliacaoAtual.getProposta().getId();
+			System.out.println("> id proposta atual = "+idPropostaAtual.toString());
 			if(this.itensRelatorio.get(idPropostaAtual) == null)
 			{
 				this.itensRelatorio.put(idPropostaAtual, new ItemRelatorio() );

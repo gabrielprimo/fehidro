@@ -33,13 +33,13 @@ public class CriterioAvaliacao extends AbstractEntity {
 	private int pontuacao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pontuacao_id")
+	@JoinColumn(name = "pontuacao_criterio_id")
 	@JsonProperty
 	@JsonIgnore
 	private List<Pontuacao> pontuacoes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subcriterio_id")
+	@JoinColumn(name = "subcriterio_criterio_id")
 	@JsonProperty
 	@JsonIgnore
 	private List<SubcriterioAvaliacao> subCriterio;

@@ -30,7 +30,7 @@ public class PDC extends AbstractEntity {
 	private String titulo;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subpdc_id")
+	@JoinColumn(name = "subpdc_pdc_id")
 	@JsonProperty
 	@JsonIgnore
 	private List<SubPDC> cronogramas = new ArrayList<SubPDC>();

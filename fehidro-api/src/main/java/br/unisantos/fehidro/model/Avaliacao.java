@@ -29,31 +29,31 @@ public class Avaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "nota_id")
+    @JoinColumn(name = "nota_avaliacao_id")
     private Pontuacao nota;
 	
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_avaliacao_id")
     private Usuario avaliador;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "proposta_id")
+    @JoinColumn(name = "proposta_avaliacao_id")
     private Proposta proposta;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "subcriterio_id")
+    @JoinColumn(name = "subcriterio_avaliacao_id")
     private SubcriterioAvaliacao subcriterio;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "criterio_id")
+    @JoinColumn(name = "criterio_avaliacao_id")
     private CriterioAvaliacao criterio;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "subPDC_id")
+    @JoinColumn(name = "subPDC_avaliacao_id")
     private SubPDC subpdc;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "pdc_id")
+    @JoinColumn(name = "pdc_avaliacao_id")
     private PDC pdc;
     
     

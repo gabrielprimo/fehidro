@@ -30,7 +30,7 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	private String titulo;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pontuacao_id")
+	@JoinColumn(name = "pontuacao_subcriterio_id")
 	@JsonProperty
 	@JsonIgnore
 	private List<Pontuacao> pontuacoes = new ArrayList<>();

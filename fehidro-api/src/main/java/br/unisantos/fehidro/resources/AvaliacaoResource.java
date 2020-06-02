@@ -60,7 +60,7 @@ public class AvaliacaoResource {
 
 	@PUT
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Avaliacao avaliacao) {	
 		AvaliacaoDAO dao = new AvaliacaoDAO();
 		dao.atualizar(avaliacao);

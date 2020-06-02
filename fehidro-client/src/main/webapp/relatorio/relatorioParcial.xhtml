@@ -15,18 +15,30 @@
 					<f:facet name="header">Título</f:facet>
 					<h:outputText value="#{r.proposta.titulo}" />
 				</h:column>
-				
 				<h:column>
-				<h:dataTable value="r.avaliacoes" var="v" id="tabelaAvaliacoes" styleClass="table">
+					<f:facet name="header">SubPDC</f:facet>
+					<h:outputText value="#{r.subPDC.titulo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nota</f:facet>
+					<h:outputText value="#{r.soma}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{r.proposta.valor}" />
+				</h:column>
+				
+			</h:dataTable>
+			
+			
+<!-- 			<h:column> -->
+				<h:dataTable value="relatorioParcial.relatorio.itensRelatorio.avaliacoes" var="v" id="tabelaAvaliacoes" styleClass="table">
 					<h:column>
 					<f:facet name="header">Avaliacao</f:facet>
 					<h:outputText value="#{v.nota.pontos}" />
 					</h:column>
 				</h:dataTable>
-				</h:column>
-				
-				
-			</h:dataTable>
+<!-- 				</h:column> -->
 			
 		</ui:define>
 	</ui:composition>

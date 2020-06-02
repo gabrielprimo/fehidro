@@ -29,7 +29,7 @@ public class Deliberacao extends AbstractEntity {
 	private Integer numero;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "deliberacao_id")
+	@JoinColumn(name = "etapa_deliberacao_id")
 	private List<Etapa> etapas = new ArrayList<Etapa>();
 
 	
