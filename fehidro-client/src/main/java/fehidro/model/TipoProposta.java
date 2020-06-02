@@ -4,7 +4,6 @@ public class TipoProposta {
 	private Long id;
 	private String nome;
 	
-	
 	public Long getId() {
 		return id;
 	}
