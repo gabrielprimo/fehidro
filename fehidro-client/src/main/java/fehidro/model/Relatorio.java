@@ -14,7 +14,7 @@ public class Relatorio  {
 	
 	public Relatorio()
 	{
-		
+		itensRelatorio = new HashMap<Long, ItemRelatorio>();
 	}
 	
 	public Relatorio(List<Avaliacao> avaliacoes)
@@ -32,8 +32,11 @@ public class Relatorio  {
 			idPropostaAtual = avaliacaoAtual.getProposta().getId();
 			if(this.itensRelatorio.get(idPropostaAtual) == null)
 			{
-				this.itensRelatorio.put(new Long(i), new ItemRelatorio() );
+				this.itensRelatorio.put(idPropostaAtual, new ItemRelatorio() );
 			}
+			
+			System.out.println("TEST1 - "+idPropostaAtual);
+			System.out.println("TEST2 - "+avaliacaoAtual.toString());
 			
 			this.itensRelatorio.get(idPropostaAtual).addAvaliacao(avaliacaoAtual);
 		}

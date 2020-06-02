@@ -19,12 +19,12 @@ public class PDCDAO extends DAOFactory<PDC>{
 		alterar(pdc);
 	}
 	
-//	public Instituicao obter(long id) {
-//		return consultarGenerico("PDC.consultarPorId", id);
-//	}
-//		
+	public PDC obter(long id) {
+		return consultarGenerico("PDC.consultarPorId", id);
+	}
+		
 	public List<PDC> listar() {
-		return listarGenerico("PDC.listarTodas");
+		return listarGenerico("PDC.listarTodos");
 	}
 	
 }

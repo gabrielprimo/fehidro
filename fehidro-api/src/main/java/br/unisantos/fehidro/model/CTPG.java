@@ -5,12 +5,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import br.unisantos.fehidro.model.Usuario;
 
 @Entity
-@JsonIgnoreProperties //TODO: REMOVER
 public class CTPG extends Usuario {
 	private static final long serialVersionUID = 1L;
 	

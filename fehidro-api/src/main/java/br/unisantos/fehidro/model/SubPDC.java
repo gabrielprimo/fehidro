@@ -6,11 +6,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Table(name = "tb_subpdc")
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)//TODO: REMOVER
 @NamedQueries({ @NamedQuery(name = "SubPDC.listarTodos", query = "select p from SubPDC p order by p.titulo")
 })
 public class SubPDC extends AbstractEntity {

@@ -12,12 +12,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Table(name = "tb_pdc")
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)//TODO: REMOVER
-@NamedQueries({ @NamedQuery(name = "PDC.listarTodos", query = "select p from PDC p order by p.titulo")
+@NamedQueries({ @NamedQuery(name = "PDC.listarTodos", query = "select p from PDC p order by p.titulo"),
+                @NamedQuery(name = "PDC.consultarPorId", query = "select p from PDC p where p.id = ?1")
 })
 public class PDC extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +31,8 @@ public class PDC extends AbstractEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "subpdc_id")
+	@JsonProperty
+	@JsonIgnore
 	private List<SubPDC> cronogramas = new ArrayList<SubPDC>();
 
 	public int getCodigo() {
@@ -48,6 +51,7 @@ public class PDC extends AbstractEntity {
 		this.titulo = titulo;
 	}
 
+	@JsonIgnore
 	public List<SubPDC> getCronogramas() {
 		return cronogramas;
 	}

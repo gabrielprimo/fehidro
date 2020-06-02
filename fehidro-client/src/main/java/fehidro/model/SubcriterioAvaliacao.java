@@ -1,15 +1,13 @@
 package fehidro.model;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class SubcriterioAvaliacao {
 	
 	private Long id;
 	private String titulo;
 	
-	private List<Pontuacao> pontuacoes = new ArrayList<>();
+	private List<Pontuacao> pontuacoes;
 
 	public Long getId() {
 		return id;
@@ -34,7 +32,6 @@ public class SubcriterioAvaliacao {
 	public void setPontuacoes(List<Pontuacao> pontuacoes) {
 		this.pontuacoes = pontuacoes;
 	}
-	
-	
+
 	
 }

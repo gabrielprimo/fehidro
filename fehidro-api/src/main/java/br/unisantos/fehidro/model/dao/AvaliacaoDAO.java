@@ -26,7 +26,7 @@ public class AvaliacaoDAO extends DAOFactory<Avaliacao> {
 	}
 
 	public Avaliacao obter(long id) {
-		return consultar(id);
+		return consultarGenerico("Avaliacao.consultarPorId");
 	}
 
 	//Listar todos

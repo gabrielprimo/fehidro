@@ -2,12 +2,10 @@ package br.unisantos.fehidro.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
 @DiscriminatorValue("Secretaria Executiva")
-@JsonIgnoreProperties(ignoreUnknown = true)//TODO: REMOVER
 public class SecretariaExecutiva extends Usuario {
 	private static final long serialVersionUID = 1L;
 	

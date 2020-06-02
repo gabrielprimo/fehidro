@@ -19,6 +19,8 @@ public class RelatorioParcialBean implements Serializable {
 	private Relatorio relatorio;
 	private AvaliacaoRESTClient rest;
 	
+	
+	
 	public Relatorio getRelatorio() {
 		return relatorio;
 	}
@@ -28,18 +30,16 @@ public class RelatorioParcialBean implements Serializable {
 	}
 
 	public RelatorioParcialBean() {
+		relatorio = new Relatorio();
 		rest  = new AvaliacaoRESTClient();
 		System.out.println("===========Metodo gerar - R Parcial===============");
 		List<Avaliacao> avaliacoes = rest.findAll();//FIXME: Substituir por metodo mais apropriado + considerar data
-		System.out.println("TESTE!!!!!!!!!!!!!!!!!!!");
-		if(avaliacoes == null)//TODO: Remover, Mensagem de teste
+		if(avaliacoes == null)
 		{
-			System.out.println(">>>>>>>>>Avaliacoes eh null");
-		}else {
-			System.out.println("TEST");
+			System.out.println("TESTE");
 		}
-		relatorio.setItensRelatorio(avaliacoes);
-		System.out.println("===========FIM Metodo gerar===============");
+		System.out.println("> "+avaliacoes.toString());
+		this.relatorio.setItensRelatorio(avaliacoes);
 	}
 
 	public String getUrl() {

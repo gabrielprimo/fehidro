@@ -1,5 +1,6 @@
 package fehidro.control;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import fehidro.model.Avaliacao;
@@ -12,6 +13,7 @@ public class ItemRelatorio {
 	private List<Avaliacao> avaliacoes;
 	
 	public ItemRelatorio() {
+		avaliacoes = new LinkedList<Avaliacao>();
 	}
 	
 	public void addAvaliacao(Avaliacao a)

@@ -26,15 +26,11 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 	public List<Avaliacao> findAll() {
 		//List<Avaliacao> avaliacoes = ClientBuilder.newClient().target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Avaliacao>> () {});
 
-		Client c = ClientBuilder.newClient();		
+		Client c = ClientBuilder.newClient();
 		WebTarget t = c.target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL);
 		Builder b = t.request(MediaType.APPLICATION_JSON);
-		Response r = b.get(); //r.getLocations() == null ; r.getLinks() == [] ; getStatusInfo = OK ; r.getLenght = -1
-		System.out.println("===5===");
-		System.out.println(">RESPONSE");
-		System.out.println(r.getLength());
-		System.out.println("=======================");
-		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {}); //FIXME
+		Response r = b.get();
+		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {});
 		return out;
 	}
 

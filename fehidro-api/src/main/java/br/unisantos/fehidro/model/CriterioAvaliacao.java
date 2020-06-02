@@ -1,6 +1,6 @@
 package br.unisantos.fehidro.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +11,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Table(name = "tb_criterio_avaliacao")
 @Entity
@@ -30,12 +33,16 @@ public class CriterioAvaliacao extends AbstractEntity {
 	private int pontuacao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "pontuacao_id")
-	private List<Pontuacao> pontuacoes = new ArrayList<Pontuacao>();
+	@JoinColumn(name = "pontuacao_id")
+	@JsonProperty
+	@JsonIgnore
+	private List<Pontuacao> pontuacoes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "subcriterio_id")
-	private List<SubcriterioAvaliacao> subCriterio = new ArrayList<SubcriterioAvaliacao>();
+	@JsonProperty
+	@JsonIgnore
+	private List<SubcriterioAvaliacao> subCriterio;
 
 	public CriterioAvaliacao() {
 		super();
@@ -56,7 +63,8 @@ public class CriterioAvaliacao extends AbstractEntity {
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
 	}
-
+	
+	@JsonIgnore
 	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
@@ -69,6 +77,7 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.pontuacoes.add(pontuacao);
 	}
 
+	@JsonIgnore
 	public List<SubcriterioAvaliacao> getSubCriterio() {
 		return subCriterio;
 	}

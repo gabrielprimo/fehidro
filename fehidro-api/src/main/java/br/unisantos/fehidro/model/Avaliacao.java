@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "Avaliacao.listarTodos", query = "select a from Avaliacao a"),
+	@NamedQuery(name = "Avaliacao.consultarPorId", query = "select a from Avaliacao a where a.id = ?1"),
 	@NamedQuery(name = "Avaliacao.listarPDC", query = "select a from Avaliacao a where a.pdc = ?1"),
 	@NamedQuery(name = "Avaliacao.listarSubPDC", query = "select a from Avaliacao a where a.subpdc = ?1"),
 	@NamedQuery(name = "Avaliacao.listarAvaliador", query = "select a from Avaliacao a where a.avaliador = ?1"),
@@ -58,23 +59,19 @@ public class Avaliacao extends AbstractEntity {
     
 	public Avaliacao() {
 		
-	}
-
+	}	
 
 	public Pontuacao getNota() {
 		return nota;
 	}
 
-
 	public void setNota(Pontuacao nota) {
 		this.nota = nota;
 	}
 
-
 	public Usuario getAvaliador() {
 		return avaliador;
 	}
-
 
 	public void setAvaliador(Usuario avaliador) {
 		this.avaliador = avaliador;
