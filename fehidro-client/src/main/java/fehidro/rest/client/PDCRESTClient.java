@@ -8,64 +8,64 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import fehidro.model.CTPG;
+import fehidro.model.PDC;
 
-public class CTPGRESTClient implements RESTClientInterface<CTPG>{
+public class PDCRESTClient implements RESTClientInterface<PDC>{
 
 	@Override
-	public List<CTPG> findAll() {
-		List<CTPG> usuarios = 
+	public List<PDC> findAll() {
+		List<PDC> pdcs = 
 				ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CTPG_URL).
+				target(REST_WEBSERVICE_URL + REST_PDC_URL).
 				request(MediaType.APPLICATION_JSON).get().
-				readEntity(new GenericType<List<CTPG>> () {});
+				readEntity(new GenericType<List<PDC>> () {});
 		
-		return usuarios;
+		return pdcs;
 	}
 
 	@Override
-	public CTPG find(Long id) {
-		CTPG usuario = 
+	public PDC find(Long id) {
+		PDC pdc = 
 				ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CTPG_URL + id).
+				target(REST_WEBSERVICE_URL + REST_PDC_URL + id).
 				request(MediaType.APPLICATION_JSON).get()
-				.readEntity(CTPG.class);
+				.readEntity(PDC.class);
 		
-		return usuario;
+		return pdc;
 	}
 
 	@Override
-	public CTPG create(CTPG obj) {
-		CTPG usuario = ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CTPG_URL).
-				queryParam("usuario", obj).
+	public PDC create(PDC obj) {
+		PDC pdc = 
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_PDC_URL).
+				queryParam("pdc", obj).
 				request(MediaType.APPLICATION_JSON).
 				post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
-				readEntity(CTPG.class);	
+				readEntity(PDC.class);	
 		
-		return usuario;
+		return pdc;
 	}
 
 	@Override
-	public CTPG edit(CTPG obj) {
-		CTPG usuario = 			
+	public PDC edit(PDC obj) {
+		PDC pdc = 			
 				ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CTPG_URL).
-				queryParam("usuario", obj).
+				target(REST_WEBSERVICE_URL + REST_PDC_URL).
+				queryParam("pdc", obj).
 				request(MediaType.APPLICATION_JSON).
 				put(Entity.entity(obj, MediaType.APPLICATION_JSON)).
-				readEntity(CTPG.class);	
+				readEntity(PDC.class);	
 		
-		return usuario;
+		return pdc;
 	}
 
 	@Override
 	public boolean delete(Long id) {
 		return 	ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CTPG_URL + id).
+				target(REST_WEBSERVICE_URL + REST_PDC_URL + id).
 				request(MediaType.APPLICATION_JSON).
 				delete().getStatus() 
 				== Response.Status.OK.getStatusCode();
 	}
-
 }

@@ -10,10 +10,9 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Pontuacao.consultarPorId",
-			query = "select p from Pontuacao p where p.id=?1"),
+				query = "select p from Pontuacao p where p.id=?1"),
 	@NamedQuery(name = "Pontuacao.listarTodos",
-	query = "select p from Pontuacao p"),
-	
+				query = "select p from Pontuacao p"),
 })
 public class Pontuacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +22,7 @@ public class Pontuacao extends AbstractEntity {
 	@Column(name = "nr_ponto")
 	private int pontos;
 	
-	@Column(name = "bt_desclassificavel")
+	@Column(name = "ic_desclassificavel")
 	private boolean desclassificavel;
 
 	public Pontuacao() {
