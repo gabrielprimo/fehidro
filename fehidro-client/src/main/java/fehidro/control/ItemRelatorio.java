@@ -15,7 +15,6 @@ public class ItemRelatorio {
 	private List<Avaliacao> avaliacoes;
 	
 	public ItemRelatorio() {
-		System.out.println("Construtor item relatorio");
 		avaliacoes = new LinkedList<Avaliacao>();
 	}
 	
@@ -57,8 +56,6 @@ public class ItemRelatorio {
 		return soma;
 	}
 	
-	
-
 	public SubPDC getSubPDC() {
 		return subPDC;
 	}

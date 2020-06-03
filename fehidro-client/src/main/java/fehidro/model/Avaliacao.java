@@ -3,42 +3,24 @@ package fehidro.model;
 public class Avaliacao {
 	 	
 		private Long id;
-	
 		private Pontuacao nota;
-		
 	    private Usuario avaliador;
-	    
 	    private Proposta proposta;
-	    
 	    private SubcriterioAvaliacao subcriterio;
-	    
 	    private CriterioAvaliacao criterio;
-	    
 	    private SubPDC subpdc;
-	    
 	    private PDC pdc;
-
-	    
-	    
 	    
 	    public Long getId()
 	    {
 	    	return id;
 	    }
 	    
-	    
-	    
 		public void setId(Long id) {
 			this.id = id;
 		}
 
-
-
 		public Pontuacao getNota() {
-			return nota;
-		}
-		
-		public Pontuacao getNotaAsPontuacao() {
 			return nota;
 		}
 		
