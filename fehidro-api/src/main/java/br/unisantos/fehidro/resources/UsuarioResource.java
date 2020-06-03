@@ -7,6 +7,7 @@ import javax.ws.rs.core.*;
 
 import br.unisantos.fehidro.model.dao.UsuarioDAO;
 import br.unisantos.fehidro.model.Usuario;
+import br.unisantos.fehidro.util.email.EmailUtil;
 
 
 @Path("/usuario")
@@ -80,6 +81,7 @@ public class UsuarioResource {
 		usuario.setLogin();
 		usuario.setSenha();
 		usuario.setAtivo();
+		EmailUtil.sendMail(usuario);
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	}
