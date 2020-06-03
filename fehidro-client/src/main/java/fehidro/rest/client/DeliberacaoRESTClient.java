@@ -7,7 +7,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
-import fehidro.model.CTPG;
 import fehidro.model.Deliberacao;
 
 public class DeliberacaoRESTClient implements RESTClientInterface<Deliberacao>{

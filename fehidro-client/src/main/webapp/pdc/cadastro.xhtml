@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="PDC" id="menuAtual" />
+			<h:form id="formPDC">
+				<h:inputHidden value="#{pDCBean.PDC.id}"
+					id="pdcId" />
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtTituloPDC">Título do PDC</h:outputLabel>
+						<h:inputText id="txtTituloPDC" value="#{pDCBean.PDC.titulo}" class="form-control" 
+							required="true" requiredMessage="Informe o título do PDC!" maxlength="30">
+							<f:passThroughAttribute name="placeholder" value="Título do PDC" />
+						</h:inputText>
+						<h:message for="txtTituloPDC" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:commandButton id="btnNovoSubPDC" immediate="true" class="btn btn-outline-primary" value="Novo subPDC"
+							action="#{pDCBean.addSubPDC}">
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" id="subPDCs">
+					<ui:repeat value="#{pDCBean.PDC.subPDCs}"
+						var="s" id="subpdc">
+						<h:panelGroup layout="block"
+							class="justify-content-md-left card p-3 mb-3">
+							<h:inputHidden value="#{s.id}" id="subpdcId" />
+							<h:panelGroup layout="block" class="form-group row">
+								<h:panelGroup layout="block" class="col-2">
+									<h:outputLabel for="txtNumeroSubPDC" value="Nº subPDC" />
+									<h:inputText id="txtNumeroSubPDC" value="#{s.numero}" class="form-control" 
+										required="true" requiredMessage="Informe o número do subPDC!">
+										<f:passThroughAttribute name="placeholder" value="Número do subPDC" />
+									</h:inputText>
+									<h:message class="erro" for="txtNumeroSubPDC" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" class="col">
+									<h:outputLabel for="txtTituloSubPDC" value="Título do SubPDC" />
+									<h:inputText id="txtTituloSubPDC" value="#{s.titulo}" required="true"
+										requiredMessage="Informe o título do subPDC!" class="form-control">
+										<f:passThroughAttribute name="placeholder" value="Título do SubPDC" />
+									</h:inputText>
+									<h:message class="erro" for="txtTituloSubPDC" />
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</ui:repeat>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-row mt-5">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:commandButton id="btnCancel"
+							class="btn btn-outline-danger" value="Cancelar" action="#{pDCBean.index}" immediate="true">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{pDCBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
