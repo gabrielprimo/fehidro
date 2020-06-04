@@ -7,6 +7,8 @@ import java.util.Random;
 
 import javax.persistence.*;
 
+import br.unisantos.fehidro.util.password.Password;
+
 @Table(name = "tb_usuario")
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -109,50 +111,10 @@ public class Usuario extends AbstractEntity {
 		return senha;
 	}
 
-	public void setSenha() throws Exception {
-		Random rnd = new Random();
-		String chars  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		String senha = "";
-		String senhaHash = "";
-		
-		for(int i = 0; i < 6; i++) 
-		{
-			if (i % 2 == 0) 
-			{
-				senha += chars.charAt(rnd.nextInt(chars.length()));
-			}
-			else 
-			{
-				senha += Integer.toString(rnd.nextInt(10));
-			}
-		}
-		  
-		try 
-		{
-			MessageDigest algorithm;
-			algorithm = MessageDigest.getInstance("SHA-256");
-			byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
-			StringBuilder strSenha = new StringBuilder();
-		
-			for (byte b : messageDigest) {
-				strSenha.append(String.format("%02X", 0xFF & b));
-			}
-			
-			senhaHash = strSenha.toString();
-		
-		} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-		//this.senha = senhaHash;
-		this.senha = senha;
-	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	
 	public boolean isAtivo() {
 		return ativo;
 	}
