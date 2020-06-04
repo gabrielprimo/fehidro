@@ -13,12 +13,28 @@
 				<h:panelGroup layout="block" class="form-row">
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel value="Proposta" id="txtProposta" />
-						<h:selectOneMenu id="cmbProposta" value="#{propostaBean.proposta}">
-						<f:selectItems value="#{propostaBean.propostas}" var="o" itemLabel="#{o.titulo}" itemValue="#{o}"/>
+						<h:selectOneMenu id="cmbProposta" value="#{avaliacaoBean.proposta}">
+						<f:selectItems value="#{avaliacaoBean.propostas}" var="p" itemLabel="#{p.titulo}" itemValue="#{p}"/>
 						</h:selectOneMenu>
-
 					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Subcriterio" id="txtSubcriterio" />
+						<h:selectOneMenu id="cmbSubcriterio" value="#{avaliacaoBean.subcriterio}">
+						<f:selectItems value="#{avaliacaoBean.subcriterios}" var="s" itemLabel="#{s.titulo}" itemValue="#{s}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Pontuação" id="txtPontuacao" />
+						<h:selectOneMenu id="cmbAvaliacao" value="#{avaliacaoBean.pontuacao}">
+						<f:selectItems value="#{avaliacaoBean.pontuacoesSubcriterio}" var="o" itemLabel="#{o.titulo}" itemValue="#{o}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
 				</h:panelGroup>
+
+				
 
 				<hr />
 				
@@ -31,7 +47,7 @@
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
-							value="Salvar" action="#{propostaBean.salvar}">
+							value="Salvar" action="#{avaliacaoBean.salvar}">
 							<h:message for="btnCadastrar" styleClass="erro" />
 						</h:commandButton>
 					</h:panelGroup>

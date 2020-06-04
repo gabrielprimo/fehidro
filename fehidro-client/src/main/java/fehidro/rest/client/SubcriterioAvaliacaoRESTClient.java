@@ -1,102 +1,72 @@
-//package fehidro.rest.client;
-//
-//import java.util.List;
-//
-//import javax.ws.rs.client.*;
-//import javax.ws.rs.core.GenericType;
-//import javax.ws.rs.core.MediaType;
-//import javax.ws.rs.core.Response;
-//
-////import fehidro.model.CTPG;
-//import fehidro.model.SubcriterioAvaliacao;
-//import fehidro.rest.client.RESTClientInterface;
-//
-//public class SubcriterioAvaliacaoRESTClient implements RESTClientInterface<Usuario>{
-//
-//	@Override
-//	public List<Usuario> findAll() {
-//		List<Usuario> usuarios = 	
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
-//				request(MediaType.APPLICATION_JSON).get().
-//				readEntity(new GenericType<List<Usuario>> () {});
-//		
-//		return usuarios;
-//	}
-//
-//	@Override
-//	public Usuario find(Long id) {
-//		Usuario usuario = ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
-//				request(MediaType.APPLICATION_JSON).get()
-//				.readEntity(Usuario.class);
-//		
-//		return usuario;
-//	}
-//
-//	public Usuario obterPorCPF(String CPF) {
-//		Usuario usuario = 
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorCPF/" + CPF).
-//				request(MediaType.APPLICATION_JSON).get().
-//				readEntity(Usuario.class);
-//		
-//		return usuario;
-//	}
-//
-//	public List<Usuario> obterPorPerfilAcesso(Long perfilacesso) {
-//		List<Usuario> usuarios = 
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorPerfilAcesso/" +perfilacesso).
-//				request(MediaType.APPLICATION_JSON).get().
-//				readEntity(new GenericType<List<Usuario>> () {});
-//		
-//		return usuarios;
-//	}
-//
-//	public Usuario obterPorLogin(String login) {
-//		Usuario usuario = 	
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + "obterPorLogin/" + login).
-//				request(MediaType.APPLICATION_JSON).get().
-//				readEntity(Usuario.class);
-//		
-//		return usuario;
-//	}
-//
-//	@Override
-//	public Usuario create(Usuario obj) {
-//		Usuario usuario = 			
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
-//				queryParam("usuario", obj).
-//				request(MediaType.APPLICATION_JSON).
-//				post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
-//				readEntity(Usuario.class);
-//		
-//		return usuario;
-//	}
-//
-//	@Override
-//	public Usuario edit(Usuario obj) {
-//		Usuario usuario = 
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL).
-//				queryParam("usuario", obj).
-//				request(MediaType.APPLICATION_JSON).
-//				put(Entity.entity(obj, MediaType.APPLICATION_JSON)).
-//				readEntity(Usuario.class);
-//		
-//		return usuario;
-//	}
-//
-//	@Override
-//	public boolean delete(Long id) {
-//		return 	ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_USUARIO_URL + id).
-//				request(MediaType.APPLICATION_JSON).
-//				delete().getStatus() 
-//				== Response.Status.OK.getStatusCode();
-//	}
-//
-//}
+//TODO: implementar
+
+package fehidro.rest.client;
+
+import java.util.List;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import fehidro.model.SubcriterioAvaliacao;
+
+public class SubcriterioAvaliacaoRESTClient implements RESTClientInterface<SubcriterioAvaliacao> {
+	
+	public List<SubcriterioAvaliacao> findAll(){
+		List<SubcriterioAvaliacao> subcriterioAvaliacaos = 	
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL).
+				request(MediaType.APPLICATION_JSON).get().
+				readEntity(new GenericType<List<SubcriterioAvaliacao>> () {});
+		
+		return subcriterioAvaliacaos;
+	}
+
+	@Override
+	public SubcriterioAvaliacao find(Long id) {
+		SubcriterioAvaliacao subcriterioAvaliacao = ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL + id).
+				request(MediaType.APPLICATION_JSON).get()
+				.readEntity(SubcriterioAvaliacao.class);
+		
+		return subcriterioAvaliacao;
+	}
+
+	@Override
+	public SubcriterioAvaliacao create(SubcriterioAvaliacao obj) {
+		SubcriterioAvaliacao subcriterioAvaliacao = 			
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL).
+				queryParam("subcriterioAvaliacao", obj).
+				request(MediaType.APPLICATION_JSON).
+				post(Entity.entity(obj, MediaType.APPLICATION_JSON)).
+				readEntity(SubcriterioAvaliacao.class);
+		
+		return subcriterioAvaliacao;
+	}
+
+	@Override
+	public SubcriterioAvaliacao edit(SubcriterioAvaliacao obj) {
+		SubcriterioAvaliacao subcriterioAvaliacao = 
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL).
+				queryParam("subcriterioAvaliacao", obj).
+				request(MediaType.APPLICATION_JSON).
+				put(Entity.entity(obj, MediaType.APPLICATION_JSON)).
+				readEntity(SubcriterioAvaliacao.class);
+		
+		return subcriterioAvaliacao;
+	}
+
+	@Override
+	public boolean delete(Long id) {
+		return 	ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL + id).
+				request(MediaType.APPLICATION_JSON).
+				delete().getStatus() 
+				== Response.Status.OK.getStatusCode();
+	}
+	
+}

@@ -21,7 +21,7 @@ public class SubcriterioAvaliacaoDAO extends DAOFactory<SubcriterioAvaliacao> {
 	public void remover(long id) {
 		excluir(id);
 	}
-
+	
 	public SubcriterioAvaliacao obter(long id) {
 		return consultarGenerico("SubcriterioAvaliacao.consultarPorId", id);
 		//return consultar(id);
