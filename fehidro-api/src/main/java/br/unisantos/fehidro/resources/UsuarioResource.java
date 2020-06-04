@@ -8,6 +8,7 @@ import javax.ws.rs.core.*;
 import br.unisantos.fehidro.model.dao.UsuarioDAO;
 import br.unisantos.fehidro.model.Usuario;
 import br.unisantos.fehidro.util.email.EmailUtil;
+import br.unisantos.fehidro.util.password.Password;
 
 
 @Path("/usuario")
@@ -79,9 +80,10 @@ public class UsuarioResource {
 	public Response add(Usuario usuario) throws Exception {
 		UsuarioDAO dao = new UsuarioDAO();
 		usuario.setLogin();
-		usuario.setSenha();
-		usuario.setAtivo();
-		EmailUtil.sendMail(usuario);
+		usuario.setAtivo();	
+		String senha = Password.generateRandomPassword(10);
+		usuario.setSenha(Password.hashPassword(senha));
+		EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	}

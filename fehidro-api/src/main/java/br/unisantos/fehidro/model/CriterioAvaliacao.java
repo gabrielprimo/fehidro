@@ -40,13 +40,13 @@ public class CriterioAvaliacao extends AbstractEntity {
 	private Integer numero;
 	
 	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "fk_criterioavaliacao_id")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JoinColumn(name = "fk_criterioavaliacao_id")
 	private List<Pontuacao> pontuacoes;
 	
 	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "fk_criterioavaliacao_id")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JoinColumn(name = "fk_criterioavaliacao_id")
 	private List<SubcriterioAvaliacao> subcriterios;
 
 	public CriterioAvaliacao() {
@@ -69,6 +69,22 @@ public class CriterioAvaliacao extends AbstractEntity {
 	public void setPontuacoes(List<Pontuacao> pontuacoes) {
 		this.pontuacoes = pontuacoes;
 	}
+	
+	public void addPontuacoes(Pontuacao pontuacao) {
+		if (this.pontuacoes.contains(pontuacao))
+			return;
+		
+		this.pontuacoes.add(pontuacao);
+		pontuacao.setCriterio(this);
+	}
+	
+	public void removePontuacoes(Pontuacao pontuacao) {
+		if (!this.pontuacoes.contains(pontuacao))
+			return;
+		
+		this.pontuacoes.remove(pontuacao);
+		pontuacao.setCriterio(null);
+	}
 
 	public List<SubcriterioAvaliacao> getSubcriterios() {
 		return subcriterios;
@@ -77,6 +93,23 @@ public class CriterioAvaliacao extends AbstractEntity {
 	public void setSubcriterios(List<SubcriterioAvaliacao> subcriterios) {
 		this.subcriterios = subcriterios;
 	}
+	
+	public void addSubcriterios(SubcriterioAvaliacao sub) {
+		if (this.subcriterios.contains(sub))
+			return;
+		
+		this.subcriterios.add(sub);
+		sub.setCriterio(this);
+	}
+	
+	public void removeSubcriterios(SubcriterioAvaliacao sub) {
+		if (!this.subcriterios.contains(sub))
+			return;
+		
+		this.subcriterios.remove(sub);
+		sub.setCriterio(null);
+	}
+	
 	public Integer getNumero() {
 		return numero;
 	}

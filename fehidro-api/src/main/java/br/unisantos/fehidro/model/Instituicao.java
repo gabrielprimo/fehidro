@@ -1,10 +1,17 @@
 package br.unisantos.fehidro.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "tb_instituicao")
 @Entity
@@ -20,6 +27,21 @@ public class Instituicao extends AbstractEntity {
 	
 	@Column(name="id_tipoinstituicao")
 	private int tipo;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "instituicao_id")
+	private List<Proposta> propostas;
+
+	@JsonIgnore
+	public List<Proposta> getPropostas() {
+		return propostas;
+	}
+
+	@JsonIgnore
+	public void setPropostas(List<Proposta> propostas) {
+		this.propostas = propostas;
+	}
 
 	public String getNome() {
 		return nome;

@@ -13,6 +13,8 @@ public interface RESTClientInterface<T> {
     public static String REST_TIPOPROPOSTA_URL = "tipoProposta/";
     public static String REST_PDC_URL = "pdc/";
     public static String REST_SUBPDC_URL = "subpdc/";
+    public static String REST_PROPOSTA_URL = "proposta/";
+
 
     public List<T> findAll();
     public T find(Long id);

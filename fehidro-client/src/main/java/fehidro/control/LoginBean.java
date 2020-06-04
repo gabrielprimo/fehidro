@@ -43,16 +43,21 @@ public class LoginBean implements Serializable {
 		{
 			Usuario user = rest.obterPorLogin(usuario.getLogin());
 
-			if (user != null && user.getSenha().equals(usuario.getSenha())) 
-			{
-				return "/deliberacao/index?faces-redirect=true";
-			} 
-			else 
-			{
-				context.addMessage("formLogin:msgLogin", new FacesMessage("Erro: login/senha inválidos!"));
-				context.getExternalContext().getFlash().setKeepMessages(true);
-				return null;
-			}
+			try {
+				if (user != null && confereSenha(usuario.getSenha(), user.getSenha())) 
+				{
+					return "/deliberacao/index?faces-redirect=true";
+				} 
+				else 
+				{
+					context.addMessage("formLogin:msgLogin", new FacesMessage("Erro: login/senha inválidos!"));
+					context.getExternalContext().getFlash().setKeepMessages(true);
+					return null;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}return null;
 		} 
 		else 
 		{
