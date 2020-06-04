@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.unisantos.fehidro.model.dao.SecretariaExecutivaDAO;
+import br.unisantos.fehidro.util.password.Password;
 import br.unisantos.fehidro.model.SecretariaExecutiva;
 
 @Path("/usuario/secretaria")
