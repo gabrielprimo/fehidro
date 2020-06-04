@@ -1,7 +1,6 @@
 package br.unisantos.fehidro.model;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Table(name = "tb_subcriterioavaliacao")
 @Entity
@@ -39,10 +39,12 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	private char letra;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JoinColumn(name = "fk_subcriterioavaliacao_id")
-	private Set<Pontuacao> pontuacoes;
+	private List<Pontuacao> pontuacoes;
 	
 	 @ManyToMany
+	 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	 @JoinTable(name = "tb_subcriterio_tb_tipoproposta", 
 	 	joinColumns = {@JoinColumn(name = "subcriterio_id", referencedColumnName = "id")}, 
 	 	inverseJoinColumns = {@JoinColumn(name = "tipoproposta_id", referencedColumnName = "id") })
@@ -60,14 +62,30 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 		this.titulo = titulo;
 	}
 
-	public Set<Pontuacao> getPontuacoes() {
+	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
 
-	public void setPontuacoes(Set<Pontuacao> pontuacoes) {
+	public void setPontuacoes(List<Pontuacao> pontuacoes) {
 		this.pontuacoes = pontuacoes;
 	}
 	
+	public void addPontuacoes(Pontuacao pontuacao) {
+		if (this.pontuacoes.contains(pontuacao))
+			return;
+		
+		this.pontuacoes.add(pontuacao);
+		pontuacao.setSubcriterio(this);
+	}
+	
+	public void removePontuacoes(Pontuacao pontuacao) {
+		if (!this.pontuacoes.contains(pontuacao))
+			return;
+		
+		this.pontuacoes.remove(pontuacao);
+		pontuacao.setSubcriterio(null);
+	}
+		
 	public int getNumero() {
 		return numero;
 	}
@@ -83,15 +101,31 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	public void setTiposProposta(List<TipoProposta> tiposProposta) {
 		this.tiposProposta = tiposProposta;
 	}
-
+	
+	public void addTiposProposta(TipoProposta tipoProposta) {
+		if(this.tiposProposta.contains(tipoProposta)) 
+			return;
+		
+		this.tiposProposta.add(tipoProposta);
+		tipoProposta.addSubcriterios(this);
+	}
+	
+	public void removeTiposProposta(TipoProposta tipoProposta) {
+		if(!this.tiposProposta.contains(tipoProposta)) 
+			return;
+		
+		this.tiposProposta.remove(tipoProposta);
+		tipoProposta.removeSubcriterios(this);
+	}
+	
 	public char getLetra() {
 		return letra;
 	}
 
 	public void setLetra(char letra) {
 		this.letra = letra;
-	}
-
+	}	
+	
 	public CriterioAvaliacao getCriterio() {
 		return criterio;
 	}
