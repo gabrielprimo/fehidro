@@ -15,7 +15,7 @@ import java.util.Properties;
 
 
 public class EmailUtil {
-	public static void sendMail(Usuario Destinatario) {
+	public static void sendMail(String email, String nome, String login, String senha) {
         final String username = "";
         final String password = "";
 
@@ -38,14 +38,14 @@ public class EmailUtil {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(Destinatario.getEmail())
+                    InternetAddress.parse(email)
             );
             message.setSubject("Fehidro - Cadastro feito com sucesso");
-            message.setText("Olá, " + Destinatario.getNome() + "!\n"
+            message.setText("Olá, " + nome + "!\n"
                     + 	"\n\n Você foi cadastrado com sucesso no sistema da Fehidro!"
                     + 	"\n\n Seus dados para entrar no sistema são:"
-                    +	"\n\t Login: " + Destinatario.getLogin()
-                    +	"\n\t Senha: " + Destinatario.getSenha()
+                    +	"\n\t Login: " + login
+                    +	"\n\t Senha: " + senha
                     +	"\n\n Seja bem vinda(o)!!!");
 
             Transport.send(message);
