@@ -40,7 +40,8 @@ public class SecretariaExecutivaResource {
 	public Response add(SecretariaExecutiva usuario) throws Exception {
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
 		usuario.setLogin();
-		usuario.setSenha();
+		String senha = Password.generateRandomPassword(10);
+		usuario.setSenha(Password.hashPassword(senha));
 		//usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
