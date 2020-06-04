@@ -1,13 +1,19 @@
 package br.unisantos.fehidro.model;
 
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Table(name = "tb_subpdc")
@@ -29,7 +35,11 @@ public class SubPDC extends AbstractEntity {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private PDC pdc;
 
-	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "subpdc_id")
+	private List<Proposta> propostas;
+
 	public int getNumero() {
 		return numero;
 	}

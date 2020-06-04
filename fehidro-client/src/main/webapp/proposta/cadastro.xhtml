@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Proposta" id="menuAtual" />
+			<h:form id="formProposta" enctype="multipart/form-data">
+				<h:inputHidden value="#{propostaBean.proposta.id}" id="propostaId" />
+				
+				<h:panelGroup layout="block" class="form-group row">			
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtInstituicao">Instituição</h:outputLabel>
+						<h:selectOneMenu id="txtInstituicao" redisplay="false"
+							value="#{propostaBean.proposta.instituicao.id}"
+							class="form-control" required="true"
+							requiredMessage="Informe a instituição!">
+							<f:selectItems value="#{propostaBean.instituicoes}" />
+						</h:selectOneMenu>
+						<h:message for="txtInstituicao" styleClass="erro" />
+					</h:panelGroup>				
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtNomeProjeto">Nome do projeto</h:outputLabel>
+						<h:inputText id="txtNomeProjeto" value="#{propostaBean.proposta.nomeProjeto}" class="form-control" 
+							required="true" requiredMessage="Informe o nome do projeto!" maxlength="100">
+							<f:passThroughAttribute name="placeholder" value="Nome da projeto" />
+						</h:inputText>
+						<h:message for="txtNomeProjeto" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">			
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtSubPDC">SubPDC</h:outputLabel>
+						<h:selectOneMenu id="txtSubPDC" redisplay="false"
+							value="#{propostaBean.proposta.subPDC.id}"
+							class="form-control" required="true"
+							requiredMessage="Informe o subPDC!">
+							<f:selectItems value="#{propostaBean.subpdcs}" />
+						</h:selectOneMenu>
+						<h:message for="txtSubPDC" styleClass="erro" />
+					</h:panelGroup>				
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-sm-4">
+						<h:outputLabel value="Tipos da proposta" />
+					</h:panelGroup>
+					<h:panelGroup layout="block"
+						class="col custom-control custom-checkbox">
+						<h:selectManyCheckbox value="#{propostaBean.proposta.tiposProposta}"
+							converter="tipoPropostaConverter" multiple="true">
+							<f:selectItems
+								value="#{propostaBean.tiposPropostasSelecionadosValue}"
+								var="tp" itemLabel="#{tp.nome}" itemValue="#{tp}" />
+						</h:selectManyCheckbox>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-6">
+						<h:outputLabel for="fileTermoReferencia">Termo de referência</h:outputLabel>
+						<h:inputFile  id="fileTermoReferencia" value="#{propostaBean.proposta.termoReferencia}" class="form-control-file" 
+							required="true" requiredMessage="Anexe o termo de referência!">
+						</h:inputFile>
+						<h:message for="fileTermoReferencia" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-6">
+						<h:outputLabel for="fileCronogramaFinanceiro">Cronograma Físico Financeiro</h:outputLabel>
+						<h:inputFile  id="fileCronogramaFinanceiro" value="#{propostaBean.proposta.cronogramaFisicoFinanceiro}" class="form-control-file" 
+							required="true" requiredMessage="Anexe o cronograma físico financeiro!">
+						</h:inputFile>
+						<h:message for="fileCronogramaFinanceiro" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-6">
+						<h:outputLabel for="filePlanilhaOrcamento">Planilha de Orçamento</h:outputLabel>
+						<h:inputFile  id="filePlanilhaOrcamento" value="#{propostaBean.proposta.planilhaOrcamento}" class="form-control-file" 
+							required="true" requiredMessage="Anexe a planilha de orçamento!">
+						</h:inputFile>
+						<h:message for="filePlanilhaOrcamento" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col-6">
+						<h:outputLabel for="fileFichaResumo">Ficha resumo</h:outputLabel>
+						<h:inputFile  id="fileFichaResumo" value="#{propostaBean.proposta.fichaResumo}" class="form-control-file" 
+							required="true" requiredMessage="Anexe a ficha de resumo!">
+						</h:inputFile>
+						<h:message for="fileFichaResumo" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-row mt-5">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:commandButton id="btnCancel"
+							class="btn btn-outline-danger" value="Cancelar" action="#{propostaBean.index}" immediate="true">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{propostaBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+			<h:outputScript library="js" name="proposta.js" target="head" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
