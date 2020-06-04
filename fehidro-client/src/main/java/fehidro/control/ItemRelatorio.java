@@ -13,12 +13,27 @@ public class ItemRelatorio {
 	private int soma;
 	private SubPDC subPDC;
 	private List<Avaliacao> avaliacoes;
+	private int classificacao;
 	
 	public ItemRelatorio() {
 		avaliacoes = new LinkedList<Avaliacao>();
 		soma = 0;
 	}
 	
+	
+	
+	public int getClassificacao() {
+		return classificacao;
+	}
+
+
+
+	public void setClassificacao(int classificacao) {
+		this.classificacao = classificacao;
+	}
+
+
+
 	public void addAvaliacao(Avaliacao a)
 	{
 		if(this.proposta == null)
@@ -58,5 +73,6 @@ public class ItemRelatorio {
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
+
 	
 }
