@@ -11,7 +11,9 @@ import fehidro.control.ItemRelatorio;
 public class Relatorio  {
 	
 	protected HashMap<Long, ItemRelatorio> itensRelatorio;
+	protected HashMap<Long, Integer> classificacao; //TODO: Hashmap eh a melhor forma de implementar isso?
 	
+	//Construtores
 	public Relatorio()
 	{
 		itensRelatorio = new HashMap<Long, ItemRelatorio>();
@@ -20,6 +22,17 @@ public class Relatorio  {
 	public Relatorio(List<Avaliacao> avaliacoes)
 	{
 		setItensRelatorio(avaliacoes);
+	}
+	
+	//Metodos
+	
+	public void calcularClassificacao()
+	{
+		//TODO: IMPLEMENTAR
+//		for(int i =0;i<itensRelatorio.size();i++)
+//		{
+//			classificacao
+//		}
 	}
 	
 	public void setItensRelatorio(List<Avaliacao> avaliacoes)

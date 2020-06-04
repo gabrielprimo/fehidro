@@ -19,14 +19,13 @@
 					<h:outputText value="#{itemRelatorio.subPDC.titulo}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Nota</f:facet>
-					<h:outputText value="#{itemRelatorio.soma}" />
-				</h:column>
-				<h:column>
 					<f:facet name="header">Valor</f:facet>
 					<h:outputText value="#{itemRelatorio.proposta.valor}" />
 				</h:column>
-				
+				<h:column>
+					<f:facet name="header">Nota Parcial</f:facet>
+					<h:outputText value="#{itemRelatorio.soma}" />
+				</h:column>
 				<h:column>
 					<f:facet name="header">Avaliações</f:facet>
 					<h:dataTable value="#{itemRelatorio.avaliacoes}" var="itemAvaliacao" id="tabelaAvaliacoes" styleClass="table">
@@ -38,11 +37,7 @@
 						</h:column>
 					</h:dataTable>
 				</h:column>
-				
 			</h:dataTable>
-			
-			
-			
 		</ui:define>
 	</ui:composition>
 </h:body>

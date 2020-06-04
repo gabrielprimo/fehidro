@@ -19,7 +19,6 @@ public class RelatorioFinalBean implements Serializable {
 	private AvaliacaoRESTClient rest;
 	
 	
-	
 	public Relatorio getRelatorio() {
 		return relatorio;
 	}

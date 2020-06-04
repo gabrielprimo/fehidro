@@ -19,24 +19,12 @@
 					<h:outputText value="#{itemRelatorio.subPDC.titulo}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Nota</f:facet>
-					<h:outputText value="#{itemRelatorio.soma}" />
-				</h:column>
-				<h:column>
 					<f:facet name="header">Valor</f:facet>
 					<h:outputText value="#{itemRelatorio.proposta.valor}" />
 				</h:column>
-				
 				<h:column>
-					<f:facet name="header">Avaliações</f:facet>
-					<h:dataTable value="#{itemRelatorio.avaliacoes}" var="itemAvaliacao" id="tabelaAvaliacoes" styleClass="table">
-						<h:column>
-							<h:outputText value="#{itemAvaliacao.subcriterio.titulo}" />
-						</h:column>
-						<h:column>
-							<h:outputText value="#{itemAvaliacao.nota.pontos}" />
-						</h:column>
-					</h:dataTable>
+					<f:facet name="header">Nota</f:facet>
+					<h:outputText value="#{itemRelatorio.soma}" />
 				</h:column>
 				
 			</h:dataTable>

@@ -16,6 +16,7 @@ public class ItemRelatorio {
 	
 	public ItemRelatorio() {
 		avaliacoes = new LinkedList<Avaliacao>();
+		soma = 0;
 	}
 	
 	public void addAvaliacao(Avaliacao a)
@@ -29,14 +30,8 @@ public class ItemRelatorio {
 			subPDC = a.getSubpdc();
 		}
 		this.avaliacoes.add(a);
-		soma(this.avaliacoes);
+		this.soma += a.getNota().getPontos();
 	}
-	
-//	public ItemRelatorio(List<Avaliacao> avaliacoes) {
-//		this.avaliacoes = avaliacoes;
-//		this.proposta = avaliacoes.get(0).getProposta();
-//		soma(avaliacoes);
-//	}
 	
 	public void soma(List<Avaliacao> avaliacoes)
 	{

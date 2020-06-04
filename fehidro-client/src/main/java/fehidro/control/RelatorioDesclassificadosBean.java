@@ -19,7 +19,6 @@ public class RelatorioDesclassificadosBean implements Serializable {
 	private AvaliacaoRESTClient rest;
 	
 	
-	
 	public Relatorio getRelatorio() {
 		return relatorio;
 	}

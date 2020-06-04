@@ -20,7 +20,6 @@ public class RelatorioParcialBean implements Serializable {
 	private AvaliacaoRESTClient rest;
 	
 	
-	
 	public Relatorio getRelatorio() {
 		return relatorio;
 	}
