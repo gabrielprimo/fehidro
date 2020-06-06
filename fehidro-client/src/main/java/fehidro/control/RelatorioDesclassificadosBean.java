@@ -18,7 +18,6 @@ public class RelatorioDesclassificadosBean implements Serializable {
 	private Relatorio relatorio;
 	private AvaliacaoRESTClient rest;
 	
-	
 	public Relatorio getRelatorio() {
 		return relatorio;
 	}
@@ -30,14 +29,9 @@ public class RelatorioDesclassificadosBean implements Serializable {
 	public RelatorioDesclassificadosBean() {
 		relatorio = new Relatorio();
 		rest  = new AvaliacaoRESTClient();
-		System.out.println("===========Metodo gerar - R Desclassificados===============");
+		
 		List<Avaliacao> avaliacoes = rest.findAll();//FIXME: Substituir por metodo mais apropriado + considerar data
 		
-//		if(avaliacoes == null)
-//		{
-//			System.out.println("TESTE");
-//		}
-//		System.out.println("> "+avaliacoes.toString());
 		this.relatorio.setItensRelatorio(avaliacoes);
 	}
 

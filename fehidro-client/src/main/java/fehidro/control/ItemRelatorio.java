@@ -14,28 +14,33 @@ public class ItemRelatorio {
 	private SubPDC subPDC;
 	private List<Avaliacao> avaliacoes;
 	private int classificacao;
+	private boolean desclassificado;
 	
 	public ItemRelatorio() {
 		avaliacoes = new LinkedList<Avaliacao>();
 		soma = 0;
+		desclassificado = false;
 	}
-	
-	
 	
 	public int getClassificacao() {
 		return classificacao;
 	}
 
-
-
 	public void setClassificacao(int classificacao) {
 		this.classificacao = classificacao;
 	}
+	
+	public boolean isDesclassificado() {
+		return desclassificado;
+	}
 
-
+	public void setDesclassificado(boolean desclassificado) {
+		this.desclassificado = desclassificado;
+	}
 
 	public void addAvaliacao(Avaliacao a)
 	{
+		//Setando propriedades desse itemRelatorio caso não esteja setado
 		if(this.proposta == null)
 		{
 			this.proposta = a.getProposta();
@@ -44,14 +49,19 @@ public class ItemRelatorio {
 		{
 			subPDC = a.getSubpdc();
 		}
-		this.avaliacoes.add(a);
-		this.soma += a.getNota().getPontos();
+		
+		this.avaliacoes.add(a);//Adiciona a avaliacao à lista de avaliacoes
+		if(a.getNota().isDesclassificavel())//Verifica se esta declassificado
+		{
+			this.desclassificado = true;
+		}
+		this.soma += a.getNota().getPontos();//Atualiza a soma das notas
 	}
 	
 	public void soma(List<Avaliacao> avaliacoes)
 	{
 		int s = 0;
-		for(int i=0;i<avaliacoes.size();i++)
+		for(int i=0;i<avaliacoes.size();i++)//Navegue por tudo e some.
 		{
 			s += avaliacoes.get(i).getNota().getPontos();
 		}

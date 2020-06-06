@@ -30,6 +30,7 @@ public class AvaliacaoBean implements Serializable {
 	public AvaliacaoBean() {
 		this.restProposta = new PropostaRESTClient();
 		this.restSubcriterio = new SubcriterioAvaliacaoRESTClient();
+		//REST
 		this.propostas = restProposta.findAll();
 		setSubcriterios(restSubcriterio.findAll());
 	}
@@ -64,7 +65,7 @@ public class AvaliacaoBean implements Serializable {
 	}
 	public void setSubcriterio(SubcriterioAvaliacao subcriterio) {
 		this.subcriterio = subcriterio;
-		this.pontuacao = null;//Evitar passar valor errado caso pontuacao ja estaja definido
+		this.pontuacao = null;//Reset, para evitar passar valor errado
 		this.pontuacoesSubcriterio = subcriterio.getPontuacoes();//Atualiza pontuacoes de acordo com o subcriterio
 	}
 
