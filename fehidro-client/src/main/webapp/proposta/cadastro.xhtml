@@ -68,9 +68,15 @@
 					<h:panelGroup layout="block" class="col-6">
 						<h:outputLabel for="fileTermoReferencia">Termo de referência</h:outputLabel>
 						<h:inputFile  id="fileTermoReferencia" value="#{propostaBean.proposta.termoReferencia}" class="form-control-file" 
-							required="true" requiredMessage="Anexe o termo de referência!">
+							required="#{propostaBean.proposta.nomeArquivoTermoReferencia == null}" requiredMessage="Anexe o termo de referência!">
 						</h:inputFile>
 						<h:message for="fileTermoReferencia" styleClass="erro" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-4 text-left align-self-center" rendered="#{propostaBean.proposta.id > 0}">
+						<h:commandLink  immediate="true"  type="button" class="btn btn-outline-primary" title="Baixar termo referência" action="#{propostaBean.download}">
+    						    <f:setPropertyActionListener target="#{propostaBean.targetDownload}" value="#{propostaBean.proposta.nomeArquivoTermoReferencia}" />
+    						<i class="fas fa-download"></i>
+						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -78,9 +84,15 @@
 					<h:panelGroup layout="block" class="col-6">
 						<h:outputLabel for="fileCronogramaFinanceiro">Cronograma Físico Financeiro</h:outputLabel>
 						<h:inputFile  id="fileCronogramaFinanceiro" value="#{propostaBean.proposta.cronogramaFisicoFinanceiro}" class="form-control-file" 
-							required="true" requiredMessage="Anexe o cronograma físico financeiro!">
+							required="#{propostaBean.proposta.nomeArquivoCronogramaFisicoFinanceiro == null}" requiredMessage="Anexe o cronograma físico financeiro!">
 						</h:inputFile>
 						<h:message for="fileCronogramaFinanceiro" styleClass="erro" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-4 text-left align-self-center" rendered="#{propostaBean.proposta.id > 0}">
+						<h:commandLink immediate="true"  type="button" class="btn btn-outline-primary" title="Baixar cronograma físico financeiro" action="#{propostaBean.download}">
+    						    <f:setPropertyActionListener target="#{propostaBean.targetDownload}" value="#{propostaBean.proposta.nomeArquivoCronogramaFisicoFinanceiro}" />
+    						<i class="fas fa-download"></i>
+						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -88,9 +100,15 @@
 					<h:panelGroup layout="block" class="col-6">
 						<h:outputLabel for="filePlanilhaOrcamento">Planilha de Orçamento</h:outputLabel>
 						<h:inputFile  id="filePlanilhaOrcamento" value="#{propostaBean.proposta.planilhaOrcamento}" class="form-control-file" 
-							required="true" requiredMessage="Anexe a planilha de orçamento!">
+							required="#{propostaBean.proposta.nomeArquivoPlanilhaOrcamento == null}" requiredMessage="Anexe a planilha de orçamento!">
 						</h:inputFile>
 						<h:message for="filePlanilhaOrcamento" styleClass="erro" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-4 text-left align-self-center" rendered="#{propostaBean.proposta.id > 0}">
+						<h:commandLink immediate="true"  type="button" class="btn btn-outline-primary" title="Baixar planilha de orçamento" action="#{propostaBean.download}">
+    						    <f:setPropertyActionListener target="#{propostaBean.targetDownload}" value="#{propostaBean.proposta.nomeArquivoPlanilhaOrcamento}" />
+    						<i class="fas fa-download"></i>
+						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -98,9 +116,15 @@
 					<h:panelGroup layout="block" class="col-6">
 						<h:outputLabel for="fileFichaResumo">Ficha resumo</h:outputLabel>
 						<h:inputFile  id="fileFichaResumo" value="#{propostaBean.proposta.fichaResumo}" class="form-control-file" 
-							required="true" requiredMessage="Anexe a ficha de resumo!">
+							required="#{propostaBean.proposta.nomeArquivoFichaResumo == null}" requiredMessage="Anexe a ficha de resumo!">
 						</h:inputFile>
 						<h:message for="fileFichaResumo" styleClass="erro" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col-4 text-left align-self-center" rendered="#{propostaBean.proposta.id > 0}">
+						<h:commandLink immediate="true"  type="button" class="btn btn-outline-primary" title="Baixar ficha de resumo" action="#{propostaBean.download}">
+    						    <f:setPropertyActionListener target="#{propostaBean.targetDownload}" value="#{propostaBean.proposta.nomeArquivoFichaResumo}" />
+    						<i class="fas fa-download"></i>
+						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>
 

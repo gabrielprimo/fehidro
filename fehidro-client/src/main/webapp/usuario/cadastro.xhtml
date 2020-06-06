@@ -17,8 +17,7 @@
 						<h:outputLabel for="txtNome" value="Nome" />
 						<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
 							class="form-control alpha" required="true" maxlength="30"
-							requiredMessage="Informe o nome!">
-							<f:validateRegex pattern="[a-zA-Z]+" />
+							requiredMessage="Informe o nome!"> />
 							<f:passThroughAttribute name="placeholder" value="Nome" />
 							<f:validateLength maximum="30" />
 						</h:inputText>

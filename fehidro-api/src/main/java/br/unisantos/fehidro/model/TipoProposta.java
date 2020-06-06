@@ -2,8 +2,10 @@ package br.unisantos.fehidro.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,7 +36,7 @@ public class TipoProposta extends AbstractEntity {
     @JsonIgnore
     private List<SubcriterioAvaliacao> subcriterios;
     
-    @ManyToMany(mappedBy="tiposProposta")
+    @ManyToMany(mappedBy="tiposProposta", targetEntity=Proposta.class)
     @JsonIgnore
     private List<Proposta> propostas;
 

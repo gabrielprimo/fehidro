@@ -25,6 +25,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 	
 	@NamedQuery(name = "SubcriterioAvaliacao.consultarPorId",
     			query = "select c from SubcriterioAvaliacao c join fetch c.pontuacoes p where c.id=?1"),
+	
+	@NamedQuery(name = "SubcriterioAvaliacao.obterPontuacoesPorSubcriterio", 
+	query = "select p from SubcriterioAvaliacao s join s.pontuacoes p where s.id =?1"),
 })
 public class SubcriterioAvaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -38,14 +41,14 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	@Column(name="ic_letra")
 	private char letra;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}, orphanRemoval = true)
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JoinColumn(name = "fk_subcriterioavaliacao_id")
 	private List<Pontuacao> pontuacoes;
 	
-	 @ManyToMany
-	 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-	 @JoinTable(name = "tb_subcriterio_tb_tipoproposta", 
+	@ManyToMany
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JoinTable(name = "tb_subcriterio_tb_tipoproposta", 
 	 	joinColumns = {@JoinColumn(name = "subcriterio_id", referencedColumnName = "id")}, 
 	 	inverseJoinColumns = {@JoinColumn(name = "tipoproposta_id", referencedColumnName = "id") })
 	private List<TipoProposta> tiposProposta;
@@ -53,6 +56,10 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	@ManyToOne
 	@JsonIgnore
 	private CriterioAvaliacao criterio;
+	
+	public SubcriterioAvaliacao() {
+		super();
+	}
 
 	public String getTitulo() {
 		return titulo;
@@ -131,6 +138,18 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 	}
 
 	public void setCriterio(CriterioAvaliacao criterio) {
+		boolean mesmoCriterio = this.criterio == null ? criterio == null : this.criterio.equals(criterio);
+		
+		if (mesmoCriterio)
+			return;
+		
+		CriterioAvaliacao antigo = this.criterio;		
 		this.criterio = criterio;
+		
+		if (antigo != null) 
+			antigo.removeSubcriterios(this);
+		
+		if (criterio != null)
+			criterio.addSubcriterios(this);
 	}
 }

@@ -2,6 +2,7 @@ package br.unisantos.fehidro.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +40,7 @@ public class Proposta extends AbstractEntity {
 	@Column(name = "nm_arquivoFichaResumo")     
 	private String nomeArquivoFichaResumo;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity=TipoProposta.class)
 	@JoinTable(name = "tb_proposta_tb_tipoproposta", 
  		joinColumns = {@JoinColumn(name = "proposta_id", referencedColumnName = "id")}, 
  		inverseJoinColumns = {@JoinColumn(name = "tipoproposta_id", referencedColumnName = "id") })

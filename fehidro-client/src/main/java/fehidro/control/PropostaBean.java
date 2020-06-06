@@ -3,14 +3,18 @@ package fehidro.control;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import fehidro.model.Instituicao;
@@ -29,6 +33,8 @@ public class PropostaBean {
 	
 	private Long idProposta;
 	private String consulta;
+	private String targetDownload;
+
 	private PropostaRESTClient restProposta;
 	private InstituicaoRESTClient restInstituicao;
 	private TipoPropostaRESTClient restTipoProposta;
@@ -72,44 +78,113 @@ public class PropostaBean {
 
 	public String salvar() {
 		if (getIdProposta() == null) {
-			uploadArquivosProposta();
-			this.restProposta.create(this.proposta);
+			//gero o id para a proposta
+			Proposta p = this.restProposta.create(this.proposta);
+			//uso o id gerado para o nome dos arquivos
+			definirNomesArquivos(p);
+			//atualizo nome dos arquivos na base
+			this.restProposta.edit(p);
+			//salvo no disco
+			uploadArquivosProposta(p);
 		}
 		else {
 			this.restProposta.edit(this.proposta);
+			if (this.proposta.getTermoReferencia() != null) {
+				uploadArquivoProposta(this.proposta.getTermoReferencia(), this.proposta.getNomeArquivoTermoReferencia());
+			} 
+			
+			if (this.proposta.getCronogramaFisicoFinanceiro() != null) {
+				uploadArquivoProposta(this.proposta.getCronogramaFisicoFinanceiro(), this.proposta.getNomeArquivoCronogramaFisicoFinanceiro());
+			}
+			
+			if (this.proposta.getPlanilhaOrcamento() != null) {
+				uploadArquivoProposta(this.proposta.getPlanilhaOrcamento(), this.proposta.getNomeArquivoPlanilhaOrcamento());
+			}
+			
+			if (this.proposta.getFichaResumo() != null) {
+				uploadArquivoProposta(this.proposta.getFichaResumo(), this.proposta.getNomeArquivoFichaResumo());
+			}
+			
 		}
 		startView(true);
 
 		return null;
 	}
 	
-	private void uploadArquivosProposta() {
-		//TODO: tratativa para nome do arquivo localizavel e único - tanto pra criação quanto edição
-		
-		this.proposta.setNomeArquivoTermoReferencia(this.proposta.getTermoReferencia().getSubmittedFileName());   
-		uploadFile(this.proposta.getTermoReferencia(), this.proposta.getNomeArquivoTermoReferencia());
-		
-		this.proposta.setNomeArquivoCronogramaFisicoFinanceiro(this.proposta.getCronogramaFisicoFinanceiro().getSubmittedFileName());
-		uploadFile(this.proposta.getCronogramaFisicoFinanceiro(), this.proposta.getNomeArquivoCronogramaFisicoFinanceiro());
-		
-		this.proposta.setNomeArquivoPlanilhaOrcamento(this.proposta.getPlanilhaOrcamento().getSubmittedFileName());
-		uploadFile(this.proposta.getPlanilhaOrcamento(), this.proposta.getNomeArquivoPlanilhaOrcamento());
+	public void download() throws IOException {
+		File file = new File(this.folder + "\\" + this.targetDownload);
+		String fileName = file.getName();		
+		String contentType =  Files.probeContentType(file.toPath());
+		int contentLength = (int) file.length();
 
-		this.proposta.setNomeArquivoFichaResumo(this.proposta.getFichaResumo().getSubmittedFileName());
-		uploadFile(this.proposta.getFichaResumo(), this.proposta.getNomeArquivoFichaResumo());
+		FacesContext fc = FacesContext.getCurrentInstance();
+	    HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+
+	    response.reset(); 
+	    response.setContentType(contentType); 
+	    response.setContentLength(contentLength);
+	    response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\""); 
+
+	    OutputStream output = response.getOutputStream();
+	    Files.copy(file.toPath(), output);
+
+	    fc.responseComplete(); 
+	}
+	
+	private void definirNomesArquivos(Proposta p) {
+		p.setNomeArquivoTermoReferencia(p.getId().toString() 
+				+ ".termo-referencia" 
+				+ obterExtensaoArquivo(this.proposta.getTermoReferencia().getSubmittedFileName()));   
+		
+		this.proposta.setNomeArquivoTermoReferencia(p.getNomeArquivoTermoReferencia());
+		
+		p.setNomeArquivoCronogramaFisicoFinanceiro(p.getId().toString() 
+				+ ".cronograma-fisico-financeiro"
+				+ obterExtensaoArquivo(this.proposta.getCronogramaFisicoFinanceiro().getSubmittedFileName()));
+		
+		this.proposta.setNomeArquivoCronogramaFisicoFinanceiro(p.getNomeArquivoCronogramaFisicoFinanceiro());
+		
+		p.setNomeArquivoPlanilhaOrcamento(p.getId().toString() 
+				+ ".planilha-orçamento"
+				+ obterExtensaoArquivo(this.proposta.getPlanilhaOrcamento().getSubmittedFileName()));
+		
+		this.proposta.setNomeArquivoPlanilhaOrcamento(p.getNomeArquivoPlanilhaOrcamento());
+		
+		p.setNomeArquivoFichaResumo(p.getId().toString() 
+				+ ".ficha-resumo"
+				+ obterExtensaoArquivo(this.proposta.getFichaResumo().getSubmittedFileName()));
+		
+		this.proposta.setNomeArquivoFichaResumo(p.getNomeArquivoFichaResumo());
+
+	}
+	
+	private void uploadArquivosProposta(Proposta p) {
+		uploadArquivoProposta(this.proposta.getTermoReferencia(), this.proposta.getNomeArquivoTermoReferencia());
+		uploadArquivoProposta(this.proposta.getCronogramaFisicoFinanceiro(), this.proposta.getNomeArquivoCronogramaFisicoFinanceiro());
+		uploadArquivoProposta(this.proposta.getPlanilhaOrcamento(), this.proposta.getNomeArquivoPlanilhaOrcamento());
+		uploadArquivoProposta(this.proposta.getFichaResumo(), this.proposta.getNomeArquivoFichaResumo());
+	}
+	
+	private void uploadArquivoProposta(Part file, String nomeArquivo) {
+		uploadFile(file, nomeArquivo);
 	}
 	
 	private void uploadFile(Part arquivo, String nomeArquivo) {
 		try (InputStream input = arquivo.getInputStream()) {
-			Files.copy(input, new File(folder, nomeArquivo).toPath());
+			Files.copy(input, new File(folder, nomeArquivo).toPath(), StandardCopyOption.REPLACE_EXISTING);
 	    }
 	    catch (IOException e) {
 	        e.printStackTrace();
 	    }	
 	}
 	
+	private String obterExtensaoArquivo(String nomeArquivo) {
+		return nomeArquivo.substring(nomeArquivo.lastIndexOf("."), nomeArquivo.length());		
+	}
+	
 	private void startView(boolean setInfo) {
 		this.restProposta = new PropostaRESTClient();
+		this.idProposta = null;
 		this.proposta = new Proposta();
 		this.proposta.setInstituicao(new Instituicao());
 		this.proposta.setSubPDC(new SubPDC());
@@ -244,6 +319,14 @@ public class PropostaBean {
 
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
+	}
+
+	public String getTargetDownload() {
+		return targetDownload;
+	}
+
+	public void setTargetDownload(String targetDownload) {
+		this.targetDownload = targetDownload;
 	}
 
 }

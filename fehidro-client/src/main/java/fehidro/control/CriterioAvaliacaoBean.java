@@ -114,7 +114,7 @@ public class CriterioAvaliacaoBean implements Serializable {
 		novoSubcriterio.setTiposProposta(new ArrayList<TipoProposta>());
 
 		c.getSubcriterios().add(novoSubcriterio);
-		this.criterio.setPontuacoes(new ArrayList<Pontuacao>());
+		novoSubcriterio.setPontuacoes(new ArrayList<Pontuacao>());
 		return null;
 	}
 
