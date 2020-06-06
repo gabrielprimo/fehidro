@@ -17,6 +17,7 @@ import fehidro.model.CTPG;
 import fehidro.model.Instituicao;
 import fehidro.model.SecretariaExecutiva;
 import fehidro.model.Usuario;
+import fehidro.model.enums.PerfilAcessoEnum;
 import fehidro.rest.client.CTPGRESTClient;
 import fehidro.rest.client.InstituicaoRESTClient;
 import fehidro.rest.client.SecretariaExecutivaRESTClient;
@@ -48,107 +49,6 @@ public class UsuarioBean implements Serializable {
 	
 	public UsuarioBean() {
 		startView(true);
-	}
-
-
-	public Long getIdusuario() {
-		return idusuario;
-	}
- 
-	public void setIdusuario(Long idusuario) {
-		this.idusuario = idusuario;
-	}
-	
-	public Long getIdtipousuario() {
-		return idtipousuario;
-	}
-
-	public void setIdtipousuario(Long idtipousuario) {
-		this.idtipousuario = idtipousuario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getConsulta() {
-		return consulta;
-	}
-
-	public void setConsulta(String consulta) {
-		this.consulta = consulta;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public List<SelectItem> getPerfisAcesso() {
-		return this.perfisAcesso;
-	}
-
-	public CTPG getCtpg() {
-		return ctpg;
-	}
-
-	public void setCtpg(CTPG ctpg) {
-		this.ctpg = ctpg;
-	}
-
-	public List<SelectItem> getInstituicoes() { 
-		return instituicoes;
-	}
-
-	public void setInstituicoes() {
-		this.restInstituicao = new InstituicaoRESTClient();
-		List<Instituicao> instituicoesBase = this.restInstituicao.findAll();
-		List<SelectItem> instituicoes = new ArrayList<>();
-
-		for (Instituicao i : instituicoesBase) 
-		{
-			instituicoes.add(new SelectItem(i.getId(), i.getNome()));
-		}
-		
-		this.instituicoes = instituicoes;
-	}
-
-	public void setPerfisAcesso() {
-		List<SelectItem> perfis = new ArrayList<>();
-		perfis.add(new SelectItem("1", "Secretaria Executiva"));
-		perfis.add(new SelectItem("2", "Avaliador CT-PG"));
-
-		this.perfisAcesso = perfis;
-	}
-	
-	public List<SelectItem> getTiposAvaliadores() {
-		return tiposAvaliadores;
-	}
-
-	public void setTiposAvaliadores() {
-		List<SelectItem> tiposAvaliadores = new ArrayList<>();
-		tiposAvaliadores.add(new SelectItem("1", "Avaliador Titular"));
-		tiposAvaliadores.add(new SelectItem("2", "Avaliador Suplente"));
-		tiposAvaliadores.add(new SelectItem("3", "Avaliador Externo"));
-		
-		this.tiposAvaliadores = tiposAvaliadores;
-	}
-	
-	
-	public SecretariaExecutiva getSecretaria() {
-		return secretaria;
-	}
-
-
-	public void setSecretaria(SecretariaExecutiva secretaria) {
-		this.secretaria = secretaria;
 	}
 
 
@@ -221,6 +121,8 @@ public class UsuarioBean implements Serializable {
 	
 	private void startView(boolean setInfo) 
 	{
+		this.idusuario = null;
+		this.idtipousuario = null;
 		this.usuario = new Usuario();
 		this.ctpg = new CTPG();
 		this.ctpg.setInstituicao(new Instituicao());
@@ -355,5 +257,109 @@ public class UsuarioBean implements Serializable {
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(message);
 		}
+	}
+	
+	public Long getIdusuario() {
+		return idusuario;
+	}
+ 
+	public void setIdusuario(Long idusuario) {
+		this.idusuario = idusuario;
+	}
+	
+	public Long getIdtipousuario() {
+		return idtipousuario;
+	}
+
+	public void setIdtipousuario(Long idtipousuario) {
+		this.idtipousuario = idtipousuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public List<SelectItem> getPerfisAcesso() {
+		return this.perfisAcesso;
+	}
+
+	public CTPG getCtpg() {
+		return ctpg;
+	}
+
+	public void setCtpg(CTPG ctpg) {
+		this.ctpg = ctpg;
+	}
+
+	public List<SelectItem> getInstituicoes() { 
+		return instituicoes;
+	}
+
+	public void setInstituicoes() {
+		this.restInstituicao = new InstituicaoRESTClient();
+		List<Instituicao> instituicoesBase = this.restInstituicao.findAll();
+		List<SelectItem> instituicoes = new ArrayList<>();
+
+		for (Instituicao i : instituicoesBase) 
+		{
+			instituicoes.add(new SelectItem(i.getId(), i.getNome()));
+		}
+		
+		this.instituicoes = instituicoes;
+	}
+
+	public void setPerfisAcesso() {
+		List<SelectItem> perfis = new ArrayList<>();
+		perfis.add(new SelectItem("1", "Secretaria Executiva"));
+		perfis.add(new SelectItem("2", "Avaliador CT-PG"));
+
+		this.perfisAcesso = perfis;
+	}
+	
+	public List<SelectItem> getTiposAvaliadores() {
+		return tiposAvaliadores;
+	}
+
+	public void setTiposAvaliadores() {
+		List<SelectItem> tiposAvaliadores = new ArrayList<>();
+		tiposAvaliadores.add(new SelectItem("1", "Avaliador Titular"));
+		tiposAvaliadores.add(new SelectItem("2", "Avaliador Suplente"));
+		tiposAvaliadores.add(new SelectItem("3", "Avaliador Externo"));
+		
+		this.tiposAvaliadores = tiposAvaliadores;
+	}
+	
+	
+	public SecretariaExecutiva getSecretaria() {
+		return secretaria;
+	}
+
+
+	public void setSecretaria(SecretariaExecutiva secretaria) {
+		this.secretaria = secretaria;
+	}
+	
+	public PerfilAcessoEnum[] getPerfilAcesso(){
+		return PerfilAcessoEnum.values();
 	}
 }

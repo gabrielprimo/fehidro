@@ -32,4 +32,8 @@ public class PontuacaoDAO extends DAOFactory<Pontuacao> {
 	public List<Pontuacao> obterPorCriterio(long id) {
 		return listarGenerico("CriterioAvaliacao.obterPontuacoesPorCriterio", id);
 	}
+	
+	public List<Pontuacao> obterPorSubcriterio(long id) {
+		return listarGenerico("SubcriterioAvaliacao.obterPontuacoesPorSubcriterio", id);
+	}
 }

@@ -1,15 +1,19 @@
 package br.unisantos.fehidro.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -23,13 +27,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
     			query = "select c from CriterioAvaliacao c where c.id=?1"),
 	
 	@NamedQuery(name = "CriterioAvaliacao.obterSubcriterios", 
-	query = "select s from CriterioAvaliacao c join c.subcriterios s join fetch s.pontuacoes p where c.id=?1"),
+	query = "select s from CriterioAvaliacao c join c.subcriterios s where c.id=?1"),
 	
 	@NamedQuery(name = "CriterioAvaliacao.obterPontuacoesPorCriterio", 
 				query = "select p from CriterioAvaliacao c join c.pontuacoes p where c.id =?1"),
-	
-//	@NamedQuery(name = "CriterioAvaliacao.obterTiposPropostaPorIdSubcriterio",
-//	query = "select tp from CriterioAvaliacao c join c.subcriterios s join fetch s.tiposProposta tp where s.id=?1"),
 })
 public class CriterioAvaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -38,15 +39,15 @@ public class CriterioAvaliacao extends AbstractEntity {
 
 	@Column(name = "nr_criterio")
 	private Integer numero;
-	
-	@OneToMany(cascade = {CascadeType.ALL})
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+		
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	@JoinColumn(name = "fk_criterioavaliacao_id")
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<Pontuacao> pontuacoes;
 	
-	@OneToMany(cascade = {CascadeType.ALL})
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})  //salva em cascata, altera pai e filho em cascata, exclui em cascata
 	@JoinColumn(name = "fk_criterioavaliacao_id")
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<SubcriterioAvaliacao> subcriterios;
 
 	public CriterioAvaliacao() {
@@ -87,7 +88,7 @@ public class CriterioAvaliacao extends AbstractEntity {
 	}
 
 	public List<SubcriterioAvaliacao> getSubcriterios() {
-		return subcriterios;
+		return new ArrayList<SubcriterioAvaliacao>(subcriterios);
 	}
 
 	public void setSubcriterios(List<SubcriterioAvaliacao> subcriterios) {
