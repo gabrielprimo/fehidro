@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.unisantos.fehidro.model.dao.SecretariaExecutivaDAO;
+import br.unisantos.fehidro.util.email.EmailUtil;
 import br.unisantos.fehidro.util.password.Password;
 import br.unisantos.fehidro.model.SecretariaExecutiva;
 
@@ -43,6 +44,7 @@ public class SecretariaExecutivaResource {
 		usuario.setLogin();
 		String senha = Password.generateRandomPassword(10);
 		usuario.setSenha(Password.hashPassword(senha));
+		EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);
 		//usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
@@ -51,8 +53,11 @@ public class SecretariaExecutivaResource {
 	@PUT
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(SecretariaExecutiva usuario) {		
+	public Response update(SecretariaExecutiva usuario) throws Exception {		
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
+		if(usuario.getSenha() != null) {
+			usuario.setSenha(Password.hashPassword(usuario.getSenha()));
+		}
 		dao.atualizar(usuario);
 		return Response.ok(usuario).build();
 	}
