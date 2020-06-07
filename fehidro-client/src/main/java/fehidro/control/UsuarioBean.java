@@ -22,6 +22,7 @@ import fehidro.rest.client.CTPGRESTClient;
 import fehidro.rest.client.InstituicaoRESTClient;
 import fehidro.rest.client.SecretariaExecutivaRESTClient;
 import fehidro.rest.client.UsuarioRESTClient;
+import fehidro.util.SessionContext;
 
 @ManagedBean
 @SessionScoped
@@ -63,6 +64,17 @@ public class UsuarioBean implements Serializable {
 		startView(true);
 		return "/usuario/cadastro?faces-redirect=true";
 	}
+	
+	public String configuracoes() 
+	{
+		startView(true);
+		Usuario u = SessionContext.getInstance().usuarioLogado();
+		this.idusuario = u.getId();
+		this.idtipousuario = (long) u.getPerfilAcesso();
+		obterDadosUsuario();
+
+		return "/usuario/configuracoes?faces-redirect=true";
+	}
 
 
 	public String salvar() {
@@ -99,6 +111,23 @@ public class UsuarioBean implements Serializable {
 
 	public String editar() 
 	{
+		obterDadosUsuario();
+		return "/usuario/cadastro?faces-redirect=true";
+	}
+	
+	public String salvarConfiguracoes() {
+		if (!this.usuario.getSenha().equals(this.usuario.getConfirmacaoSenha())) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("formConfiguracoes:txtConfirmacaoSenha", new FacesMessage("Senhas diferentes!"));
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return null;
+		}
+		else {
+			return salvar();
+		}
+	}
+	
+	private void obterDadosUsuario() {
 		if (getIdusuario() != null) {
 			if (getIdtipousuario() == 1) 
 			{
@@ -115,8 +144,6 @@ public class UsuarioBean implements Serializable {
 				ctpg = user;
 			}		
 		}
-
-		return "/usuario/cadastro?faces-redirect=true";
 	}
 	
 	private void startView(boolean setInfo) 
