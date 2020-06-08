@@ -1,16 +1,15 @@
 package fehidro.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class PDC {
-	
 	private Long id;
-	private int codigo;
 	private String titulo;
-	private List<SubPDC> cronogramas = new ArrayList<SubPDC>();
 	
-	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private List<SubPDC> subPDCs;
 	
 	public Long getId() {
 		return id;
@@ -18,25 +17,18 @@ public class PDC {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
 	public String getTitulo() {
 		return titulo;
 	}
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public List<SubPDC> getCronogramas() {
-		return cronogramas;
+	public List<SubPDC> getSubPDCs() {
+		return subPDCs;
 	}
-	public void setCronogramas(List<SubPDC> cronogramas) {
-		this.cronogramas = cronogramas;
+	public void setSubPDCs(List<SubPDC> subPDCs) {
+		this.subPDCs = subPDCs;
 	}
 	
 	
-
 }

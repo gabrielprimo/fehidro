@@ -3,18 +3,13 @@ package br.unisantos.fehidro.model;
 import javax.persistence.*;
 
 
-
 @Entity
-@DiscriminatorValue("Secretaria Executiva")
+@Table(name = "tb_secretariaexecutiva")
 public class SecretariaExecutiva extends Usuario {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "ic_administrativo")
 	private boolean administrador;
-
-	public SecretariaExecutiva() {
-		super();
-	}
 
 	public boolean isAdministrador() {
 		return administrador;

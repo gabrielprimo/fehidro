@@ -23,10 +23,17 @@ public class PontuacaoDAO extends DAOFactory<Pontuacao> {
 
 	public Pontuacao obter(long id) {
 		return consultarGenerico("Pontuacao.consultarPorId", id);
-		//return consultar(id);
 	}
 
 	public List<Pontuacao> listar() {
 		return listarGenerico("Pontuacao.listarTodos");
+	}
+	
+	public List<Pontuacao> obterPorCriterio(long id) {
+		return listarGenerico("CriterioAvaliacao.obterPontuacoesPorCriterio", id);
+	}
+	
+	public List<Pontuacao> obterPorSubcriterio(long id) {
+		return listarGenerico("SubcriterioAvaliacao.obterPontuacoesPorSubcriterio", id);
 	}
 }

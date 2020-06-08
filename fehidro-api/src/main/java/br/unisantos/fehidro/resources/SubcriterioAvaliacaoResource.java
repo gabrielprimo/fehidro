@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import br.unisantos.fehidro.model.SubcriterioAvaliacao;
 import br.unisantos.fehidro.model.dao.SubcriterioAvaliacaoDAO;
 
-@Path("/subcriterio")
+@Path("/subcriterioAvaliacao")
 public class SubcriterioAvaliacaoResource {
 
 	@GET

@@ -1,5 +1,6 @@
 package fehidro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -13,6 +14,8 @@ public class Usuario {
 	protected String email;
 	protected String login;
 	protected String senha;
+	@JsonIgnore
+	protected String confirmacaoSenha;
 	protected Boolean ativo;
 	
 	public Long getId() {
@@ -77,6 +80,12 @@ public class Usuario {
 		this.ativo = ativo;
 	}
 	
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
 	@Override
 	public String toString() {
 		return "Usuario #" + id + ": " + nome + " " + sobrenome;

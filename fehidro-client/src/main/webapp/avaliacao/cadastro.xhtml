@@ -14,7 +14,14 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel value="Proposta" id="txtProposta" />
 						<h:selectOneMenu id="cmbProposta" value="#{avaliacaoBean.proposta}">
-						<f:selectItems value="#{avaliacaoBean.propostas}" var="p" itemLabel="#{p.titulo}" itemValue="#{p}"/>
+						<f:selectItems value="#{avaliacaoBean.propostas}" var="p" itemLabel="#{p.nomeProjeto}" itemValue="#{p}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Criterio" id="txtCriterio" />
+						<h:selectOneMenu id="cmbCriterio" value="#{avaliacaoBean.criterio}" >
+						<f:selectItems value="#{avaliacaoBean.criterios}" var="s" itemLabel="#{s.titulo}" itemValue="#{s}"/>
 						</h:selectOneMenu>
 					</h:panelGroup>
 					
@@ -33,7 +40,6 @@
 					</h:panelGroup>
 					
 				</h:panelGroup>
-
 				
 
 				<hr />

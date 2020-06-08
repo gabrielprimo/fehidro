@@ -8,7 +8,7 @@
 <h:body>
 	<ui:composition template="/shared/template.xhtml">
 		<ui:define name="content">
-			<h:inputHidden value="Usuario" id="menuAtual" />
+			<h:inputHidden value="Instituicao" id="menuAtual" />
 			<h:form id="formUsuario">
 				<h:inputHidden value="#{instituicaoBean.instituicao.id}"
 					id="instituicaoId" />
@@ -41,10 +41,10 @@
 
 				<h:panelGroup layout="block" class="form-row mt-5">
 					<h:panelGroup layout="block" class="col text-right">
-						<h:button id="btnCancel" type="button"
-							class="btn btn-outline-danger" value="Cancelar" outcome="index">
+						<h:commandButton id="btnCancel"
+							class="btn btn-outline-danger" value="Cancelar" action="#{instituicaoBean.index}" immediate="true">
 							<h:message for="btnCancel" styleClass="erro" />
-						</h:button>
+						</h:commandButton>
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"

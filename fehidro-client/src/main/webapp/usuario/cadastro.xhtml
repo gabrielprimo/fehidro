@@ -17,8 +17,7 @@
 						<h:outputLabel for="txtNome" value="Nome" />
 						<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
 							class="form-control alpha" required="true" maxlength="30"
-							requiredMessage="Informe o nome!">
-							<f:validateRegex pattern="[a-zA-Z]+" />
+							requiredMessage="Informe o nome!"> />
 							<f:passThroughAttribute name="placeholder" value="Nome" />
 							<f:validateLength maximum="30" />
 						</h:inputText>
@@ -102,10 +101,10 @@
 
 				<h:panelGroup layout="block" class="form-row mt-5">
 					<h:panelGroup layout="block" class="col text-right">
-						<h:button id="btnCancel" type="button"
-							class="btn btn-outline-danger" value="Cancelar" outcome="index">
+						<h:commandButton id="btnCancel"
+							class="btn btn-outline-danger" value="Cancelar" action="#{usuarioBean.index}" immediate="true">
 							<h:message for="btnCancel" styleClass="erro" />
-						</h:button>
+						</h:commandButton>
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"

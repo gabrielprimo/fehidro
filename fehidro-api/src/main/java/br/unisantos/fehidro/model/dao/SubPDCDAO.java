@@ -6,25 +6,16 @@ import br.unisantos.fehidro.model.SubPDC;
 
 public class SubPDCDAO extends DAOFactory<SubPDC>{
 
-	public SubPDCDAO()
-	{
+	public SubPDCDAO() {
 		super(SubPDC.class);
 	}
 	
-	public void cadastrar(SubPDC subpdc) {
-		adicionar(subpdc);
+	public SubPDC obter(long id) {
+		return consultarGenerico("SubPDC.consultarPorId", id);
 	}
-	
-	public void atualizar(SubPDC subpdc) {
-		alterar(subpdc);
-	}
-	
-//	public Instituicao obter(long id) {
-//		return consultarGenerico("PDC.consultarPorId", id);
-//	}
-//		
+		
 	public List<SubPDC> listar() {
-		return listarGenerico("SubPDC.listarTodas");
+		return listarGenerico("SubPDC.listarTodos");
 	}
-	
+
 }

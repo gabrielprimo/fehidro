@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import fehidro.model.Instituicao;
+import fehidro.model.enums.TipoInstituicaoEnum;
 import fehidro.rest.client.InstituicaoRESTClient;
 
 @ManagedBean
@@ -26,12 +27,63 @@ public class InstituicaoBean implements Serializable{
 	private Long idInstituicao;
 	
 	public InstituicaoBean() {
+		startView(true);
+	}
+	
+	public String cadastro() {
+		startView(true);
+		return "/instituicao/cadastro?faces-redirect=true";
+	}
+
+	public String index() 
+	{
+		startView(true);
+		return "/instituicao/index?faces-redirect=true";
+	}
+
+
+	public String salvar() {
+		this.restInstituicao = new InstituicaoRESTClient();
+		
+		if (getInstituicao().getId() == null) 
+		{
+			restInstituicao.create(getInstituicao());
+		}
+		else 
+		{
+			restInstituicao.edit(getInstituicao());
+		}
+		
+		startView(true);		
+		
+		return null;		
+	}
+
+	public String editar() 
+	{
+		if (getIdInstituicao() != null) {
+
+			Instituicao i = this.restInstituicao.find(getIdInstituicao());
+			setInstituicao(i);
+		}
+
+		return "/instituicao/cadastro?faces-redirect=true";
+	}
+	
+	public void startView(boolean setInfo) {
 		this.setRestInstituicao();
 		this.setInstituicao(new Instituicao());
+		this.idInstituicao = null;
+		
+		if (setInfo)
+			setInfo();
+	}
+	
+	public void setInfo() {
 		this.setInstituicoes();
 		this.setTipos();
 	}
-
+	
 	public InstituicaoRESTClient getRestInstituicao() {
 		return restInstituicao;
 	}
@@ -85,44 +137,9 @@ public class InstituicaoBean implements Serializable{
 	public void setIdInstituicao(Long idInstituicao) {
 		this.idInstituicao = idInstituicao;
 	}
-
 	
-	public String index() 
-	{
-		this.setInstituicoes();
-		this.setInstituicao(new Instituicao());
-		return "/instituicao/index?faces-redirect=true";
-	}
-
-
-	public String salvar() {
-		this.restInstituicao = new InstituicaoRESTClient();
-		
-		if (getInstituicao().getId() == null) 
-		{
-			restInstituicao.create(getInstituicao());
-		}
-		else 
-		{
-			restInstituicao.edit(getInstituicao());
-		}
-		
-		this.setInstituicao(new Instituicao());
-		this.setInstituicoes();
-		
-		
-		return null;		
-	}
-
-	public String editar() 
-	{
-		if (getIdInstituicao() != null) {
-
-			Instituicao i = this.restInstituicao.find(getIdInstituicao());
-			setInstituicao(i);
-		}
-
-		return "/instituicao/cadastro?faces-redirect=true";
+	public TipoInstituicaoEnum[] getTipoInstituicao(){
+		return TipoInstituicaoEnum.values();
 	}
 
 }

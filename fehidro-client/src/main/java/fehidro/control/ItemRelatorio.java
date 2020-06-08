@@ -45,10 +45,10 @@ public class ItemRelatorio {
 		{
 			this.proposta = a.getProposta();
 		}
-		if(this.subPDC == null)
-		{
-			subPDC = a.getSubpdc();
-		}
+//		if(this.subPDC == null)
+//		{
+//			subPDC = a.getSubpdc();
+//		}
 		
 		this.avaliacoes.add(a);//Adiciona a avaliacao à lista de avaliacoes
 		if(a.getNota().isDesclassificavel())//Verifica se esta declassificado

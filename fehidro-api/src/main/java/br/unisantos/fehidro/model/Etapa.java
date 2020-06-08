@@ -26,7 +26,7 @@ public class Etapa extends AbstractEntity {
 	private Integer responsavel;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "etapa_cronograma_id")
+	@JoinColumn(name = "etapa_id")
 	private List<Cronograma> cronogramas = new ArrayList<Cronograma>();
 
 	public int getNumero() {

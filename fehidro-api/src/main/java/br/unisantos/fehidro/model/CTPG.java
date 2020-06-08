@@ -6,15 +6,17 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
 import br.unisantos.fehidro.model.Usuario;
 
 @Entity
+@Table(name = "tb_ctpg")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class CTPG extends Usuario {
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "id_instituicao")
-	private int instituicao;
+		
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "fk_instituicao_id")
+	private Instituicao instituicao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inicio_mandato")
@@ -29,37 +31,21 @@ public class CTPG extends Usuario {
 	@Column(name = "id_tipoavaliador")
 	private int tipoavaliador;
 
-	
-
-	public CTPG() {
-		super();
-	}
-
-	/**
-	 * @return the dataInicioMandato
-	 */
+		
 	public Date getDataInicioMandato() {
 		return dataInicioMandato;
 	}
 
-	/**
-	 * @param dataInicioMandato the dataInicioMandato to set
-	 */
+	
 	public void setDataInicioMandato(Date dataInicioMandato) {
 		this.dataInicioMandato = dataInicioMandato;
 	}
 
-	/**
-	 * @return the instituicao
-	 */
-	public int getInstituicao() {
+	public Instituicao getInstituicao() {
 		return instituicao;
 	}
 
-	/**
-	 * @param instituicao the instituicao to set
-	 */
-	public void setInstituicao(int instituicao) {
+	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
 	}
 	
@@ -78,10 +64,4 @@ public class CTPG extends Usuario {
 	public void setTipoavaliador(int tipoavaliador) {
 		this.tipoavaliador = tipoavaliador;
 	}
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@Column(name="usuario_id")
-//	private Usuario usuario;
-	
-
 }

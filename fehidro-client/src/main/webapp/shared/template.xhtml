@@ -7,26 +7,18 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/logo_fehidro.png']}"/>
-	<h:outputStylesheet library="webjars"
-		name="bootstrap/4.5.0/css/bootstrap-jsf.css" />
-	<h:outputStylesheet library="webjars"
-		name="font-awesome/5.13.0/css/all-jsf.css" />
+	<h:outputStylesheet library="webjars" name="bootstrap/4.5.0/css/bootstrap-jsf.css" />
+	<h:outputStylesheet library="webjars" name="font-awesome/5.13.0/css/all-jsf.css" />
 	<h:outputStylesheet library="css" name="site.css" />
 	<h:outputStylesheet library="css" name="menu.css" />
 
-	<h:outputScript library="webjars" name="jquery/3.1.1/jquery.js"
-		target="head" />
-	<h:outputScript library="webjars" name="popper.js/1.16.0/popper.js"
-		target="head" />
-	<h:outputScript library="webjars"
-		name="bootstrap/4.5.0/js/bootstrap.js" target="head" />
-	<h:outputScript library="js"
-		name="shared/menu.js" target="head" />
-	<h:outputScript library="js"
-		name="shared/site.js" target="head" />
+	<h:outputScript library="webjars" name="jquery/3.1.1/jquery.js" target="head" />
+	<h:outputScript library="webjars" name="popper.js/1.16.0/popper.js" target="head" />
+	<h:outputScript library="webjars" name="bootstrap/4.5.0/js/bootstrap.js" target="head" />
+	<h:outputScript library="js" name="shared/menu.js" target="head" />
+	<h:outputScript library="js" name="shared/site.js" target="head" />
 
 	<title>Fehidro</title>
 </h:head>
@@ -51,14 +43,25 @@
 	
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active">
+							<li class="nav-item">
 								<a class="nav-link" href="#">
 									<i class="fas fa-bell"></i>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Sair
-								<i class="fas fa-sign-out-alt"></i></a>
+							<li class="nav-item active">
+								<h:form>
+									<h:commandLink class="nav-link" immediate="true" title="Configurações" action="#{usuarioBean.configuracoes}">
+    									<i class="fas fa-cog"></i>
+									</h:commandLink>
+								</h:form>
+								
+							</li>
+							<li class="nav-item align-self-center">
+								<h:form>
+									<h:commandLink class="nav-link" immediate="true" title="Sair" action="#{loginBean.logout}">
+    									Sair&nbsp;<i class="fas fa-sign-out-alt"></i>
+									</h:commandLink>
+								</h:form>
 							</li>
 						</ul>
 					</div>

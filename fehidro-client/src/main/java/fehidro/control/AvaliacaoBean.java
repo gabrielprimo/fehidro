@@ -5,34 +5,63 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 
+import fehidro.model.Avaliacao;
+import fehidro.model.CriterioAvaliacao;
 import fehidro.model.Pontuacao;
 import fehidro.model.Proposta;
 import fehidro.model.SubcriterioAvaliacao;
+import fehidro.rest.client.AvaliacaoRESTClient;
+import fehidro.rest.client.CriterioAvaliacaoRESTClient;
 import fehidro.rest.client.PropostaRESTClient;
-import fehidro.rest.client.SubcriterioAvaliacaoRESTClient;
 
 @ManagedBean
 @SessionScoped
 public class AvaliacaoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	//Proposta
 	private PropostaRESTClient restProposta;
 	private List<Proposta> propostas;
 	private Proposta proposta;
-	private SubcriterioAvaliacaoRESTClient restSubcriterio;
+	//Subcriterio
 	private List<SubcriterioAvaliacao> subcriterios;
 	private SubcriterioAvaliacao subcriterio;
+	//Criterio
+	private CriterioAvaliacaoRESTClient restCriterio;
+	private List<CriterioAvaliacao> criterios;
+	private CriterioAvaliacao criterio;
+	//Pontuacao
 	private List<Pontuacao> pontuacoesSubcriterio;
 	private Pontuacao pontuacao;
+	
+	private AvaliacaoRESTClient restAvaliacao;
+	private Avaliacao avaliacao;
+	private List<Avaliacao> avaliacoes;
+	
 	
 	//CONSTRUTOR
 	public AvaliacaoBean() {
 		this.restProposta = new PropostaRESTClient();
-		this.restSubcriterio = new SubcriterioAvaliacaoRESTClient();
+		this.restCriterio = new CriterioAvaliacaoRESTClient();
 		//REST
-		this.propostas = restProposta.findAll();
-		setSubcriterios(restSubcriterio.findAll());
+		setPropostas(restProposta.findAll());
+		setCriterios(restCriterio.findAll());
+	}
+	
+	public List<CriterioAvaliacao> getCriterios() {
+		return criterios;
+	}
+	public void setCriterios(List<CriterioAvaliacao> criterios) {
+		this.criterios = criterios;
+	}
+
+	public CriterioAvaliacao getCriterio() {
+		return criterio;
+	}
+	public void setCriterio(CriterioAvaliacao criterio) {
+		this.criterio = criterio;
 	}
 
 	//List pontuacoes
@@ -86,21 +115,41 @@ public class AvaliacaoBean implements Serializable {
 	}
 
 
+	//Avaliacao
+	public Avaliacao getAvaliacao() {
+		return avaliacao;
+	}
+	public void setAvaliacao(Avaliacao avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+	
+	//List Avaliacoes
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
+
 	public String salvar()
 	{
-		if(this.proposta.getId() == null)
+		avaliacao.setCriterio(criterio);
+		avaliacao.setSubcriterio(subcriterio);
+		avaliacao.setNota(pontuacao);
+		avaliacao.setProposta(proposta);
+		if(this.avaliacao.getId() == null)
 		{
 			//Não existe? Cria.
-			this.restProposta.create(proposta);
+			this.restAvaliacao.create(avaliacao);
 		}
 		else
 		{
 			//Ja existe? Edita.
-			this.restProposta.edit(proposta);
+			this.restAvaliacao.edit(avaliacao);
 		}
 		
-		this.setProposta(new Proposta());
-		this.setPropostas(this.restProposta.findAll());
+		this.setAvaliacao(new Avaliacao());
+		this.setAvaliacoes(this.restAvaliacao.findAll());//TODO: possivelmente desnecessario
 		
 		return null;
 	}
