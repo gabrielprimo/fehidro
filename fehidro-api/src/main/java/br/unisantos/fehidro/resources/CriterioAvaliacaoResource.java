@@ -27,6 +27,16 @@ public class CriterioAvaliacaoResource {
 		return Response.ok(criterios).build();
 	}
 	
+	@Path("/completo")
+	@GET
+	@Produces("application/json")
+	public Response getCompleto() {
+		System.out.println("Resource - getCompleto()");
+		CriterioAvaliacaoDAO dao = new CriterioAvaliacaoDAO();
+		List<CriterioAvaliacao> criterios = dao.listarCriterioCompleto();
+		return Response.ok(criterios).build();
+	}
+	
 	@Path("/{id}")
 	@GET
 	@Produces("application/json")
