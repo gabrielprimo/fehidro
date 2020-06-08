@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import fehidro.model.Usuario;
 import fehidro.rest.client.UsuarioRESTClient;
+import fehidro.util.SessionContext;
 
 @ManagedBean
 @SessionScoped
@@ -46,6 +47,7 @@ public class LoginBean implements Serializable {
 			try {
 				if (user != null && confereSenha(usuario.getSenha(), user.getSenha())) 
 				{
+					SessionContext.getInstance().setAttribute("usuarioLogado", user);
 					return "/deliberacao/index?faces-redirect=true";
 				} 
 				else 
@@ -65,6 +67,11 @@ public class LoginBean implements Serializable {
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return null;
 		}
+	}
+	
+	public String logout() {
+		SessionContext.getInstance().encerrarSessao();
+		return "/login/index?faces-redirect=true";
 	}
 	
 	private boolean confereSenha(String senhaInformada, String senhaBase) throws Exception {

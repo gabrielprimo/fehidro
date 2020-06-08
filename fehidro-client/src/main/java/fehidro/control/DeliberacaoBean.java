@@ -29,16 +29,102 @@ public class DeliberacaoBean implements Serializable {
 	private Long idDeliberacao;
 		
 	public DeliberacaoBean() {
-		List<Etapa> e = new ArrayList<Etapa>();
+		startView(true);
+	}
+	
+	public String index() 
+	{
+		startView(true);
+		return "/deliberacao/index?faces-redirect=true";
+	}
+	
+	public String cadastro() 
+	{
+		startView(true);
+		return "/deliberacao/cadastro?faces-redirect=true";
+	}
+	
+	public String addEtapa() 
+	{
+		Deliberacao d = this.getDeliberacao();
 		
+		if (d == null) 
+		{
+			d = new Deliberacao();
+			List<Etapa> etapas = new ArrayList<>();
+			d.setEtapas(etapas);
+		}
+		
+		List<Etapa> e = d.getEtapas();
+		
+		int qtEtapas = e.size();
+		Etapa novaEtapa = new Etapa();
+		novaEtapa.setNumero(qtEtapas + 1);
+		
+		Cronograma cronograma = new Cronograma();
+		List<Cronograma> c = new ArrayList<>();
+		
+		c.add(cronograma);
+		novaEtapa.setCronogramas(c);
+		
+		this.getDeliberacao().getEtapas().add(novaEtapa);
+		return null;
+	}
+	
+	public String addCronograma() 
+	{		
+		Cronograma novoCronograma = new Cronograma();
+		this.getDeliberacao().getEtapas().get(getNumeroEtapaNovoCronograma() - 1).getCronogramas().add(novoCronograma);		
+		
+		return null;
+	}
+	
+	public String salvar() 
+	{
+		if(deliberacao.getId() == null) 
+		{
+			this.restDeliberacao.create(deliberacao);
+		}
+		else 
+		{
+			this.restDeliberacao.edit(deliberacao);
+		}
+		
+		startView(true);
+		
+		return null;
+	}
+	
+	public String editar() 
+	{
+		if (getIdDeliberacao() != null) {
+
+			Deliberacao d = this.restDeliberacao.find(getIdDeliberacao());
+			setDeliberacao(d);
+		}
+		
+		return "/deliberacao/cadastro?faces-redirect=true";
+	}
+	
+	public void startView(boolean setInfo) {
+		List<Etapa> e = new ArrayList<Etapa>();
 		Deliberacao d = new Deliberacao();
 		d.setEtapas(e);
-		
-		this.restDeliberacao = new DeliberacaoRESTClient();
 		this.setDeliberacao(d);
+		this.restDeliberacao = new DeliberacaoRESTClient();
+		this.numeroEtapaNovoCronograma = 0;
+		this.idDeliberacao = null;
+		
+		if(setInfo)
+			setInfo();
+	}
+	
+	public void setInfo() {
 		this.setDeliberacoes(this.restDeliberacao.findAll());
 		this.setResponsaveis();
 	}
+	
+	
 	
 	public Deliberacao getDeliberacao() {
 		return deliberacao;
@@ -88,70 +174,6 @@ public class DeliberacaoBean implements Serializable {
 
 	public void setRestDeliberacao(DeliberacaoRESTClient restDeliberacao) {
 		this.restDeliberacao = restDeliberacao;
-	}
-
-	
-	public String addEtapa() 
-	{
-		Deliberacao d = this.getDeliberacao();
-		
-		if (d == null) 
-		{
-			d = new Deliberacao();
-			List<Etapa> etapas = new ArrayList<>();
-			d.setEtapas(etapas);
-		}
-		
-		List<Etapa> e = d.getEtapas();
-		
-		int qtEtapas = e.size();
-		Etapa novaEtapa = new Etapa();
-		novaEtapa.setNumero(qtEtapas + 1);
-		
-		Cronograma cronograma = new Cronograma();
-		List<Cronograma> c = new ArrayList<>();
-		
-		c.add(cronograma);
-		novaEtapa.setCronogramas(c);
-		
-		this.getDeliberacao().getEtapas().add(novaEtapa);
-		return null;
-	}
-	
-	public String addCronograma() 
-	{		
-		Cronograma novoCronograma = new Cronograma();
-		this.getDeliberacao().getEtapas().get(getNumeroEtapaNovoCronograma() - 1).getCronogramas().add(novoCronograma);		
-		
-		return null;
-	}
-	
-	public String salvar() 
-	{
-		if(deliberacao.getId() == null) 
-		{
-			this.restDeliberacao.create(deliberacao);
-		}
-		else 
-		{
-			this.restDeliberacao.edit(deliberacao);
-		}
-		
-		setDeliberacao(new Deliberacao());
-		this.setDeliberacoes(this.restDeliberacao.findAll());
-		
-		return null;
-	}
-	
-	public String editar() 
-	{
-		if (getIdDeliberacao() != null) {
-
-			Deliberacao d = this.restDeliberacao.find(getIdDeliberacao());
-			setDeliberacao(d);
-		}
-		
-		return "/deliberacao/cadastro?faces-redirect=true";
 	}
 
 }

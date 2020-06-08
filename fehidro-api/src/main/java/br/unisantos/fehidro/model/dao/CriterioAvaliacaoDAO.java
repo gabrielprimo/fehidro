@@ -47,6 +47,7 @@ public class CriterioAvaliacaoDAO extends DAOFactory<CriterioAvaliacao> {
 			if (c.getSubcriterios() != null) {
 				for(SubcriterioAvaliacao s : c.getSubcriterios()) {
 					s.setTiposProposta(tipoPropostaDAO.obterPorSubcriterio(s.getId()));
+					s.setPontuacoes(pontuacaoDAO.obterPorSubcriterio(s.getId()));
 				}
 			}
 		}
