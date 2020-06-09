@@ -42,7 +42,7 @@ public class PropostaResource {
 
 	@PUT
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Proposta proposta) {		
 		PropostaDAO dao = new PropostaDAO();
 		dao.atualizar(proposta);

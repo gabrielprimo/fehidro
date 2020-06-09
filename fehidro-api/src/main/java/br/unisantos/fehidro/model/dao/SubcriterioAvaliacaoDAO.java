@@ -8,7 +8,6 @@ public class SubcriterioAvaliacaoDAO extends DAOFactory<SubcriterioAvaliacao> {
 
 	public SubcriterioAvaliacaoDAO() {
 		super(SubcriterioAvaliacao.class);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void cadastrar(SubcriterioAvaliacao subcriterioAvaliacao) {

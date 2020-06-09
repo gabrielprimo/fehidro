@@ -9,6 +9,8 @@ public class CriterioAvaliacao {
 	private List<Pontuacao> pontuacoes;
 	private List<SubcriterioAvaliacao> subcriterios;
 	
+	
+	
 	public Long getId() {
 		return id;
 	}

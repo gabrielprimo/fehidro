@@ -14,6 +14,8 @@ public class Avaliacao {
 //	    private SubPDC subpdc;
 //	    private PDC pdc;
 	    
+	    
+	    
 	    public Long getId()
 	    {
 	    	return id;

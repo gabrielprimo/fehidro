@@ -16,7 +16,7 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel for="txtProposta">Proposta</h:outputLabel>
 						<h:selectOneMenu id="txtProposta" redisplay="false"
-							value="#{avalicaoBean.avaliacao.proposta.id}"
+							value="#{avaliacaoBean.avaliacao.proposta.id}"
 							class="form-control" required="true"
 							requiredMessage="Informe a instituição!">
 							<f:selectItems value="#{avaliacaoBean.propostas}" />
@@ -29,7 +29,7 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel for="txtCriterio">Criterio</h:outputLabel>
 						<h:selectOneMenu id="txtCriterio" redisplay="false"
-							value="#{avalicaoBean.avaliacao.criterio.id}"
+							value="#{avaliacaoBean.avaliacao.criterio.id}"
 							class="form-control" required="true"
 							requiredMessage="Informe o criterio!">
 							<f:selectItems value="#{avaliacaoBean.criterios}" />
@@ -42,7 +42,7 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel for="txtSubcriterio">Subcriterio</h:outputLabel>
 						<h:selectOneMenu id="txtSubcriterio" redisplay="false"
-							value="#{avalicaoBean.avaliacao.subcriterio.id}"
+							value="#{avaliacaoBean.avaliacao.subcriterio.id}"
 							class="form-control" required="true"
 							requiredMessage="Informe o subcriterio!">
 							<f:selectItems value="#{avaliacaoBean.subcriterios}" />
@@ -55,7 +55,7 @@
 					<h:panelGroup layout="block" class="col">
 						<h:outputLabel for="txtNota">Nota</h:outputLabel>
 						<h:selectOneMenu id="txtNota" redisplay="false"
-							value="#{avalicaoBean.avaliacao.nota.id}"
+							value="#{avaliacaoBean.avaliacao.nota.id}"
 							class="form-control" required="true"
 							requiredMessage="Informe a nota!">
 							<f:selectItems value="#{avaliacaoBean.pontuacoes}" />

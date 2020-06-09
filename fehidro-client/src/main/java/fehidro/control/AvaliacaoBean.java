@@ -101,10 +101,7 @@ public class AvaliacaoBean implements Serializable {
 	
 	public String salvar() {
 		if (getIdAvaliacao() == null) {
-			//gero o id para a avaliacao
-			Avaliacao a = this.restAvaliacao.create(this.avaliacao);
-			//atualizo nome dos arquivos na base
-			this.restAvaliacao.edit(a);
+			this.restAvaliacao.create(this.avaliacao);
 		}
 		else {
 			this.restAvaliacao.edit(this.avaliacao);
@@ -151,14 +148,15 @@ public class AvaliacaoBean implements Serializable {
 	public List<SelectItem> getPontuacoes() {
 		return pontuacoes;
 	}
+	
 	public void setPontuacoes() {
 		this.restPontuacao = new PontuacaoRESTClient();
-		List<Pontuacao> pontuacoesBase = this.restPontuacao.findAll();
+		List<Pontuacao> pontuacaoBase = this.restPontuacao.findAll();//FIXME
 		List<SelectItem> pontuacoes = new ArrayList<>();
 
-		for (Pontuacao i : pontuacoesBase) 
+		for (Pontuacao i : pontuacaoBase) 
 		{
-			criterios.add(new SelectItem(i.getId(), i.getTitulo()));
+			pontuacoes.add(new SelectItem(i.getId(), i.getTitulo()));
 		}
 		
 		this.pontuacoes = pontuacoes;
@@ -171,6 +169,7 @@ public class AvaliacaoBean implements Serializable {
 	public void setSubcriterios() {
 		this.restSubcriterio = new SubcriterioAvaliacaoRESTClient();
 		List<SubcriterioAvaliacao> subcriteriosBase = this.restSubcriterio.findAll();//FIXME
+		System.out.println("Size = "+subcriteriosBase.size());
 		List<SelectItem> subcriterios = new ArrayList<>();
 
 		for (SubcriterioAvaliacao i : subcriteriosBase) 
@@ -203,6 +202,46 @@ public class AvaliacaoBean implements Serializable {
 		this.idAvaliacao = idAvaliacao;
 	}
 
+	public PropostaRESTClient getRestProposta() {
+		return restProposta;
+	}
 
+	public void setRestProposta(PropostaRESTClient restProposta) {
+		this.restProposta = restProposta;
+	}
+
+	public SubcriterioAvaliacaoRESTClient getRestSubcriterio() {
+		return restSubcriterio;
+	}
+
+	public void setRestSubcriterio(SubcriterioAvaliacaoRESTClient restSubcriterio) {
+		this.restSubcriterio = restSubcriterio;
+	}
+
+	public CriterioAvaliacaoRESTClient getRestCriterio() {
+		return restCriterio;
+	}
+
+	public void setRestCriterio(CriterioAvaliacaoRESTClient restCriterio) {
+		this.restCriterio = restCriterio;
+	}
+
+	public PontuacaoRESTClient getRestPontuacao() {
+		return restPontuacao;
+	}
+
+	public void setRestPontuacao(PontuacaoRESTClient restPontuacao) {
+		this.restPontuacao = restPontuacao;
+	}
+
+	public AvaliacaoRESTClient getRestAvaliacao() {
+		return restAvaliacao;
+	}
+
+	public void setRestAvaliacao(AvaliacaoRESTClient restAvaliacao) {
+		this.restAvaliacao = restAvaliacao;
+	}
+
+	
 	
 }

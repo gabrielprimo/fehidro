@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ import fehidro.rest.client.TipoPropostaRESTClient;
 
 @ManagedBean
 @SessionScoped
-public class PropostaBean {
-	
+public class PropostaBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private Long idProposta;
 	private String consulta;
