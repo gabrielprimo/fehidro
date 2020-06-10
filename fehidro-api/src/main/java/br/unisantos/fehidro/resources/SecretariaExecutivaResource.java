@@ -55,7 +55,8 @@ public class SecretariaExecutivaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(SecretariaExecutiva usuario) throws Exception {		
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
-		if(usuario.getSenha() != null) {
+		SecretariaExecutiva usuarioBase = dao.obter(usuario.getId());
+		if(usuario.getSenha() != null && usuarioBase != null && !usuarioBase.getSenha().equals(usuario.getSenha())) {
 			usuario.setSenha(Password.hashPassword(usuario.getSenha()));
 		}
 		dao.atualizar(usuario);
