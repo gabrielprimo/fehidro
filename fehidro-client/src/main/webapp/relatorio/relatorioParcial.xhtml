@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Relatorio" id="menuAtual"/>
+			<h:dataTable value="#{relatorioParcial.relatorio.itensRelatorio}" var="itemRelatorio" id="tabela" styleClass="table">
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					<h:outputText value="#{itemRelatorio.proposta.titulo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">SubPDC</f:facet>
+					<h:outputText value="#{itemRelatorio.subPDC.titulo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{itemRelatorio.proposta.valor}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nota Parcial</f:facet>
+					<h:outputText value="#{itemRelatorio.soma}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Avaliações</f:facet>
+					<h:dataTable value="#{itemRelatorio.avaliacoes}" var="itemAvaliacao" id="tabelaAvaliacoes" styleClass="table">
+						<h:column>
+							<h:outputText value="#{itemAvaliacao.subcriterio.titulo}" />
+						</h:column>
+						<h:column>
+							<h:outputText value="#{itemAvaliacao.nota.pontos}" />
+						</h:column>
+					</h:dataTable>
+				</h:column>
+			</h:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -31,10 +31,6 @@
 			<h:dataTable value="#{pDCBean.pdcs}" var="i" id="tabela"
 				styleClass="table">
 				<h:column>
-					<f:facet name="header">Número</f:facet>
-					<h:outputText value="#{i.id}" />
-				</h:column>
-				<h:column>
 					<f:facet name="header">Nome</f:facet>
 					<h:outputText value="#{i.titulo}" />
 				</h:column>
