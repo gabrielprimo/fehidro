@@ -50,7 +50,8 @@ public class CTPGResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(CTPG usuario) throws Exception {		
 		CTPGDAO dao = new CTPGDAO();
-		if(usuario.getSenha() != null) {
+		CTPG usuarioBase = dao.obter(usuario.getId());
+		if(usuario.getSenha() != null && usuarioBase != null && !usuarioBase.getSenha().equals(usuario.getSenha())) {
 			usuario.setSenha(Password.hashPassword(usuario.getSenha()));
 		}
 		dao.atualizar(usuario);
