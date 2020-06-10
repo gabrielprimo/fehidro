@@ -14,11 +14,15 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 
 import fehidro.model.CTPG;
+import fehidro.model.Instituicao;
 import fehidro.model.SecretariaExecutiva;
 import fehidro.model.Usuario;
+import fehidro.model.enums.PerfilAcessoEnum;
 import fehidro.rest.client.CTPGRESTClient;
+import fehidro.rest.client.InstituicaoRESTClient;
 import fehidro.rest.client.SecretariaExecutivaRESTClient;
 import fehidro.rest.client.UsuarioRESTClient;
+import fehidro.util.SessionContext;
 
 @ManagedBean
 @SessionScoped
@@ -31,6 +35,7 @@ public class UsuarioBean implements Serializable {
 	private UsuarioRESTClient restUsuario;
 	private SecretariaExecutivaRESTClient restSecretaria;
 	private CTPGRESTClient restCTPG;
+	private InstituicaoRESTClient restInstituicao;
 	
 	private Usuario usuario;
 	private CTPG ctpg;
@@ -44,121 +49,31 @@ public class UsuarioBean implements Serializable {
 	
 	
 	public UsuarioBean() {
-		this.usuario = new Usuario();
-		this.ctpg = new CTPG();
-		this.secretaria = new SecretariaExecutiva();
-		this.restUsuario = new UsuarioRESTClient();
-
-		this.setUsuarios(restUsuario.findAll());
-		this.setPerfisAcesso();
-		this.setInstituicoes();
-		this.setTiposAvaliadores();
-	}
-
-
-	public Long getIdusuario() {
-		return idusuario;
-	}
- 
-	public void setIdusuario(Long idusuario) {
-		this.idusuario = idusuario;
-	}
-	
-	public Long getIdtipousuario() {
-		return idtipousuario;
-	}
-
-	public void setIdtipousuario(Long idtipousuario) {
-		this.idtipousuario = idtipousuario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getConsulta() {
-		return consulta;
-	}
-
-	public void setConsulta(String consulta) {
-		this.consulta = consulta;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public List<SelectItem> getPerfisAcesso() {
-		return this.perfisAcesso;
-	}
-
-	public CTPG getCtpg() {
-		return ctpg;
-	}
-
-	public void setCtpg(CTPG ctpg) {
-		this.ctpg = ctpg;
-	}
-
-	public List<SelectItem> getInstituicoes() { 
-		return instituicoes;
-	}
-
-	public void setInstituicoes() {
-		List<SelectItem> instituicoes = new ArrayList<>();
-		instituicoes.add(new SelectItem("1", "Sociedade Civil"));
-		instituicoes.add(new SelectItem("2", "Municipal"));
-		instituicoes.add(new SelectItem("3", "Estadual"));
-
-		this.instituicoes = instituicoes;
-	}
-
-	public void setPerfisAcesso() {
-		List<SelectItem> perfis = new ArrayList<>();
-		perfis.add(new SelectItem("1", "Secretaria Executiva"));
-		perfis.add(new SelectItem("2", "Avaliador CT-PG"));
-
-		this.perfisAcesso = perfis;
-	}
-	
-	public List<SelectItem> getTiposAvaliadores() {
-		return tiposAvaliadores;
-	}
-
-	public void setTiposAvaliadores() {
-		List<SelectItem> tiposAvaliadores = new ArrayList<>();
-		tiposAvaliadores.add(new SelectItem("1", "Avaliador Titular"));
-		tiposAvaliadores.add(new SelectItem("2", "Avaliador Suplente"));
-		tiposAvaliadores.add(new SelectItem("3", "Avaliador Externo"));
-		
-		this.tiposAvaliadores = tiposAvaliadores;
-	}
-	
-	
-	
-	public SecretariaExecutiva getSecretaria() {
-		return secretaria;
-	}
-
-
-	public void setSecretaria(SecretariaExecutiva secretaria) {
-		this.secretaria = secretaria;
+		startView(true);
 	}
 
 
 	public String index() 
 	{
-		this.setUsuarios(restUsuario.findAll());
-		this.setUsuario(new Usuario());
+		startView(true);
 		return "/usuario/index?faces-redirect=true";
+	}
+	
+	public String cadastro() 
+	{
+		startView(true);
+		return "/usuario/cadastro?faces-redirect=true";
+	}
+	
+	public String configuracoes() 
+	{
+		startView(true);
+		Usuario u = SessionContext.getInstance().usuarioLogado();
+		this.idusuario = u.getId();
+		this.idtipousuario = (long) u.getPerfilAcesso();
+		obterDadosUsuario();
+
+		return "/usuario/configuracoes?faces-redirect=true";
 	}
 
 
@@ -189,16 +104,30 @@ public class UsuarioBean implements Serializable {
 				this.restCTPG.edit(ctpg);
 			}
 		}
-		usuario = new Usuario();
-		ctpg = new CTPG();
-		secretaria = new SecretariaExecutiva();
-		this.setUsuarios(restUsuario.findAll());
-
+		
+		startView(true);
 		return null;		
 	}
 
 	public String editar() 
 	{
+		obterDadosUsuario();
+		return "/usuario/cadastro?faces-redirect=true";
+	}
+	
+	public String salvarConfiguracoes() {
+		if (!this.usuario.getSenha().equals(this.usuario.getConfirmacaoSenha())) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("formConfiguracoes:txtConfirmacaoSenha", new FacesMessage("Senhas diferentes!"));
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return null;
+		}
+		else {
+			return salvar();
+		}
+	}
+	
+	private void obterDadosUsuario() {
 		if (getIdusuario() != null) {
 			if (getIdtipousuario() == 1) 
 			{
@@ -215,10 +144,30 @@ public class UsuarioBean implements Serializable {
 				ctpg = user;
 			}		
 		}
-
-		return "/usuario/cadastro?faces-redirect=true";
 	}
 	
+	private void startView(boolean setInfo) 
+	{
+		this.idusuario = null;
+		this.idtipousuario = null;
+		this.usuario = new Usuario();
+		this.ctpg = new CTPG();
+		this.ctpg.setInstituicao(new Instituicao());
+		this.secretaria = new SecretariaExecutiva();
+		this.restUsuario = new UsuarioRESTClient();
+		this.restInstituicao = new InstituicaoRESTClient();
+		
+		if (setInfo)
+			setInfo();
+	}
+	
+	private void setInfo() 
+	{
+		this.setUsuarios(restUsuario.findAll());
+		this.setPerfisAcesso();
+		this.setInstituicoes();
+		this.setTiposAvaliadores();
+	}
 	
 	private void map(Usuario u, CTPG c) 
 	{
@@ -335,5 +284,109 @@ public class UsuarioBean implements Serializable {
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(message);
 		}
+	}
+	
+	public Long getIdusuario() {
+		return idusuario;
+	}
+ 
+	public void setIdusuario(Long idusuario) {
+		this.idusuario = idusuario;
+	}
+	
+	public Long getIdtipousuario() {
+		return idtipousuario;
+	}
+
+	public void setIdtipousuario(Long idtipousuario) {
+		this.idtipousuario = idtipousuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public List<SelectItem> getPerfisAcesso() {
+		return this.perfisAcesso;
+	}
+
+	public CTPG getCtpg() {
+		return ctpg;
+	}
+
+	public void setCtpg(CTPG ctpg) {
+		this.ctpg = ctpg;
+	}
+
+	public List<SelectItem> getInstituicoes() { 
+		return instituicoes;
+	}
+
+	public void setInstituicoes() {
+		this.restInstituicao = new InstituicaoRESTClient();
+		List<Instituicao> instituicoesBase = this.restInstituicao.findAll();
+		List<SelectItem> instituicoes = new ArrayList<>();
+
+		for (Instituicao i : instituicoesBase) 
+		{
+			instituicoes.add(new SelectItem(i.getId(), i.getNome()));
+		}
+		
+		this.instituicoes = instituicoes;
+	}
+
+	public void setPerfisAcesso() {
+		List<SelectItem> perfis = new ArrayList<>();
+		perfis.add(new SelectItem("1", "Secretaria Executiva"));
+		perfis.add(new SelectItem("2", "Avaliador CT-PG"));
+
+		this.perfisAcesso = perfis;
+	}
+	
+	public List<SelectItem> getTiposAvaliadores() {
+		return tiposAvaliadores;
+	}
+
+	public void setTiposAvaliadores() {
+		List<SelectItem> tiposAvaliadores = new ArrayList<>();
+		tiposAvaliadores.add(new SelectItem("1", "Avaliador Titular"));
+		tiposAvaliadores.add(new SelectItem("2", "Avaliador Suplente"));
+		tiposAvaliadores.add(new SelectItem("3", "Avaliador Externo"));
+		
+		this.tiposAvaliadores = tiposAvaliadores;
+	}
+	
+	
+	public SecretariaExecutiva getSecretaria() {
+		return secretaria;
+	}
+
+
+	public void setSecretaria(SecretariaExecutiva secretaria) {
+		this.secretaria = secretaria;
+	}
+	
+	public PerfilAcessoEnum[] getPerfilAcesso(){
+		return PerfilAcessoEnum.values();
 	}
 }

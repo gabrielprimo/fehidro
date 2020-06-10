@@ -5,7 +5,7 @@ import java.util.Date;
 public class CTPG extends Usuario {
 	private Date dataNascimento;
 	private Date dataInicioMandato;
-	private int instituicao;
+	private Instituicao instituicao;
 	private int tipoavaliador;
 		
 	public Date getDataNascimento() {
@@ -20,10 +20,10 @@ public class CTPG extends Usuario {
 	public void setDataInicioMandato(Date dataInicioMandato) {
 		this.dataInicioMandato = dataInicioMandato;
 	}
-	public int getInstituicao() {
+	public Instituicao getInstituicao() {
 		return instituicao;
 	}
-	public void setInstituicao(int instituicao) {
+	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
 	}
 	public int getTipoavaliador() {

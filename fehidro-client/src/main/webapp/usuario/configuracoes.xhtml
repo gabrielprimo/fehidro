@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Usuario" id="menuAtual"/>
+			<h:form id="formConfiguracoes">
+			<h:inputHidden value="#{usuarioBean.usuario.id}" id="usuarioId"/>
+			
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtNome" value="Nome" />
+						<h:inputText id="txtNome" value="#{usuarioBean.usuario.nome}"
+							class="form-control alpha" required="true" maxlength="30"
+							requiredMessage="Informe o nome!"> />
+							<f:passThroughAttribute name="placeholder" value="Nome" />
+							<f:validateLength maximum="30" />
+						</h:inputText>
+						<small class="text-muted"> O primeiro nome deve ter até 30 caracteres. </small>
+						<h:message for="txtNome" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtSobrenome">Sobrenome</h:outputLabel>
+						<h:inputText id="txtSobrenome"
+							value="#{usuarioBean.usuario.sobrenome}"
+							class="form-control alpha" required="true"
+							requiredMessage="Informe o sobrenome!" maxlength="255">
+							<f:passThroughAttribute name="placeholder" value="Sobrenome" />
+							<f:validateLength maximum="255" />
+						</h:inputText>
+						<small class="text-muted"> O sobrenome deve ter até 255 caracteres. </small>
+						<h:message for="txtSobrenome" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel>CPF</h:outputLabel>
+						<h:inputText id="txtCPF" value="#{usuarioBean.usuario.CPF}"
+							class="form-control numeric" 
+							required="true" requiredMessage="Informe o CPF!" maxlength="11"
+							validator="#{usuarioBean.validaCPF}">
+						</h:inputText>						
+					</h:panelGroup>
+										
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel>Celular:</h:outputLabel>
+						<h:inputText id="txtCelular" redisplay="false"
+							value="#{usuarioBean.usuario.celular}" class="form-control numeric"
+							required="true" requiredMessage="Informe o celular!"  maxlength="11">
+							<f:passThroughAttribute name="placeholder" value="(99)99999-9999" />
+						</h:inputText>
+						<h:message for="txtCelular" styleClass="erro" />
+					</h:panelGroup>
+					
+					<h:inputHidden value="#{usuarioBean.usuario.perfilAcesso}" id="txtPerfilAcesso" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtEmail">E-mail</h:outputLabel>
+						<h:inputText id="txtEmail" value="#{usuarioBean.usuario.email}" class="form-control" required="true"
+							requiredMessage="Informe o e-mail!" maxlength="255">
+							<f:passThroughAttribute name="placeholder" value="E-mail" />
+						</h:inputText>
+						<h:message for="txtEmail" styleClass="erro" />
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col-3" id="infoCTPG" rendered="#{usuarioBean.usuario.perfilAcesso == '2'}">
+					<h:panelGroup>
+						<label>Data de nascimento</label>
+						<h:inputText id="txtNascimento" redisplay="false"
+							value="#{usuarioBean.ctpg.dataNascimento}" class="form-control"
+							required="#{usuarioBean.usuario.perfilAcesso == '2'}"
+							requiredMessage="Informe a data de nascimento!">
+							<f:passThroughAttribute name="placeholder"
+								value="Data de nascimento" />
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:inputText>
+						<h:message for="txtNascimento" styleClass="erro" />
+					</h:panelGroup>
+						
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				
+						
+				<h:panelGroup layout="block" class="form-group row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtSenha">Senha</h:outputLabel>
+						<h:inputSecret id="txtSenha" value="#{usuarioBean.usuario.senha}" class="form-control" required="true" maxlength="10" validatorMessage="A senha deve ter de 6 a 10 caracteres!" requiredMessage="Informe a senha!">
+							<f:passThroughAttribute name="placeholder" value="Digite sua senha atual"/>
+							<f:validateLength minimum="6" maximum="10"/>
+						</h:inputSecret>
+						<small class="text-muted">A senha deve ter de 6 a 10 caracteres.</small>
+						<h:message for="txtSenha" styleClass="erro" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel for="txtConfirmacaoSenha">Confirmação de senha</h:outputLabel>
+						<h:inputSecret id="txtConfirmacaoSenha" value="#{usuarioBean.usuario.confirmacaoSenha}" class="form-control" required="true" maxlength="10" validatorMessage="A senha deve ter de 6 a 10 caracteres!" requiredMessage="Confirme a senha!">
+							<f:passThroughAttribute name="placeholder" value="Confirme sua senha" />
+							<f:validateLength minimum="6" maximum="10"/>
+						</h:inputSecret>
+						<small class="text-muted">A senha deve ter de 6 a 10 caracteres.</small>
+						<h:message for="txtConfirmacaoSenha" styleClass="erro" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" class="form-row mt-5">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:commandButton id="btnCancel"
+							class="btn btn-outline-danger" value="Cancelar" action="#{deliberacaoBean.index}" immediate="true">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{usuarioBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+			<h:outputScript library="js" name="usuario.js" target="head" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

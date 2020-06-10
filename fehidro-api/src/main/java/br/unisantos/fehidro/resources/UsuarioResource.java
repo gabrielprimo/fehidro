@@ -7,6 +7,8 @@ import javax.ws.rs.core.*;
 
 import br.unisantos.fehidro.model.dao.UsuarioDAO;
 import br.unisantos.fehidro.model.Usuario;
+import br.unisantos.fehidro.util.email.EmailUtil;
+import br.unisantos.fehidro.util.password.Password;
 
 
 @Path("/usuario")
@@ -75,18 +77,20 @@ public class UsuarioResource {
 	@POST
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(Usuario usuario) {
+	public Response add(Usuario usuario) throws Exception {
 		UsuarioDAO dao = new UsuarioDAO();
 		usuario.setLogin();
-		usuario.setSenha();
-		usuario.setAtivo();
+		usuario.setAtivo();	
+		String senha = Password.generateRandomPassword(10);
+		usuario.setSenha(Password.hashPassword(senha));
+		//EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);//FIXME: descomentar
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	}
 
 	@PUT
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Usuario usuario) {		
 		UsuarioDAO dao = new UsuarioDAO();
 		dao.atualizar(usuario);

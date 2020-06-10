@@ -97,8 +97,7 @@
 										</h:inputText>
 									</h:panelGroup>
 
-									<h:panelGroup layout="block" class="col-3 align-self-end"
-										id="btNovoCronograma" rendered="#{statusC.last}">
+									<h:panelGroup layout="block" class="col-3 align-self-end" id="btNovoCronograma" rendered="#{statusC.last}">
 										<h:commandButton class="btn btn-primary" immediate="true" action="#{deliberacaoBean.addCronograma}" value="+"> 
 											<f:setPropertyActionListener target="#{deliberacaoBean.numeroEtapaNovoCronograma}" value="#{e.numero}" /> 
 										</h:commandButton>
@@ -113,10 +112,10 @@
 
 				<h:panelGroup layout="block" class="form-row">
 					<h:panelGroup layout="block" class="col text-right">
-						<h:button id="btnCancel" type="button"
-							class="btn btn-outline-danger" value="Cancelar" outcome="index">
+						<h:commandButton id="btnCancel" 
+							class="btn btn-outline-danger" value="Cancelar" action="#{deliberacaoBean.index}" immediate="true">
 							<h:message for="btnCancel" styleClass="erro" />
-						</h:button>
+						</h:commandButton>
 					</h:panelGroup>
 					<h:panelGroup layout="block" class="col text-left">
 						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"

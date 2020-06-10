@@ -13,8 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import br.unisantos.fehidro.model.dao.AvaliacaoDAO;
 import br.unisantos.fehidro.model.Avaliacao;
+import br.unisantos.fehidro.model.dao.AvaliacaoDAO;
 
 
 @Path("/avaliacao")

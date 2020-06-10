@@ -4,10 +4,9 @@ import java.util.List;
 
 import br.unisantos.fehidro.model.PDC;
 
-public class PDCDAO extends DAOFactory<PDC>{
+public class PDCDAO extends DAOFactory<PDC> {
 
-	public PDCDAO()
-	{
+	public PDCDAO() {
 		super(PDC.class);
 	}
 	
@@ -26,5 +25,5 @@ public class PDCDAO extends DAOFactory<PDC>{
 	public List<PDC> listar() {
 		return listarGenerico("PDC.listarTodos");
 	}
-	
+
 }

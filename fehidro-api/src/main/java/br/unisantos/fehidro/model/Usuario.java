@@ -1,13 +1,17 @@
 package br.unisantos.fehidro.model;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import javax.persistence.*;
 
+import br.unisantos.fehidro.util.password.Password;
+
 @Table(name = "tb_usuario")
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "nm_pertence_a_classe", length = 256)
+@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({ @NamedQuery(name = "Usuario.listarTodos", query = "select u from Usuario u order by u.nome"),
 		@NamedQuery(name = "Usuario.consultarPorId", query = "select u from Usuario u where u.id=?1"),
 		@NamedQuery(name = "Usuario.consultarPorLogin", query = "select u from Usuario u where u.login=?1"),
@@ -69,6 +73,7 @@ public class Usuario extends AbstractEntity {
 	}
 
 	public void setCPF(String cpf) {
+		// TODO
 		CPF = cpf;
 	}
 
@@ -85,16 +90,20 @@ public class Usuario extends AbstractEntity {
 	}
 
 	public void setLogin() {
-		char space = 32;
-		String nomeUsuario = this.nome.replace(space, '.').toLowerCase();
-		String sobrenomeUsuario = this.sobrenome.replace(space, '.').toLowerCase();
-		String login = String.join(".", nomeUsuario, sobrenomeUsuario);
+//		char space = 32;
+//		String nomeUsuario = this.nome.replace(space, '.').toLowerCase();
+//		String sobrenomeUsuario = this.sobrenome.replace(space, '.').toLowerCase();
+//		String login = String.join(".", nomeUsuario, sobrenomeUsuario);
 
 		/**
 		 * Se existir um usuario com o mesmo login que outro usuario adicionar um valor
 		 * inteiro no final
 		 */
 
+		String[] nomes = this.nome.toLowerCase().split(" ");
+		String[] sobrenomes = this.sobrenome.toLowerCase().split(" ");
+		String login = nomes[0] + "." + sobrenomes[sobrenomes.length - 1];
+		
 		this.login = login;
 	}
 
@@ -102,30 +111,10 @@ public class Usuario extends AbstractEntity {
 		return senha;
 	}
 
-	public void setSenha() {
-		Random rnd = new Random();
-		String chars  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		String senha = "";
-		
-		for(int i = 0; i < 6; i++) 
-		{
-			if (i % 2 == 0) 
-			{
-				senha += chars.charAt(rnd.nextInt(chars.length()));
-			}
-			else 
-			{
-				senha += Integer.toString(rnd.nextInt(10));
-			}
-		}
-		
-		this.senha = senha; 
-	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	
 	public boolean isAtivo() {
 		return ativo;
 	}

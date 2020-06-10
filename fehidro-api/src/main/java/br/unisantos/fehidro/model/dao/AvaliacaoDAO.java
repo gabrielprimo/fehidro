@@ -4,9 +4,9 @@ import java.util.List;
 
 import br.unisantos.fehidro.model.Avaliacao;
 import br.unisantos.fehidro.model.CriterioAvaliacao;
-import br.unisantos.fehidro.model.PDC;
+//import br.unisantos.fehidro.model.PDC;
 import br.unisantos.fehidro.model.Proposta;
-import br.unisantos.fehidro.model.SubPDC;
+//import br.unisantos.fehidro.model.SubPDC;
 import br.unisantos.fehidro.model.SubcriterioAvaliacao;
 import br.unisantos.fehidro.model.Usuario;
 
@@ -36,15 +36,15 @@ public class AvaliacaoDAO extends DAOFactory<Avaliacao> {
 	
 	//========Listar especifico=========
 	
-	public List<Avaliacao> listarPDC(PDC pdc)
-	{
-		return listarGenerico("Avaliacao.listarPDC", pdc);
-	}
-	
-	public List<Avaliacao> listarSubPDC(SubPDC subpdc)
-	{
-		return listarGenerico("Avaliacao.listarSubPDC",subpdc);
-	}
+//	public List<Avaliacao> listarPDC(PDC pdc)
+//	{
+//		return listarGenerico("Avaliacao.listarPDC", pdc);
+//	}
+//	
+//	public List<Avaliacao> listarSubPDC(SubPDC subpdc)
+//	{
+//		return listarGenerico("Avaliacao.listarSubPDC",subpdc);
+//	}
 	
 	public List<Avaliacao> listarAvaliador(Usuario avaliador)
 	{

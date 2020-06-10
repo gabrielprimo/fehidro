@@ -13,10 +13,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+//import br.unisantos.fehidro.model.Avaliacao;
 import br.unisantos.fehidro.model.SubcriterioAvaliacao;
+//import br.unisantos.fehidro.model.dao.AvaliacaoDAO;
 import br.unisantos.fehidro.model.dao.SubcriterioAvaliacaoDAO;
 
-@Path("/subcriterio")
+@Path("/subcriterioAvaliacao")
 public class SubcriterioAvaliacaoResource {
 
 	@GET
@@ -25,6 +27,19 @@ public class SubcriterioAvaliacaoResource {
 		SubcriterioAvaliacaoDAO dao = new SubcriterioAvaliacaoDAO();
 		List<SubcriterioAvaliacao> subcriterios = dao.listar();
 		return Response.ok(subcriterios).build();
+	}
+	
+	@Path("/{id}")//FIXME
+	@GET
+	@Produces("application/json")
+	public Response get(@PathParam("id") Long id) {
+		SubcriterioAvaliacaoDAO dao = new SubcriterioAvaliacaoDAO();		
+		SubcriterioAvaliacao subcriterio = dao.obter(id);
+		if (subcriterio != null) {
+			return Response.ok(subcriterio).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 	}
 	
 	@POST

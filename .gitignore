@@ -4,3 +4,13 @@ Servers/
 fehidro-api/target/
 *.class
 fehidro-api/target/m2e-wtp/web-resources/META-INF/maven/br.unisantos.fehidro/fehidro/pom.properties
+fehidro-api/target/m2e-wtp/web-resources/META-INF/maven/br.unisantos.fehidro/fehidro/pom.properties
+fehidro-api/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+fehidro-api/target/classes/br/unisantos/fehidro/resources/UsuarioResource.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/Usuario.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/SubcriterioAvaliacao.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/SecretariaExecutiva.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/Proposta.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/Pontuacao.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/CTPG.class
+fehidro-api/target/classes/br/unisantos/fehidro/model/CriterioAvaliacao.class

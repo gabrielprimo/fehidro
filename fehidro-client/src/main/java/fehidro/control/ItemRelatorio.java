@@ -5,13 +5,11 @@ import java.util.List;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.Proposta;
-import fehidro.model.SubPDC;
 
 public class ItemRelatorio {
 	
 	private Proposta proposta;
 	private int soma;
-	private SubPDC subPDC;
 	private List<Avaliacao> avaliacoes;
 	private int classificacao;
 	private boolean desclassificado;
@@ -45,10 +43,10 @@ public class ItemRelatorio {
 		{
 			this.proposta = a.getProposta();
 		}
-		if(this.subPDC == null)
-		{
-			subPDC = a.getSubpdc();
-		}
+//		if(this.subPDC == null)
+//		{
+//			subPDC = a.getSubpdc();
+//		}
 		
 		this.avaliacoes.add(a);//Adiciona a avaliacao à lista de avaliacoes
 		if(a.getNota().isDesclassificavel())//Verifica se esta declassificado
@@ -76,9 +74,6 @@ public class ItemRelatorio {
 		return soma;
 	}
 	
-	public SubPDC getSubPDC() {
-		return subPDC;
-	}
 
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;

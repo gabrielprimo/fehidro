@@ -30,7 +30,6 @@ public class RelatorioFinalBean implements Serializable {
 	public RelatorioFinalBean() {
 		relatorio = new Relatorio();
 		rest  = new AvaliacaoRESTClient();
-		System.out.println("===========Metodo gerar - R Final===============");
 		List<Avaliacao> avaliacoes = rest.findAll();//FIXME: Substituir por metodo mais apropriado + considerar data
 		
 //		if(avaliacoes == null)

@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.unisantos.fehidro.model.dao.SecretariaExecutivaDAO;
+import br.unisantos.fehidro.util.email.EmailUtil;
+import br.unisantos.fehidro.util.password.Password;
 import br.unisantos.fehidro.model.SecretariaExecutiva;
 
 @Path("/usuario/secretaria")
@@ -37,20 +39,25 @@ public class SecretariaExecutivaResource {
 	@POST
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(SecretariaExecutiva usuario) {
+	public Response add(SecretariaExecutiva usuario) throws Exception {
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
 		usuario.setLogin();
-		usuario.setSenha();
-		//usuario.setAtivo();
+		String senha = Password.generateRandomPassword(10);
+		usuario.setSenha(Password.hashPassword(senha));
+//		EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);//FIXME: descomentar
+		usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
-	}
+	} 
 
 	@PUT
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(SecretariaExecutiva usuario) {		
+	public Response update(SecretariaExecutiva usuario) throws Exception {		
 		SecretariaExecutivaDAO dao = new SecretariaExecutivaDAO();
+		if(usuario.getSenha() != null) {
+			usuario.setSenha(Password.hashPassword(usuario.getSenha()));
+		}
 		dao.atualizar(usuario);
 		return Response.ok(usuario).build();
 	}

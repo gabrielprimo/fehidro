@@ -1,16 +1,16 @@
 package fehidro.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CriterioAvaliacao {
-	
 	private Long id;
+	private Integer numero;
 	private String titulo;
-	private int pontuacao;
-	private List<Pontuacao> pontuacoes = new ArrayList<Pontuacao>();
-	private List<SubcriterioAvaliacao> subCriterio = new ArrayList<SubcriterioAvaliacao>();
-
+	private List<Pontuacao> pontuacoes;
+	private List<SubcriterioAvaliacao> subcriterios;
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -23,23 +23,22 @@ public class CriterioAvaliacao {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public int getPontuacao() {
-		return pontuacao;
-	}
-	public void setPontuacao(int pontuacao) {
-		this.pontuacao = pontuacao;
-	}
 	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
 	public void setPontuacoes(List<Pontuacao> pontuacoes) {
 		this.pontuacoes = pontuacoes;
 	}
-	public List<SubcriterioAvaliacao> getSubCriterio() {
-		return subCriterio;
+	public List<SubcriterioAvaliacao> getSubcriterios() {
+		return subcriterios;
 	}
-	public void setSubCriterio(List<SubcriterioAvaliacao> subCriterio) {
-		this.subCriterio = subCriterio;
+	public void setSubcriterios(List<SubcriterioAvaliacao> subcriterios) {
+		this.subcriterios = subcriterios;
 	}
-	
+	public Integer getNumero() {
+		return numero;
+	}
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
 }

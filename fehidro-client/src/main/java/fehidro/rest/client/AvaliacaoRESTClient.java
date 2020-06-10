@@ -2,14 +2,11 @@ package fehidro.rest.client;
 
 import java.util.List;
 
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.client.Invocation.Builder;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.CriterioAvaliacao;
@@ -24,14 +21,15 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public List<Avaliacao> findAll() {
-		//List<Avaliacao> avaliacoes = ClientBuilder.newClient().target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Avaliacao>> () {});
+		List<Avaliacao> avaliacoes = ClientBuilder.newClient().target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Avaliacao>> () {});
 
-		Client c = ClientBuilder.newClient();
-		WebTarget t = c.target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL);
-		Builder b = t.request(MediaType.APPLICATION_JSON);
-		Response r = b.get();
-		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {});
-		return out;
+//		Client c = ClientBuilder.newClient();
+//		WebTarget t = c.target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL);
+//		Builder b = t.request(MediaType.APPLICATION_JSON);
+//		Response r = b.get();
+//		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {});
+//		return out;
+		return avaliacoes;
 	}
 
 	@Override
