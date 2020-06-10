@@ -41,7 +41,7 @@ public class AvaliacaoBean implements Serializable {
 	private AvaliacaoRESTClient restAvaliacao;
 	private Avaliacao avaliacao;
 	private List<Avaliacao> avaliacoes;
-	private Long idAvaliacao;
+	
 	private String consulta;
 	
 	public String getConsulta() {
@@ -63,7 +63,7 @@ public class AvaliacaoBean implements Serializable {
 	
 	private void startView(boolean setInfo) {
 		this.restAvaliacao = new AvaliacaoRESTClient();
-		this.idAvaliacao = null;
+//		this.idAvaliacao = null;
 		this.avaliacao = new Avaliacao();
 		this.avaliacao.setProposta(new Proposta());
 		this.avaliacao.setCriterio(new CriterioAvaliacao());
@@ -89,9 +89,9 @@ public class AvaliacaoBean implements Serializable {
 
 	public String editar() 
 	{
-		if (getIdAvaliacao() != null) {
+		if (avaliacao.getId() != null) {
 
-			Avaliacao a = this.restAvaliacao.find(getIdAvaliacao());
+			Avaliacao a = this.restAvaliacao.find(avaliacao.getId());
 			setAvaliacao(a);
 		}
 		setInfo();
@@ -100,7 +100,20 @@ public class AvaliacaoBean implements Serializable {
 	}
 	
 	public String salvar() {
-		if (getIdAvaliacao() == null) {
+		
+		//TODO: Verificar
+		avaliacao.setProposta( restProposta.find(avaliacao.getProposta().getId()) );
+		avaliacao.setCriterio ( restCriterio.find(avaliacao.getCriterio().getId()) );
+		avaliacao.setSubcriterio( restSubcriterio.find(avaliacao.getSubcriterio().getId()) );
+		avaliacao.setNota( restPontuacao.find(avaliacao.getNota().getId()) );
+		
+		System.out.println("Avalicao = ");
+		System.out.println("criteiro = " + avaliacao.getCriterio().getTitulo());
+		System.out.println("subcriteiro = " + avaliacao.getSubcriterio().getTitulo());
+		System.out.println("pontos = " + avaliacao.getNota().getTitulo());
+		System.out.println("proposta = " + avaliacao.getProposta().getNomeProjeto());
+		
+		if ( this.avaliacao.getId() == null) {
 			this.restAvaliacao.create(this.avaliacao);
 		}
 		else {
@@ -133,7 +146,6 @@ public class AvaliacaoBean implements Serializable {
 	}
 	public void setCriterios() {
 		this.restCriterio = new CriterioAvaliacaoRESTClient();
-		//List<CriterioAvaliacao> criteriosBase = this.restCriterio.getCompleto();
 		List<CriterioAvaliacao> criteriosBase = this.restCriterio.findAll();
 		List<SelectItem> criterios = new ArrayList<>();
 
@@ -194,54 +206,5 @@ public class AvaliacaoBean implements Serializable {
 	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
-	//id avaliacao
-	public Long getIdAvaliacao() {
-		return idAvaliacao;
-	}
-	public void setIdAvaliacao(Long idAvaliacao) {
-		this.idAvaliacao = idAvaliacao;
-	}
 
-	public PropostaRESTClient getRestProposta() {
-		return restProposta;
-	}
-
-	public void setRestProposta(PropostaRESTClient restProposta) {
-		this.restProposta = restProposta;
-	}
-
-	public SubcriterioAvaliacaoRESTClient getRestSubcriterio() {
-		return restSubcriterio;
-	}
-
-	public void setRestSubcriterio(SubcriterioAvaliacaoRESTClient restSubcriterio) {
-		this.restSubcriterio = restSubcriterio;
-	}
-
-	public CriterioAvaliacaoRESTClient getRestCriterio() {
-		return restCriterio;
-	}
-
-	public void setRestCriterio(CriterioAvaliacaoRESTClient restCriterio) {
-		this.restCriterio = restCriterio;
-	}
-
-	public PontuacaoRESTClient getRestPontuacao() {
-		return restPontuacao;
-	}
-
-	public void setRestPontuacao(PontuacaoRESTClient restPontuacao) {
-		this.restPontuacao = restPontuacao;
-	}
-
-	public AvaliacaoRESTClient getRestAvaliacao() {
-		return restAvaliacao;
-	}
-
-	public void setRestAvaliacao(AvaliacaoRESTClient restAvaliacao) {
-		this.restAvaliacao = restAvaliacao;
-	}
-
-	
-	
 }
