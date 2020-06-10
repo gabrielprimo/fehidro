@@ -35,25 +35,25 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">Proposta</f:facet>
-					<h:outputText value="#{i.proposta}" />
+					<h:outputText value="#{i.proposta.nomeProjeto}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">Criterio</f:facet>
-					<h:outputText value="#{i.criterio}" />
+					<h:outputText value="#{i.criterio.titulo}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">Subcriterio</f:facet>
-					<h:outputText value="#{i.subcriterio}" />
+					<h:outputText value="#{i.subcriterio.titulo}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">Nota</f:facet>
-					<h:outputText value="#{i.nota}" />
+					<h:outputText value="#{i.nota.titulo}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:form>				
 						<h:commandButton class="btn btn-outline-primary" value="Editar" action="#{avaliacaoBean.editar}">
-							<f:setPropertyActionListener target="#{avaliacaoBean.idAvaliacao}" value="#{i.id}" />
+							<f:setPropertyActionListener target="#{avaliacaoBean.avaliacao.id}" value="#{i.id}" />
 					</h:commandButton>
 					</h:form>
 				</h:column>

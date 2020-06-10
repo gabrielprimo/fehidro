@@ -107,12 +107,6 @@ public class AvaliacaoBean implements Serializable {
 		avaliacao.setSubcriterio( restSubcriterio.find(avaliacao.getSubcriterio().getId()) );
 		avaliacao.setNota( restPontuacao.find(avaliacao.getNota().getId()) );
 		
-		System.out.println("Avalicao = ");
-		System.out.println("criteiro = " + avaliacao.getCriterio().getTitulo());
-		System.out.println("subcriteiro = " + avaliacao.getSubcriterio().getTitulo());
-		System.out.println("pontos = " + avaliacao.getNota().getTitulo());
-		System.out.println("proposta = " + avaliacao.getProposta().getNomeProjeto());
-		
 		if ( this.avaliacao.getId() == null) {
 			this.restAvaliacao.create(this.avaliacao);
 		}
@@ -163,7 +157,7 @@ public class AvaliacaoBean implements Serializable {
 	
 	public void setPontuacoes() {
 		this.restPontuacao = new PontuacaoRESTClient();
-		List<Pontuacao> pontuacaoBase = this.restPontuacao.findAll();//FIXME
+		List<Pontuacao> pontuacaoBase = this.restPontuacao.findAll();
 		List<SelectItem> pontuacoes = new ArrayList<>();
 
 		for (Pontuacao i : pontuacaoBase) 
@@ -180,7 +174,7 @@ public class AvaliacaoBean implements Serializable {
 	}
 	public void setSubcriterios() {
 		this.restSubcriterio = new SubcriterioAvaliacaoRESTClient();
-		List<SubcriterioAvaliacao> subcriteriosBase = this.restSubcriterio.findAll();//FIXME
+		List<SubcriterioAvaliacao> subcriteriosBase = this.restSubcriterio.findAll();
 		System.out.println("Size = "+subcriteriosBase.size());
 		List<SelectItem> subcriterios = new ArrayList<>();
 

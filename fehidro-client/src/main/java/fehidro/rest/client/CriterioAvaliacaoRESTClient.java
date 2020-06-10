@@ -30,8 +30,6 @@ public class CriterioAvaliacaoRESTClient implements RESTClientInterface<Criterio
 				request(MediaType.APPLICATION_JSON).get().
 				readEntity(new GenericType<List<CriterioAvaliacao>> () {});
 		
-		System.out.println("TESTE");//FIXME: remover
-		
 		return criterios;
 	}
 

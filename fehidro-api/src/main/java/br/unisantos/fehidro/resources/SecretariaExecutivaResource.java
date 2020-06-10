@@ -45,7 +45,7 @@ public class SecretariaExecutivaResource {
 		String senha = Password.generateRandomPassword(10);
 		usuario.setSenha(Password.hashPassword(senha));
 //		EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);//FIXME: descomentar
-		//usuario.setAtivo();
+		usuario.setAtivo();
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	} 

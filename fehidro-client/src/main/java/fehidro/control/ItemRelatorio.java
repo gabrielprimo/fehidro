@@ -5,13 +5,11 @@ import java.util.List;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.Proposta;
-import fehidro.model.SubPDC;
 
 public class ItemRelatorio {
 	
 	private Proposta proposta;
 	private int soma;
-	private SubPDC subPDC;
 	private List<Avaliacao> avaliacoes;
 	private int classificacao;
 	private boolean desclassificado;
@@ -76,9 +74,6 @@ public class ItemRelatorio {
 		return soma;
 	}
 	
-	public SubPDC getSubPDC() {
-		return subPDC;
-	}
 
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;

@@ -56,7 +56,6 @@ public class CriterioAvaliacaoDAO extends DAOFactory<CriterioAvaliacao> {
 	}
 	
 	public List<CriterioAvaliacao> listarCriterioCompleto(){
-		System.out.println("DAO>>>>listarCriterioCompleto()");//FIXME: Remover
 		List<CriterioAvaliacao> criterios = this.listar();
 		for(CriterioAvaliacao c: criterios)
 		{
