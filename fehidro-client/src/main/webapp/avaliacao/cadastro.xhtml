@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/shared/template.xhtml">
+		<ui:define name="content">
+			<h:inputHidden value="Avaliacao" id="menuAtual" />
+			<h:form id="formAvaliacao">
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Proposta" id="txtProposta" />
+						<h:selectOneMenu id="cmbProposta" value="#{avaliacaoBean.proposta.id}">
+							<f:selectItems value="#{avaliacaoBean.propostas}" var="p" itemLabel="#{p.nomeProjeto}" itemValue="#{p.id}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Criterio" id="txtCriterio" />
+						<h:selectOneMenu id="cmbCriterio" value="#{avaliacaoBean.criterio.id}" >
+							<f:selectItems value="#{avaliacaoBean.criterios}" var="s" itemLabel="#{s.titulo}" itemValue="#{s.id}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Subcriterio" id="txtSubcriterio" />
+						<h:selectOneMenu id="cmbSubcriterio" value="#{avaliacaoBean.subcriterio.id}">
+						<f:selectItems value="#{avaliacaoBean.subcriterios}" var="s" itemLabel="#{s.titulo}" itemValue="#{s.id}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col">
+						<h:outputLabel value="Pontuação" id="txtPontuacao" />
+						<h:selectOneMenu id="cmbAvaliacao" value="#{avaliacaoBean.pontuacao.id}">
+						<f:selectItems value="#{avaliacaoBean.pontuacoesSubcriterio}" var="o" itemLabel="#{o.titulo}" itemValue="#{o.id}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+				</h:panelGroup>
+				
+
+				<hr />
+				
+				<h:panelGroup layout="block" class="form-row">
+					<h:panelGroup layout="block" class="col text-right">
+						<h:button id="btnCancel" type="button"
+							class="btn btn-outline-danger" value="Cancelar" outcome="index">
+							<h:message for="btnCancel" styleClass="erro" />
+						</h:button>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="col text-left">
+						<h:commandButton id="btnCadastrar" class="btn btn-outline-success"
+							value="Salvar" action="#{avaliacaoBean.salvar}">
+							<h:message for="btnCadastrar" styleClass="erro" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

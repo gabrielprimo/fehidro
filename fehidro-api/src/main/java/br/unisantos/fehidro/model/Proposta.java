@@ -34,7 +34,7 @@ public class Proposta extends AbstractEntity {
 	@Column(name = "nm_arquivoCronogramaFisicoFinanceiro")      
 	private String nomeArquivoCronogramaFisicoFinanceiro;
 
-	@Column(name = "nm_arquivoPlanilhaOrçamento")       
+	@Column(name = "nm_arquivoPlanilhaOrcamento")       
 	private String nomeArquivoPlanilhaOrcamento;
 
 	@Column(name = "nm_arquivoFichaResumo")     

@@ -3,26 +3,20 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="fehidroPU"
-		transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="fehidroPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/fehidro?zeroDateTimeBehavior=convertToNull" />
+				value="jdbc:mysql://bc5c45eb58b15c:472882a3@us-cdbr-east-05.cleardb.net/heroku_6e02e3c30a8b692?reconnect=true" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="root" />
 				
 			<!-- propriedades do hibernate -->
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
 			
-			<property
-				name="javax.persistence.schema-generation.database.action"
-				value="create" />
+			<property name="javax.persistence.schema-generation.database.action" value="none" />
 		</properties>
 	</persistence-unit>
 </persistence>
