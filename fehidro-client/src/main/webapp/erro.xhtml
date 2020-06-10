@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<h:outputStylesheet library="webjars"
+		name="bootstrap/4.5.0/css/bootstrap-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.13.0/css/all-jsf.css" />
+	<h:outputStylesheet library="css" name="login.css" />
+	<h:outputStylesheet library="css" name="site.css" />
+
+	<title>Fehidro</title>
+</h:head>
+<h:body class="text-center">
+	<div class="sidenav">
+		<div class="login-main-text">
+			<h2>Portal Fehidro</h2>
+			<p>Faça o login para acessar.</p>
+		</div>
+	</div>
+	<div class="main">
+		<div class="col">
+			<div class="descricaoErro">
+				<h:form id="formLogin">
+					<div class="sidenav">
+						<div class="login-main-text">
+							<h2>Portal Fehidro</h2>
+							<p>Erro</p>
+						</div>
+					</div>
+					<div class="col">
+						<span>
+							<i class="fas fa-exclamation-triangle"></i> Ops! Tivemos um
+							problema ao processar a sua requisição. 
+						</span>
+						<span>Por favor, tente novamente mais tarde.</span>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
