@@ -31,13 +31,8 @@ public class RelatorioParcialBean implements Serializable {
 	public RelatorioParcialBean() {
 		relatorio = new Relatorio();
 		rest  = new AvaliacaoRESTClient();
-		List<Avaliacao> avaliacoes = rest.findAll();//FIXME: Substituir por metodo mais apropriado + considerar data
+		List<Avaliacao> avaliacoes = rest.findAll();
 		
-//		if(avaliacoes == null)
-//		{
-//			System.out.println("TESTE");
-//		}
-//		System.out.println("> "+avaliacoes.toString());
 		this.relatorio.setItensRelatorio(avaliacoes);
 	}
 

@@ -30,13 +30,8 @@ public class RelatorioFinalBean implements Serializable {
 	public RelatorioFinalBean() {
 		relatorio = new Relatorio();
 		rest  = new AvaliacaoRESTClient();
-		List<Avaliacao> avaliacoes = rest.findAll();//FIXME: Substituir por metodo mais apropriado + considerar data
+		List<Avaliacao> avaliacoes = rest.findAll();//TODO: Considerar armazenar desclassificacao no BD e pegar somente os classificados via REST.
 		
-//		if(avaliacoes == null)
-//		{
-//			System.out.println("TESTE");
-//		}
-//		System.out.println("> "+avaliacoes.toString());
 		this.relatorio.setItensRelatorio(avaliacoes);
 	}
 

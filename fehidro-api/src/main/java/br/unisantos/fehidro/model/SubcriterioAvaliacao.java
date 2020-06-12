@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 	
 	@NamedQuery(name = "SubcriterioAvaliacao.obterPontuacoesPorSubcriterio", 
 	query = "select p from SubcriterioAvaliacao s join s.pontuacoes p where s.id =?1"),
+	
 })
 public class SubcriterioAvaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -69,6 +70,7 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 		this.titulo = titulo;
 	}
 
+	//@JsonIgnore
 	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
@@ -101,6 +103,7 @@ public class SubcriterioAvaliacao extends AbstractEntity {
 		this.numero = numero;
 	}
 
+	//@JsonIgnore
 	public List<TipoProposta> getTiposProposta() {
 		return tiposProposta;
 	}

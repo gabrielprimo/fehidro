@@ -20,22 +20,23 @@ public class ItemRelatorio {
 		desclassificado = false;
 	}
 	
+	//Classificacao (ranking)
 	public int getClassificacao() {
 		return classificacao;
 	}
-
 	public void setClassificacao(int classificacao) {
 		this.classificacao = classificacao;
 	}
 	
+	//Desclassificacao
 	public boolean isDesclassificado() {
 		return desclassificado;
 	}
-
 	public void setDesclassificado(boolean desclassificado) {
 		this.desclassificado = desclassificado;
 	}
 
+	//set(add) avaliacao
 	public void addAvaliacao(Avaliacao a)
 	{
 		//Setando propriedades desse itemRelatorio caso não esteja setado
@@ -43,10 +44,6 @@ public class ItemRelatorio {
 		{
 			this.proposta = a.getProposta();
 		}
-//		if(this.subPDC == null)
-//		{
-//			subPDC = a.getSubpdc();
-//		}
 		
 		this.avaliacoes.add(a);//Adiciona a avaliacao à lista de avaliacoes
 		if(a.getNota().isDesclassificavel())//Verifica se esta declassificado
@@ -56,28 +53,39 @@ public class ItemRelatorio {
 		this.soma += a.getNota().getPontos();//Atualiza a soma das notas
 	}
 	
-	public void soma(List<Avaliacao> avaliacoes)
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+	
+	//Soma das avaliacoes
+	public void soma() //Recalcula a soma
 	{
 		int s = 0;
-		for(int i=0;i<avaliacoes.size();i++)//Navegue por tudo e some.
+		for(int i=0;i<avaliacoes.size();i++)//Navegue por tudo e soma tudo.
 		{
 			s += avaliacoes.get(i).getNota().getPontos();
 		}
 		this.soma = s;
 	}
-
-	public Proposta getProposta() {
-		return proposta;
-	}
-
 	public int getSoma() {
 		return soma;
 	}
+
+	//Proposta
+	public Proposta getProposta() {
+		return proposta;
+	}
+//	public void setProposta(Proposta proposta) {
+//		this.proposta = proposta;
+//	}
+	
 	
 
-	public List<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
+	
+
+	
+	
+	
 
 	
 }

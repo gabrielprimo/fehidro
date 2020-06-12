@@ -10,7 +10,6 @@ public class SubcriterioAvaliacao {
 	private List<Pontuacao> pontuacoes;
 	private List<TipoProposta> tiposProposta;
 	
-	
 	public Long getId() {
 		return id;
 	}

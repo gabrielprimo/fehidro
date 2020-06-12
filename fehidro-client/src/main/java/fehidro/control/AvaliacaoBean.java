@@ -13,11 +13,15 @@ import fehidro.model.CriterioAvaliacao;
 import fehidro.model.Pontuacao;
 import fehidro.model.Proposta;
 import fehidro.model.SubcriterioAvaliacao;
+import fehidro.model.Usuario;
+//import fehidro.model.SubcriterioAvaliacao;
+import fehidro.model.dto.SubcriterioExibicaoDTO;
 import fehidro.rest.client.AvaliacaoRESTClient;
 import fehidro.rest.client.CriterioAvaliacaoRESTClient;
 import fehidro.rest.client.PontuacaoRESTClient;
 import fehidro.rest.client.PropostaRESTClient;
 import fehidro.rest.client.SubcriterioAvaliacaoRESTClient;
+import fehidro.util.SessionContext;
 
 @ManagedBean
 @SessionScoped
@@ -42,8 +46,18 @@ public class AvaliacaoBean implements Serializable {
 	private Avaliacao avaliacao;
 	private List<Avaliacao> avaliacoes;
 	
+//	private long idSubcriteiro;
 	private String consulta;
 	
+//	public long getIdSubcriteiro() {
+//		return idSubcriteiro;
+//	}
+//
+//	public void setIdSubcriteiro(long idSubcriteiro) {
+//		this.idSubcriteiro = idSubcriteiro;
+//		this.avaliacao.getSubcriterio().setId(idSubcriteiro );
+//	}
+
 	public String getConsulta() {
 		return consulta;
 	}
@@ -63,11 +77,13 @@ public class AvaliacaoBean implements Serializable {
 	
 	private void startView(boolean setInfo) {
 		this.restAvaliacao = new AvaliacaoRESTClient();
-//		this.idAvaliacao = null;
 		this.avaliacao = new Avaliacao();
 		this.avaliacao.setProposta(new Proposta());
 		this.avaliacao.setCriterio(new CriterioAvaliacao());
 		this.avaliacao.setSubcriterio(new SubcriterioAvaliacao());
+		ArrayList<Pontuacao> p = new ArrayList<Pontuacao>();
+		p.add(new Pontuacao());
+		this.avaliacao.getSubcriterio().setPontuacoes(p);
 		this.avaliacao.setNota(new Pontuacao());
 			
 		if (setInfo)
@@ -101,11 +117,7 @@ public class AvaliacaoBean implements Serializable {
 	
 	public String salvar() {
 		
-		//TODO: Verificar
-		avaliacao.setProposta( restProposta.find(avaliacao.getProposta().getId()) );
-		avaliacao.setCriterio ( restCriterio.find(avaliacao.getCriterio().getId()) );
-		avaliacao.setSubcriterio( restSubcriterio.find(avaliacao.getSubcriterio().getId()) );
-		avaliacao.setNota( restPontuacao.find(avaliacao.getNota().getId()) );
+		//this.avaliacao.setAvaliador( (Usuario)SessionContext.getInstance().getAttribute("usuarioLogado") ); //Cadastro do avaliador
 		
 		if ( this.avaliacao.getId() == null) {
 			this.restAvaliacao.create(this.avaliacao);
@@ -174,13 +186,26 @@ public class AvaliacaoBean implements Serializable {
 	}
 	public void setSubcriterios() {
 		this.restSubcriterio = new SubcriterioAvaliacaoRESTClient();
-		List<SubcriterioAvaliacao> subcriteriosBase = this.restSubcriterio.findAll();
+		List<SubcriterioExibicaoDTO> dtos = restSubcriterio.obterSubcriteriosDTO();
+		List<SubcriterioAvaliacao> subcriteriosBase = new ArrayList<SubcriterioAvaliacao>();
+		
+		SubcriterioAvaliacao aux;
+		for(int i =0;i<dtos.size();i++)
+		{
+			aux = new SubcriterioAvaliacao();
+			aux.setId(dtos.get(i).getId());
+			aux.setLetra(dtos.get(i).getLetra());
+			aux.setNumero(dtos.get(i).getNumero());
+			aux.setTitulo(dtos.get(i).getTitulo());
+			subcriteriosBase.add(aux);
+		}
+		
 		System.out.println("Size = "+subcriteriosBase.size());
 		List<SelectItem> subcriterios = new ArrayList<>();
 
-		for (SubcriterioAvaliacao i : subcriteriosBase) 
+		for (SubcriterioAvaliacao i:subcriteriosBase ) 
 		{
-			subcriterios.add(new SelectItem(i.getId(), i.getTitulo()));
+			subcriterios.add(new SelectItem( i.getId() , i.getTitulo() ) );
 		}
 		
 		this.subcriterios = subcriterios;

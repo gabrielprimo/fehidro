@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Table(name = "tb_criterioavaliacao")
@@ -62,6 +63,7 @@ public class CriterioAvaliacao extends AbstractEntity {
 		this.titulo = titulo;
 	}
 
+	//@JsonIgnore
 	public List<Pontuacao> getPontuacoes() {
 		return pontuacoes;
 	}
@@ -86,6 +88,7 @@ public class CriterioAvaliacao extends AbstractEntity {
 		pontuacao.setCriterio(null);
 	}
 
+	//@JsonIgnore
 	public List<SubcriterioAvaliacao> getSubcriterios() {
 		return new ArrayList<SubcriterioAvaliacao>(subcriterios);
 	}
