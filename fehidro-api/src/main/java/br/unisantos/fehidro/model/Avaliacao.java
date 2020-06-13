@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "Avaliacao.listarTodos", query = "select a from Avaliacao a"),
-	@NamedQuery(name = "Avaliacao.consultarPorId", query = "select a from Avaliacao a where a.id = ?1"),
+	@NamedQuery(name = "Avaliacao.consultarPorId", query = "select a from Avaliacao a where a.id=?1"),
 	@NamedQuery(name = "Avaliacao.listarAvaliador", query = "select a from Avaliacao a where a.avaliador = ?1"),
 	@NamedQuery(name = "Avaliacao.listarCriterio", query = "select a from Avaliacao a where a.criterio = ?1"),
 	@NamedQuery(name = "Avaliacao.listarSubcriterio", query = "select a from Avaliacao a where a.subcriterio = ?1"),
@@ -25,23 +25,23 @@ import javax.persistence.Table;
 public class Avaliacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne//(cascade=CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "nota_avaliacao_id")
     private Pontuacao nota;
 	
-    @ManyToOne//(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "usuario_avaliacao_id")
     private Usuario avaliador;
     
-    @ManyToOne//(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "proposta_avaliacao_id")
     private Proposta proposta;
     
-    @ManyToOne//(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "subcriterio_avaliacao_id")
     private SubcriterioAvaliacao subcriterio;
     
-    @ManyToOne//(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "criterio_avaliacao_id")
     private CriterioAvaliacao criterio;
     

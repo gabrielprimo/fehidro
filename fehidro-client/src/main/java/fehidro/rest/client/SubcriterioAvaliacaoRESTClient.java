@@ -7,7 +7,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import fehidro.model.Pontuacao;
 import fehidro.model.SubcriterioAvaliacao;
+import fehidro.model.dto.SubcriterioExibicaoDTO;
 
 public class SubcriterioAvaliacaoRESTClient implements RESTClientInterface<SubcriterioAvaliacao>{
 
@@ -20,7 +22,37 @@ public class SubcriterioAvaliacaoRESTClient implements RESTClientInterface<Subcr
 				readEntity(new GenericType<List<SubcriterioAvaliacao>> () {});
 		
 		return subcriterios;		
-	} 
+	}
+	
+	public List<SubcriterioExibicaoDTO> obterSubcriteriosDTO() {
+		List<SubcriterioExibicaoDTO> subcriterios = 
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL + "dto").
+				request(MediaType.APPLICATION_JSON).get().
+				readEntity(new GenericType<List<SubcriterioExibicaoDTO>> () {});
+		
+		return subcriterios;		
+	}
+	
+	public List<SubcriterioExibicaoDTO> obterSubcriteriosDTOPorSubcriterio(Long id) {
+		List<SubcriterioExibicaoDTO> subcriterios = 
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL + "dto/" + id).
+				request(MediaType.APPLICATION_JSON).get().
+				readEntity(new GenericType<List<SubcriterioExibicaoDTO>> () {});
+		
+		return subcriterios;		
+	}
+	
+	public List<Pontuacao> obterPontuacoesPorSubcriterio(Long id) {
+		List<Pontuacao> pontuacoes = 
+				ClientBuilder.newClient().
+				target(REST_WEBSERVICE_URL + REST_SUBCRITERIO_URL + "pontuacao/" + id).
+				request(MediaType.APPLICATION_JSON).get().
+				readEntity(new GenericType<List<Pontuacao>> () {});
+		
+		return pontuacoes;		
+	}
  
 	@Override
 	public SubcriterioAvaliacao find(Long id) {

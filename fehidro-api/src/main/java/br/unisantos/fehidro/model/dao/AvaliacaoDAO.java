@@ -22,11 +22,11 @@ public class AvaliacaoDAO extends DAOFactory<Avaliacao> {
 	}
 	
 	public void atualizar(Avaliacao avaliacao) {
-		atualizar(avaliacao);
+		alterar(avaliacao);//FIXME?
 	}
 
 	public Avaliacao obter(long id) {
-		return consultarGenerico("Avaliacao.consultarPorId");
+		return consultarGenerico("Avaliacao.consultarPorId", id);
 	}
 
 	//Listar todos

@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fehidro.model.CriterioAvaliacao;
+import fehidro.model.SubcriterioAvaliacao;
 
 public class CriterioAvaliacaoRESTClient implements RESTClientInterface<CriterioAvaliacao> {
 	@Override
@@ -23,15 +24,25 @@ public class CriterioAvaliacaoRESTClient implements RESTClientInterface<Criterio
 	}
 	
 	
-	public List<CriterioAvaliacao> getCompleto() {
-		List<CriterioAvaliacao> criterios  = 
+	public List<SubcriterioAvaliacao> obterSubcriterios(long id) {
+		List<SubcriterioAvaliacao> criterios  = 
 				ClientBuilder.newClient().
-				target(REST_WEBSERVICE_URL + REST_CRITERIO_URL + "completo/").
+				target(REST_WEBSERVICE_URL + REST_CRITERIO_URL + "subcriterios/" + id).
 				request(MediaType.APPLICATION_JSON).get().
-				readEntity(new GenericType<List<CriterioAvaliacao>> () {});
+				readEntity(new GenericType<List<SubcriterioAvaliacao>> () {});
 		
 		return criterios;
 	}
+	
+//	public List<CriterioAvaliacao> getCompleto() {
+//		List<CriterioAvaliacao> criterios  = 
+//				ClientBuilder.newClient().
+//				target(REST_WEBSERVICE_URL + REST_CRITERIO_URL + "completo/").
+//				request(MediaType.APPLICATION_JSON).get().
+//				readEntity(new GenericType<List<CriterioAvaliacao>> () {});
+//		
+//		return criterios;
+//	}
 
 	@Override
 	public CriterioAvaliacao find(Long id) {

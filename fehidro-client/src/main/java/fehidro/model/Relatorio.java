@@ -1,6 +1,7 @@
 package fehidro.model;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,12 +11,15 @@ import fehidro.control.ItemRelatorio;
 public class Relatorio  {
 	
 	protected HashMap<Long, ItemRelatorio> itensRelatorio;
+	//FIXME: Substituir por Sets para evitar possiveis redundancias
 	protected List<Long> idsPropostas; //Lista usada para auxiliar na manipulação dos itemRelatorio dentro do mapa. Deve ser igual aos Keys do mapa itensRelatorio.
-	
+	protected List<Long> idsSubpdcs;
 	//Construtores
 	public Relatorio()
 	{
 		itensRelatorio = new HashMap<Long, ItemRelatorio>();
+		idsPropostas = new ArrayList<Long>();
+		idsSubpdcs = new ArrayList<Long>();
 	}
 	
 	public Relatorio(List<Avaliacao> avaliacoes)
@@ -25,31 +29,52 @@ public class Relatorio  {
 	
 	//Metodos
 	
-	public void calcularClassificacao() {
-		ItemRelatorio[] arr = new ItemRelatorio[itensRelatorio.size()]; //Cria um array
-		new LinkedList<ItemRelatorio>(itensRelatorio.values()).toArray(arr); //Transforma a lista em array para uso na classe quicksort
-		QuickSort q = new QuickSort();
-		q.sort(arr, 0, arr.length-1); //ordena por soma das notas
-		for(int i=0;i<arr.length;i++)//atribui a classificacao
+	//Para auxilio na classificacao
+	public ItemRelatorio[] itensPorSubpdc(Long id, ArrayList<ItemRelatorio> listaFiltrar)	{
+		ArrayList<ItemRelatorio> auxOut = new ArrayList<>();
+		for(int i=0;i<listaFiltrar.size();i++)
 		{
-			itensRelatorio.get(arr[i].getProposta().getId()).setClassificacao(i+1);
+			if(listaFiltrar.get(i).getProposta().getSubPDC().getId() == id) {
+				auxOut.add(listaFiltrar.get(i));
+			}
+		}
+		ItemRelatorio[] out = new ItemRelatorio[auxOut.size()];
+		out = auxOut.toArray(out);
+		
+		return out;
+	}
+	//Classificacao
+	public void calcularClassificacao() {
+		ItemRelatorio[] arr = new ItemRelatorio[itensRelatorio.size()]; 
+		for(int j=0;j<idsSubpdcs.size();j++)
+		{
+			arr = itensPorSubpdc(idsSubpdcs.get(j), new ArrayList<ItemRelatorio>(this.itensRelatorio.values())); 
+			QuickSort q = new QuickSort();
+			q.sort(arr, 0, arr.length-1); //ordena por soma das notas
+			for(int i=0;i<arr.length;i++)//atribui a classificacao
+			{
+				itensRelatorio.get(arr[(arr.length-1) - i].getProposta().getId()).setClassificacao(i+1);
+			}
 		}
 	}
 	
+	//Itens relatorios
 	public void setItensRelatorio(List<Avaliacao> avaliacoes)
 	{
 		Avaliacao avaliacaoAtual;
 		Long idPropostaAtual;
+		Long idSubpdcAtual;
 		idsPropostas = new LinkedList<>(); //Reset dos ids
 		for(int i =0;i<avaliacoes.size();i++)
 		{
 			avaliacaoAtual = avaliacoes.get(i);
 			idPropostaAtual = avaliacaoAtual.getProposta().getId();
-			
+			idSubpdcAtual = avaliacaoAtual.getProposta().getSubPDC().getId();
 			if(this.itensRelatorio.get(idPropostaAtual) == null)//Se não existir um itemRelatorio para a proposta nao existir, crie um itemRelatorio
 			{
 				this.itensRelatorio.put(idPropostaAtual, new ItemRelatorio() );
 				this.idsPropostas.add(idPropostaAtual);
+				this.idsSubpdcs.add(idSubpdcAtual);
 			}
 			
 			this.itensRelatorio.get(idPropostaAtual).addAvaliacao(avaliacaoAtual);//Adicione a avaliacao à proposta
@@ -64,6 +89,8 @@ public class Relatorio  {
 		return new LinkedList<ItemRelatorio>(this.itensRelatorio.values());
 	}
 	
+	//TODO: Considerar desacoplar a parte de desclassificação do relatório
+	//classificados
 	public LinkedList<ItemRelatorio> getItensRelatorioClassificado()
 	{
 		LinkedList<ItemRelatorio> classificados = new LinkedList<ItemRelatorio>();
@@ -79,7 +106,7 @@ public class Relatorio  {
 		
 		return classificados;
 	}
-	
+	//desclassificados
 	public LinkedList<ItemRelatorio> getItensRelatorioDesclassificado()
 	{
 		LinkedList<ItemRelatorio> desclassificados = new LinkedList<ItemRelatorio>();
@@ -98,7 +125,7 @@ public class Relatorio  {
 	
 }
 
-//Para uso na classificação
+//QUICK SORT - Para uso na classificação
 class QuickSort 
 { 
     int partition(ItemRelatorio arr[], int low, int high) 
@@ -107,7 +134,7 @@ class QuickSort
         int i = (low-1);
         for (int j=low; j<high; j++) 
         { 
-            if (arr[j].getSoma() <= pivot.getSoma()) 
+            if (arr[j].getSoma() < pivot.getSoma()) 
             { 
                 i++; 
   

@@ -8,6 +8,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
+
 import fehidro.model.Avaliacao;
 import fehidro.model.CriterioAvaliacao;
 import fehidro.model.PDC;
@@ -34,10 +36,16 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public Avaliacao find(Long id) {
-		Avaliacao avaliacao = ClientBuilder.newClient().
+		Avaliacao avaliacao;
+		//try {	
+			avaliacao = ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL + id).
 				request(MediaType.APPLICATION_JSON).get()
 				.readEntity(Avaliacao.class);
+		//}
+		//catch(MessageBodyProviderNotFoundException m){
+			//return null;
+		//}
 		
 		return avaliacao;
 	}
@@ -147,7 +155,9 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public Avaliacao edit(Avaliacao obj) {
-		Avaliacao avaliacao = 
+		Avaliacao avaliacao;
+		
+		avaliacao = 
 				ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).
 				queryParam("avaliacao", obj).
