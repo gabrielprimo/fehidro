@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.Relatorio;
 import fehidro.rest.client.AvaliacaoRESTClient;
 
 @ManagedBean(name="relatorioParcial")
-@SessionScoped
+@ViewScoped
 public class RelatorioParcialBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
