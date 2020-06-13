@@ -99,7 +99,7 @@ public class Relatorio  {
 				classificados.add(itemAtual);
 			}
 		}
-		calcularClassificacao();
+		
 		return classificados;
 	}
 	
@@ -115,7 +115,7 @@ public class Relatorio  {
 				desclassificados.add(itemAtual);
 			}
 		}
-		calcularClassificacao();
+		
 		return desclassificados;
 	}
 	
