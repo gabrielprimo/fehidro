@@ -33,16 +33,6 @@ public class CriterioAvaliacaoRESTClient implements RESTClientInterface<Criterio
 		
 		return criterios;
 	}
-	
-//	public List<CriterioAvaliacao> getCompleto() {
-//		List<CriterioAvaliacao> criterios  = 
-//				ClientBuilder.newClient().
-//				target(REST_WEBSERVICE_URL + REST_CRITERIO_URL + "completo/").
-//				request(MediaType.APPLICATION_JSON).get().
-//				readEntity(new GenericType<List<CriterioAvaliacao>> () {});
-//		
-//		return criterios;
-//	}
 
 	@Override
 	public CriterioAvaliacao find(Long id) {

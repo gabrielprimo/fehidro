@@ -35,7 +35,7 @@ public class CTPGResource {
 		try {
 			String senha = Password.generateRandomPassword(10);
 			usuario.setSenha(Password.hashPassword(senha));
-			//EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);//FIXME: descomentar
+			EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);
 
 		} catch (Exception e) {
 			throw e;
@@ -50,7 +50,8 @@ public class CTPGResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(CTPG usuario) throws Exception {		
 		CTPGDAO dao = new CTPGDAO();
-		if(usuario.getSenha() != null) {
+		CTPG usuarioBase = dao.obter(usuario.getId());
+		if(usuario.getSenha() != null && usuarioBase != null && !usuarioBase.getSenha().equals(usuario.getSenha())) {
 			usuario.setSenha(Password.hashPassword(usuario.getSenha()));
 		}
 		dao.atualizar(usuario);

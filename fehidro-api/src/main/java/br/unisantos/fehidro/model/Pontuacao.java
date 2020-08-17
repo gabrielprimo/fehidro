@@ -16,8 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 				query = "select p from Pontuacao p where p.id=?1"),
 	@NamedQuery(name = "Pontuacao.listarTodos",
 				query = "select p from Pontuacao p"),
-//	@NamedQuery(name = "Pontuacao.listarPorSubcriterio",
-//		query = "select p from Pontuacao p"),
 })
 public class Pontuacao extends AbstractEntity {
 	private static final long serialVersionUID = 1L;

@@ -2,13 +2,14 @@ package fehidro.rest.client;
 
 import java.util.List;
 
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
+import javax.ws.rs.client.Invocation.Builder;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.CriterioAvaliacao;
@@ -36,16 +37,10 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public Avaliacao find(Long id) {
-		Avaliacao avaliacao;
-		//try {	
-			avaliacao = ClientBuilder.newClient().
+		Avaliacao avaliacao = ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL + id).
 				request(MediaType.APPLICATION_JSON).get()
 				.readEntity(Avaliacao.class);
-		//}
-		//catch(MessageBodyProviderNotFoundException m){
-			//return null;
-		//}
 		
 		return avaliacao;
 	}
@@ -155,9 +150,7 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public Avaliacao edit(Avaliacao obj) {
-		Avaliacao avaliacao;
-		
-		avaliacao = 
+		Avaliacao avaliacao = 
 				ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).
 				queryParam("avaliacao", obj).

@@ -71,15 +71,6 @@ public class CriterioAvaliacaoDAO extends DAOFactory<CriterioAvaliacao> {
 		return c;
 	}
 	
-	public List<CriterioAvaliacao> listarCriterioCompleto(){
-		List<CriterioAvaliacao> criterios = this.listar();
-		for(CriterioAvaliacao c: criterios)
-		{
-			c = this.obter(c.getId());
-		}
-		return criterios;
-	}
-	
 	public List<CriterioAvaliacao> listar() {
 		return listarGenerico("CriterioAvaliacao.listarTodos");
 	}
