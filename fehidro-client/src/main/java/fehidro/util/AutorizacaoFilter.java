@@ -29,19 +29,19 @@ public class AutorizacaoFilter implements Filter {
 		Usuario user = (Usuario) sessao.getAttribute("usuarioLogado");
 		String uri = httpRequest.getRequestURI();
 
-		if(!uri.contains("/login/index.xhtml") && !uri.contains("resource")) {
-			if (user != null)
-				chain.doFilter(request, response);
-			else {
-				sessao.setAttribute("message", "Faï¿½a o login");
-				String contextPath = httpRequest.getContextPath();
-				((HttpServletResponse) response).sendRedirect(contextPath + "/login/index.xhtml");
-			}
-		} else {
-			chain.doFilter(request, response);
-		}
+//		if(!uri.contains("/login/index.xhtml") && !uri.contains("resource")) {
+//			if (user != null)
+//				chain.doFilter(request, response);
+//			else {
+//				sessao.setAttribute("message", "Faça o login");
+//				String contextPath = httpRequest.getContextPath();
+//				((HttpServletResponse) response).sendRedirect(contextPath + "/login/index.xhtml");
+//			}
+//		} else {
+//			chain.doFilter(request, response);
+//		}
 		
-		//chain.doFilter(request, response);
+		chain.doFilter(request, response);
 	}
 	@Override
 	public void destroy() { }

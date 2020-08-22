@@ -63,23 +63,24 @@ public class Relatorio  {
 		Long idPropostaAtual;
 		Long idSubpdcAtual;
 		idsPropostas = new LinkedList<>(); //Reset dos ids
-		for(int i =0;i<avaliacoes.size();i++)
-		{
-			avaliacaoAtual = avaliacoes.get(i);
-			idPropostaAtual = avaliacaoAtual.getProposta().getId();
-			idSubpdcAtual = avaliacaoAtual.getProposta().getSubPDC().getId();
-			if(this.itensRelatorio.get(idPropostaAtual) == null)//Se n�o existir um itemRelatorio para a proposta nao existir, crie um itemRelatorio
+		if(avaliacoes != null) {
+			for(int i =0;i<avaliacoes.size();i++)
 			{
-				this.itensRelatorio.put(idPropostaAtual, new ItemRelatorio() );
-				this.idsPropostas.add(idPropostaAtual);
-				this.idsSubpdcs.add(idSubpdcAtual);
+				avaliacaoAtual = avaliacoes.get(i);
+				idPropostaAtual = avaliacaoAtual.getProposta().getId();
+				idSubpdcAtual = avaliacaoAtual.getProposta().getSubPDC().getId();
+				if(this.itensRelatorio.get(idPropostaAtual) == null)//Se nao existir um itemRelatorio para a proposta nao existir, crie um itemRelatorio
+				{
+					this.itensRelatorio.put(idPropostaAtual, new ItemRelatorio() );
+					this.idsPropostas.add(idPropostaAtual);
+					this.idsSubpdcs.add(idSubpdcAtual);
+				}
+				
+				this.itensRelatorio.get(idPropostaAtual).addAvaliacao(avaliacaoAtual);//Adicione a avaliacao a uma proposta
 			}
 			
-			this.itensRelatorio.get(idPropostaAtual).addAvaliacao(avaliacaoAtual);//Adicione a avaliacao � proposta
+			calcularClassificacao();//calcula a classificacao
 		}
-		
-		calcularClassificacao();//calcula a classificacao
-		
 	}
 	
 	public LinkedList<ItemRelatorio> getItensRelatorio()
@@ -94,7 +95,7 @@ public class Relatorio  {
 		for(int i=0;i<this.itensRelatorio.size();i++)//Navegue todos os itens desse relatorio
 		{
 			itemAtual = itensRelatorio.get(idsPropostas.get(i));
-			if(!itemAtual.isDesclassificado())//Se N�O for desclassificado, adicione
+			if(!itemAtual.isDesclassificado())//Se NaO for desclassificado, adicione
 			{
 				classificados.add(itemAtual);
 			}

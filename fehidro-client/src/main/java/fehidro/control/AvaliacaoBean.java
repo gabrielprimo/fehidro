@@ -190,25 +190,27 @@ public class AvaliacaoBean implements Serializable {
 		List<SubcriterioAvaliacao> subcriteriosBase = new ArrayList<SubcriterioAvaliacao>();
 		
 		SubcriterioAvaliacao aux;
-		for(int i =0;i<dtos.size();i++)
-		{
-			aux = new SubcriterioAvaliacao();
-			aux.setId(dtos.get(i).getId());
-			aux.setLetra(dtos.get(i).getLetra());
-			aux.setNumero(dtos.get(i).getNumero());
-			aux.setTitulo(dtos.get(i).getTitulo());
-			subcriteriosBase.add(aux);
-		}
+		if(dtos != null) {
+			for(int i =0;i<dtos.size();i++)
+			{
+				aux = new SubcriterioAvaliacao();
+				aux.setId(dtos.get(i).getId());
+				aux.setLetra(dtos.get(i).getLetra());
+				aux.setNumero(dtos.get(i).getNumero());
+				aux.setTitulo(dtos.get(i).getTitulo());
+				subcriteriosBase.add(aux);
+			}
 		
-		System.out.println("Size = "+subcriteriosBase.size());
-		List<SelectItem> subcriterios = new ArrayList<>();
-
-		for (SubcriterioAvaliacao i:subcriteriosBase ) 
-		{
-			subcriterios.add(new SelectItem( i.getId() , i.getTitulo() ) );
+			System.out.println("Size = "+subcriteriosBase.size());
+			List<SelectItem> subcriterios = new ArrayList<>();
+	
+			for (SubcriterioAvaliacao i:subcriteriosBase ) 
+			{
+				subcriterios.add(new SelectItem( i.getId() , i.getTitulo() ) );
+			}
+			
+			this.subcriterios = subcriterios;
 		}
-		
-		this.subcriterios = subcriterios;
 	}
 
 	//Avaliacao
