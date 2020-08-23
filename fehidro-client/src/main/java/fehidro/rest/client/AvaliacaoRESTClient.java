@@ -2,13 +2,14 @@ package fehidro.rest.client;
 
 import java.util.List;
 
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
+import javax.ws.rs.client.Invocation.Builder;
 
 import fehidro.model.Avaliacao;
 import fehidro.model.CriterioAvaliacao;
@@ -23,29 +24,29 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public List<Avaliacao> findAll() {
-		List<Avaliacao> avaliacoes = ClientBuilder.newClient().target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Avaliacao>> () {});
+		//List<Avaliacao> avaliacoes = ClientBuilder.newClient().target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Avaliacao>> () {});
 
-//		Client c = ClientBuilder.newClient();
-//		WebTarget t = c.target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL);
-//		Builder b = t.request(MediaType.APPLICATION_JSON);
-//		Response r = b.get();
-//		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {});
-//		return out;
-		return avaliacoes;
+		System.out.println("==================================");
+		Client c = ClientBuilder.newClient();
+		System.out.println(c.toString());
+		WebTarget t = c.target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL);
+		System.out.println(t.toString());
+		Builder b = t.request(MediaType.APPLICATION_JSON);
+		System.out.println(b.toString());
+		Response r = b.get();
+		System.out.println(r.toString());
+		List<Avaliacao> out = r.readEntity(new GenericType<List<Avaliacao>> () {});
+		System.out.println("<==================================>");
+		return out;
+		//return avaliacoes;
 	}
 
 	@Override
 	public Avaliacao find(Long id) {
-		Avaliacao avaliacao;
-		//try {	
-			avaliacao = ClientBuilder.newClient().
+		Avaliacao avaliacao = ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL + id).
 				request(MediaType.APPLICATION_JSON).get()
 				.readEntity(Avaliacao.class);
-		//}
-		//catch(MessageBodyProviderNotFoundException m){
-			//return null;
-		//}
 		
 		return avaliacao;
 	}
@@ -155,9 +156,7 @@ public class AvaliacaoRESTClient implements RESTClientInterface<Avaliacao>{
 
 	@Override
 	public Avaliacao edit(Avaliacao obj) {
-		Avaliacao avaliacao;
-		
-		avaliacao = 
+		Avaliacao avaliacao = 
 				ClientBuilder.newClient().
 				target(REST_WEBSERVICE_URL + REST_AVALIACAO_URL).
 				queryParam("avaliacao", obj).

@@ -7,7 +7,6 @@ public class Avaliacao {
 		private Long id;
 		private Pontuacao nota;
 		
-		@JsonIgnore
 	    private Usuario avaliador;
 		
 	    private Proposta proposta;

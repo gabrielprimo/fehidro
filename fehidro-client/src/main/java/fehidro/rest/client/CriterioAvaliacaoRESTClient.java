@@ -33,6 +33,7 @@ public class CriterioAvaliacaoRESTClient implements RESTClientInterface<Criterio
 		
 		return criterios;
 	}
+<<<<<<< HEAD
 	
 //	public List<CriterioAvaliacao> getCompleto() {
 //		List<CriterioAvaliacao> criterios  = 
@@ -43,6 +44,8 @@ public class CriterioAvaliacaoRESTClient implements RESTClientInterface<Criterio
 //		
 //		return criterios;
 //	}
+=======
+>>>>>>> pr/3
 
 	@Override
 	public CriterioAvaliacao find(Long id) {

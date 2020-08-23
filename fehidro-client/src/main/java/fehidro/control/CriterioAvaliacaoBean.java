@@ -7,6 +7,12 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+<<<<<<< HEAD
+=======
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.FacesConverter;
+>>>>>>> pr/3
 
 import fehidro.model.CriterioAvaliacao;
 import fehidro.model.Pontuacao;

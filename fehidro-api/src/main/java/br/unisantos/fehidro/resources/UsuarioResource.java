@@ -83,7 +83,7 @@ public class UsuarioResource {
 		usuario.setAtivo();	
 		String senha = Password.generateRandomPassword(10);
 		usuario.setSenha(Password.hashPassword(senha));
-		//EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);//FIXME: descomentar
+		EmailUtil.sendMail(usuario.getEmail(), usuario.getNome(), usuario.getLogin(), senha);
 		dao.cadastrar(usuario);
 		return Response.ok(usuario).build();
 	}

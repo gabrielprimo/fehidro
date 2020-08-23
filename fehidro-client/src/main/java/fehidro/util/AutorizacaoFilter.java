@@ -29,6 +29,7 @@ public class AutorizacaoFilter implements Filter {
 		Usuario user = (Usuario) sessao.getAttribute("usuarioLogado");
 		String uri = httpRequest.getRequestURI();
 
+<<<<<<< HEAD
 //		//FIXME: Descomentar
 //		if(!uri.contains("/login/index.xhtml") && !uri.contains("resource")) {
 //			if (user != null)
@@ -43,6 +44,21 @@ public class AutorizacaoFilter implements Filter {
 //		}
 		
 		chain.doFilter(request, response);//FIXME: Comentar fora
+=======
+		if(!uri.contains("/login/index.xhtml") && !uri.contains("resource")) {
+			if (user != null)
+				chain.doFilter(request, response);
+			else {
+				sessao.setAttribute("message", "Faça o login");
+				String contextPath = httpRequest.getContextPath();
+				((HttpServletResponse) response).sendRedirect(contextPath + "/login/index.xhtml");
+			}
+		} else {
+			chain.doFilter(request, response);
+		}
+		
+		//chain.doFilter(request, response);
+>>>>>>> pr/3
 	}
 	@Override
 	public void destroy() { }

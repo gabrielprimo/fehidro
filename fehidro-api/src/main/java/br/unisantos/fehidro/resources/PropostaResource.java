@@ -42,7 +42,11 @@ public class PropostaResource {
 
 	@PUT
 	@Produces("application/json")
+<<<<<<< HEAD
 	@Consumes(MediaType.APPLICATION_JSON)
+=======
+	@Consumes("application/json")
+>>>>>>> pr/3
 	public Response update(Proposta proposta) {		
 		PropostaDAO dao = new PropostaDAO();
 		dao.atualizar(proposta);

@@ -19,6 +19,15 @@
     padding-bottom: 1%;
 }
 
+@media screen and (min-width: 768px){
+ 
+    .descricaoErro {
+        margin-top: 30%;
+    }
+
+}
+
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

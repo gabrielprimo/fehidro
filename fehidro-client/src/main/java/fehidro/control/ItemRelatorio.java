@@ -39,13 +39,13 @@ public class ItemRelatorio {
 	//set(add) avaliacao
 	public void addAvaliacao(Avaliacao a)
 	{
-		//Setando propriedades desse itemRelatorio caso não esteja setado
+		//Setando propriedades desse itemRelatorio caso nï¿½o esteja setado
 		if(this.proposta == null)
 		{
 			this.proposta = a.getProposta();
 		}
 		
-		this.avaliacoes.add(a);//Adiciona a avaliacao à lista de avaliacoes
+		this.avaliacoes.add(a);//Adiciona a avaliacao ï¿½ lista de avaliacoes
 		if(a.getNota().isDesclassificavel())//Verifica se esta declassificado
 		{
 			this.desclassificado = true;

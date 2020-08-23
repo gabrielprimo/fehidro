@@ -13,7 +13,7 @@ import fehidro.model.CriterioAvaliacao;
 import fehidro.model.Pontuacao;
 import fehidro.model.Proposta;
 import fehidro.model.SubcriterioAvaliacao;
-//import fehidro.model.Usuario;
+import fehidro.model.Usuario;
 //import fehidro.model.SubcriterioAvaliacao;
 import fehidro.model.dto.SubcriterioExibicaoDTO;
 import fehidro.rest.client.AvaliacaoRESTClient;
@@ -21,7 +21,7 @@ import fehidro.rest.client.CriterioAvaliacaoRESTClient;
 import fehidro.rest.client.PontuacaoRESTClient;
 import fehidro.rest.client.PropostaRESTClient;
 import fehidro.rest.client.SubcriterioAvaliacaoRESTClient;
-//import fehidro.util.SessionContext;
+import fehidro.util.SessionContext;
 
 @ManagedBean
 @SessionScoped
@@ -46,8 +46,17 @@ public class AvaliacaoBean implements Serializable {
 	private Avaliacao avaliacao;
 	private List<Avaliacao> avaliacoes;
 	
+//	private long idSubcriteiro;
 	private String consulta;
 	
+//	public long getIdSubcriteiro() {
+//		return idSubcriteiro;
+//	}
+//
+//	public void setIdSubcriteiro(long idSubcriteiro) {
+//		this.idSubcriteiro = idSubcriteiro;
+//		this.avaliacao.getSubcriterio().setId(idSubcriteiro );
+//	}
 
 	public String getConsulta() {
 		return consulta;
@@ -181,25 +190,27 @@ public class AvaliacaoBean implements Serializable {
 		List<SubcriterioAvaliacao> subcriteriosBase = new ArrayList<SubcriterioAvaliacao>();
 		
 		SubcriterioAvaliacao aux;
-		for(int i =0;i<dtos.size();i++)
-		{
-			aux = new SubcriterioAvaliacao();
-			aux.setId(dtos.get(i).getId());
-			aux.setLetra(dtos.get(i).getLetra());
-			aux.setNumero(dtos.get(i).getNumero());
-			aux.setTitulo(dtos.get(i).getTitulo());
-			subcriteriosBase.add(aux);
-		}
+		if(dtos != null) {
+			for(int i =0;i<dtos.size();i++)
+			{
+				aux = new SubcriterioAvaliacao();
+				aux.setId(dtos.get(i).getId());
+				aux.setLetra(dtos.get(i).getLetra());
+				aux.setNumero(dtos.get(i).getNumero());
+				aux.setTitulo(dtos.get(i).getTitulo());
+				subcriteriosBase.add(aux);
+			}
 		
-		System.out.println("Size = "+subcriteriosBase.size());
-		List<SelectItem> subcriterios = new ArrayList<>();
-
-		for (SubcriterioAvaliacao i:subcriteriosBase ) 
-		{
-			subcriterios.add(new SelectItem( i.getId() , i.getTitulo() ) );
+			System.out.println("Size = "+subcriteriosBase.size());
+			List<SelectItem> subcriterios = new ArrayList<>();
+	
+			for (SubcriterioAvaliacao i:subcriteriosBase ) 
+			{
+				subcriterios.add(new SelectItem( i.getId() , i.getTitulo() ) );
+			}
+			
+			this.subcriterios = subcriterios;
 		}
-		
-		this.subcriterios = subcriterios;
 	}
 
 	//Avaliacao
